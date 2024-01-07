@@ -2,6 +2,7 @@ import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { GithubIcon } from "lucide-react";
 
 export default async function LoginButton() {
   const signInWithGithub = async () => {
@@ -27,7 +28,10 @@ export default async function LoginButton() {
 
   return (
     <form action={signInWithGithub}>
-      <Button className="px-1.5 py-2 h-fit">Sign In with Github</Button>
+      <Button className="px-1.5 py-2 h-fit flex items-center gap-1">
+        <GithubIcon className="size-5" />
+        Sign In
+      </Button>
     </form>
   );
 }

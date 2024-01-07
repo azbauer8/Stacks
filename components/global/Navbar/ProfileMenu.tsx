@@ -23,6 +23,11 @@ export default async function ProfileMenu({ user }: { user: User }) {
     return redirect("/");
   };
 
+  const goToProfile = async () => {
+    "use server";
+    return redirect(`/user/${user.user_metadata.preferred_username}`);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -32,6 +37,11 @@ export default async function ProfileMenu({ user }: { user: User }) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <DropdownMenuItem className="mx-0" action>
+          <form action={goToProfile} className="w-full mx-0">
+            <UnstyledButton className="w-full">Profile</UnstyledButton>
+          </form>
+        </DropdownMenuItem>
         <ThemeToggleSub />
         <DropdownMenuItem className="mx-0" action>
           <form action={signOut} className="w-full mx-0">

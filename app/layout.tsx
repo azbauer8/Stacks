@@ -17,12 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <main className="min-h-screen flex flex-col">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <Nav />
-              <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">{children}</div>
-              <Footer />
-            </div>
+          <main className="min-h-screen flex flex-col gap-5 items-center">
+            <Nav />
+            <div className="flex-1 max-w-4xl px-5 md:px-0">{children}</div>
+            <Footer />
           </main>
         </ThemeProvider>
       </body>
