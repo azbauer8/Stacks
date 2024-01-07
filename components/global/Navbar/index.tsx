@@ -3,6 +3,7 @@ import LoginButton from "./LoginButton";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import ProfileMenu from "./ProfileMenu";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default async function Nav() {
   const cookieStore = cookies();
@@ -16,7 +17,14 @@ export default async function Nav() {
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
       <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
         <Link href="/">Stacks</Link>
-        <div>{user ? <ProfileMenu /> : <LoginButton />}</div>
+        {user ? (
+          <ProfileMenu user={user} />
+        ) : (
+          <div className="flex gap-1.5 items-center">
+            <LoginButton />
+            <ThemeToggle />
+          </div>
+        )}
       </div>
     </nav>
   );

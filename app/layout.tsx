@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Footer from "@/components/global/Footer";
 import Nav from "@/components/global/Navbar";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
 
@@ -15,13 +16,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-        <main className="min-h-screen flex flex-col">
-          <div className="flex-1 w-full flex flex-col gap-20 items-center">
-            <Nav />
-            <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">{children}</div>
-            <Footer />
-          </div>
-        </main>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <main className="min-h-screen flex flex-col">
+            <div className="flex-1 w-full flex flex-col gap-20 items-center">
+              <Nav />
+              <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">{children}</div>
+              <Footer />
+            </div>
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
