@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/global/Footer";
 import Nav from "@/components/global/Navbar";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Analytics } from "@vercel/analytics/react";
 
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
           </main>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
