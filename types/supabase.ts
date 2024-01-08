@@ -9,35 +9,326 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      backend_frameworks: {
+        Row: {
+          description: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          description?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          description?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      databases: {
+        Row: {
+          description: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          description?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          description?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      frameworks: {
+        Row: {
+          desciption: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      languages: {
+        Row: {
+          desciption: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      meta_frameworks: {
+        Row: {
+          desciption: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      other_libraries: {
+        Row: {
+          category: number | null
+          description: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          category?: number | null
+          description?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          category?: number | null
+          description?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "other_libraries_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "other_library_categories"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      other_library_categories: {
+        Row: {
+          id: number
+          title: string
+        }
+        Insert: {
+          id?: number
+          title: string
+        }
+        Update: {
+          id?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      stack_other_libraries: {
+        Row: {
+          id: number
+          other_library_id: number
+          stack_id: number
+        }
+        Insert: {
+          id?: number
+          other_library_id: number
+          stack_id: number
+        }
+        Update: {
+          id?: number
+          other_library_id?: number
+          stack_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stack_other_libraries_other_library_id_fkey"
+            columns: ["other_library_id"]
+            isOneToOne: false
+            referencedRelation: "other_libraries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stack_other_libraries_stack_id_fkey"
+            columns: ["stack_id"]
+            isOneToOne: false
+            referencedRelation: "stacks"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      stack_use_cases: {
+        Row: {
+          id: number
+          stack_id: number
+          use_case_id: number
+        }
+        Insert: {
+          id?: number
+          stack_id: number
+          use_case_id: number
+        }
+        Update: {
+          id?: number
+          stack_id?: number
+          use_case_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stack_use_cases_stack_id_fkey"
+            columns: ["stack_id"]
+            isOneToOne: false
+            referencedRelation: "stacks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stack_use_cases_use_case_id_fkey"
+            columns: ["use_case_id"]
+            isOneToOne: false
+            referencedRelation: "use_cases"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       stacks: {
         Row: {
+          backend_framework: number | null
           created_at: string | null
-          Description: string | null
+          database: number | null
+          description: string | null
+          framework: number | null
           id: number
+          language: number | null
+          link: string | null
+          meta_framework: number | null
+          styling: number | null
           title: string | null
+          ui_library: number | null
           updated_at: string
           user_id: string
           visibility: Database["public"]["Enums"]["visibility_enum"] | null
         }
         Insert: {
+          backend_framework?: number | null
           created_at?: string | null
-          Description?: string | null
+          database?: number | null
+          description?: string | null
+          framework?: number | null
           id?: number
+          language?: number | null
+          link?: string | null
+          meta_framework?: number | null
+          styling?: number | null
           title?: string | null
+          ui_library?: number | null
           updated_at?: string
           user_id: string
           visibility?: Database["public"]["Enums"]["visibility_enum"] | null
         }
         Update: {
+          backend_framework?: number | null
           created_at?: string | null
-          Description?: string | null
+          database?: number | null
+          description?: string | null
+          framework?: number | null
           id?: number
+          language?: number | null
+          link?: string | null
+          meta_framework?: number | null
+          styling?: number | null
           title?: string | null
+          ui_library?: number | null
           updated_at?: string
           user_id?: string
           visibility?: Database["public"]["Enums"]["visibility_enum"] | null
         }
         Relationships: [
+          {
+            foreignKeyName: "stacks_backend_framework_fkey"
+            columns: ["backend_framework"]
+            isOneToOne: false
+            referencedRelation: "backend_frameworks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stacks_database_fkey"
+            columns: ["database"]
+            isOneToOne: false
+            referencedRelation: "databases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stacks_framework_fkey"
+            columns: ["framework"]
+            isOneToOne: false
+            referencedRelation: "frameworks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stacks_language_fkey"
+            columns: ["language"]
+            isOneToOne: false
+            referencedRelation: "languages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stacks_meta_framework_fkey"
+            columns: ["meta_framework"]
+            isOneToOne: false
+            referencedRelation: "meta_frameworks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stacks_styling_fkey"
+            columns: ["styling"]
+            isOneToOne: false
+            referencedRelation: "stylings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stacks_ui_library_fkey"
+            columns: ["ui_library"]
+            isOneToOne: false
+            referencedRelation: "ui_libraries"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "stacks_user_id_fkey"
             columns: ["user_id"]
@@ -46,6 +337,63 @@ export interface Database {
             referencedColumns: ["id"]
           }
         ]
+      }
+      stylings: {
+        Row: {
+          desciption: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      ui_libraries: {
+        Row: {
+          desciption: string | null
+          id: number
+          link: string | null
+          title: string
+        }
+        Insert: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title: string
+        }
+        Update: {
+          desciption?: string | null
+          id?: number
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      use_cases: {
+        Row: {
+          id: number
+          title: string
+        }
+        Insert: {
+          id?: number
+          title: string
+        }
+        Update: {
+          id?: number
+          title?: string
+        }
+        Relationships: []
       }
       users: {
         Row: {

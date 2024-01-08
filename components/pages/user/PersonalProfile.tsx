@@ -4,6 +4,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import StackGrid from "@/components/StackGrid";
 
 export default async function PersonalProfile({ user }: { user: Tables<"users"> }) {
   const cookieStore = cookies();
@@ -22,7 +23,7 @@ export default async function PersonalProfile({ user }: { user: Tables<"users"> 
         </div>
       </div>
       <p>This is your page</p>
-      <pre>{JSON.stringify(stacks, null, 2)}</pre>
+      {stacks && <StackGrid stacks={stacks} isPersonal />}
     </div>
   );
 }

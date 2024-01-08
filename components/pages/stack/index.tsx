@@ -1,9 +1,6 @@
+import StackCard from "@/components/StackCard";
 import { Tables } from "@/types/supabase";
 
 export default async function Stack({ stack }: { stack: Tables<"stacks"> }) {
-  return (
-    <>
-      <pre>{JSON.stringify(stack, null, 2)}</pre>
-    </>
-  );
+  return <StackCard stack={stack} />;
 }

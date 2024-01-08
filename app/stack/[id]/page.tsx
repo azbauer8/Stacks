@@ -2,8 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
 import { SupabaseClient } from "@supabase/supabase-js";
-import EditableStack from "@/components/stack/EditableStack";
-import Stack from "@/components/stack";
+import EditableStack from "@/components/pages/stack/PersonalStack";
+import Stack from "@/components/pages/stack";
 
 export default async function StackPage({ params }: { params: { id: string } }) {
   const cookieStore = cookies();

@@ -1,5 +1,5 @@
-import GlobalProfile from "@/components/user/GlobalProfile";
-import PersonalProfile from "@/components/user/PersonalProfile";
+import GlobalProfile from "@/components/pages/user";
+import PersonalProfile from "@/components/pages/user/PersonalProfile";
 import { Database } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
