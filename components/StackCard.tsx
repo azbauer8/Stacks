@@ -1,13 +1,30 @@
-import { Tables } from "@/types/supabase";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
+import Link from "next/link"
 
-export default function StackCard({ stack, isPersonal }: { stack: Tables<"stacks">; isPersonal?: boolean }) {
+import { Tables } from "@/types/supabase"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+export default function StackCard({
+  stack,
+  isPersonal,
+}: {
+  stack: Tables<"stacks">
+  isPersonal?: boolean
+}) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>
-          <Link href={`/stack/${stack.id}`} className="hover:underline underline-offset-4">
+          <Link
+            href={`/stack/${stack.id}`}
+            className="underline-offset-4 hover:underline"
+          >
             {stack.title}
           </Link>
         </CardTitle>
@@ -20,5 +37,5 @@ export default function StackCard({ stack, isPersonal }: { stack: Tables<"stacks
         <p>Card Footer</p>
       </CardFooter>
     </Card>
-  );
+  )
 }
