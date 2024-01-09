@@ -1,12 +1,13 @@
 import { cookies } from "next/headers"
 import Link from "next/link"
 import { createClient } from "@/utils/supabase/server"
+import { PlusCircleIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { buttonVariants } from "@/components/ui/button"
 
 import LoginButton from "./LoginButton"
-import ProfileMenu from "./ProfileMenu"
-import { ThemeToggle } from "./ThemeToggle"
+import NavMenu from "./NavMenu"
 
 export default async function Nav() {
   const cookieStore = cookies()
@@ -23,18 +24,33 @@ export default async function Nav() {
           <Link href="/" className="text-xl font-bold">
             📚 Stacks
           </Link>
-          <Button variant={"link"}>
-            <Link href="/stacks">Public</Link>
-          </Button>
         </div>
-        {user ? (
-          <ProfileMenu user={user} />
-        ) : (
-          <div className="flex items-center gap-1.5">
-            <ThemeToggle />
+        <div className="flex items-center gap-2">
+          {user ? (
+            <>
+              <Link
+                href="/new"
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "icon",
+                })}
+              >
+                <PlusCircleIcon className="size-6" />
+              </Link>
+              <Link href={`/${user.user_metadata.preferred_username}`}>
+                <Avatar className="hover:brightness-50">
+                  <AvatarImage src={user.user_metadata.avatar_url} />
+                  <AvatarFallback>
+                    {user.user_metadata.name.match(/\b(\w)/g).join("")}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
+            </>
+          ) : (
             <LoginButton />
-          </div>
-        )}
+          )}
+          <NavMenu user={user} />
+        </div>
       </div>
     </nav>
   )

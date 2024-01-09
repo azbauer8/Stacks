@@ -3,20 +3,28 @@ import { createClient } from "@/utils/supabase/server"
 import { SupabaseClient } from "@supabase/supabase-js"
 
 import { Database } from "@/types/supabase"
-import StackGrid from "@/components/StackGrid"
+import StackCard from "@/components/StackCard"
 
-export default async function Index() {
+export default async function PersonalStack({
+  params,
+}: {
+  params: { id: string }
+}) {
   const cookieStore = cookies()
   const supabase: SupabaseClient<Database> = createClient(cookieStore)
-  const { data: stacks } = await supabase
+
+  // check if stack exists
+  const { data: findStack } = await supabase
     .from("stacks")
     .select()
-    .eq("visibility", "public")
+    .eq("id", params.id)
+  if (findStack?.length) {
+    const stack = findStack[0]
 
-  if (stacks)
     return (
-      <div className="flex flex-col gap-2">
-        <StackGrid stacks={stacks} />
-      </div>
+      <>
+        <StackCard stack={stack} />
+      </>
     )
+  }
 }
