@@ -1,5 +1,6 @@
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
+import { FindUser, GetAuthUser } from "@/utils/querySupabase"
 import { createServerClient, type CookieOptions } from "@supabase/ssr"
 
 import { Database } from "@/types/supabase"
@@ -33,14 +34,8 @@ export async function GET(request: Request) {
       // TODO: check if user exists in users table
       // if exists, check if any data is outdated and update it if so
       // else, create new user in users table
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      console.log(user)
-      const { data: authUser } = await supabase
-        .from("users")
-        .select()
-        .eq("id", user?.id as string)
+      const user = await GetAuthUser()
+      const authUser = await FindUser(user?.user_metadata.user_name)
 
       if (authUser?.length) {
         const storedUserData = authUser[0]

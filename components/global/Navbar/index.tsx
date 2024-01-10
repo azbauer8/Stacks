@@ -1,7 +1,6 @@
-import { cookies } from "next/headers"
 import Image from "next/image"
 import Link from "next/link"
-import { createClient } from "@/utils/supabase/server"
+import { GetAuthUser } from "@/utils/querySupabase"
 import { PlusCircleIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -12,12 +11,7 @@ import LoginButton from "./LoginButton"
 import NavMenu from "./NavMenu"
 
 export default async function Nav() {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await GetAuthUser()
 
   return (
     <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
@@ -32,7 +26,7 @@ export default async function Nav() {
           {user ? (
             <>
               <Link
-                href="/new"
+                href=""
                 className={buttonVariants({
                   variant: "ghost",
                   size: "icon",

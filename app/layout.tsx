@@ -15,8 +15,10 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  stackModal,
 }: {
   children: React.ReactNode
+  stackModal: React.ReactNode
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
@@ -32,6 +34,7 @@ export default function RootLayout({
             <div className="max-w-4xl flex-1 px-5 md:px-0">{children}</div>
             <Footer />
           </main>
+          {stackModal}
         </ThemeProvider>
         <Analytics />
       </body>

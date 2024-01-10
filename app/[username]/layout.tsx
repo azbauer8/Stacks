@@ -1,8 +1,4 @@
-import { cookies } from "next/headers"
-import { createClient } from "@/utils/supabase/server"
-import { SupabaseClient } from "@supabase/supabase-js"
-
-import { Database } from "@/types/supabase"
+import { FindUser, GetAuthUser } from "@/utils/querySupabase"
 
 export default async function UserPageLayout({
   globalProfile,
@@ -13,17 +9,12 @@ export default async function UserPageLayout({
   personalProfile: React.ReactNode
   params: { username: string }
 }) {
-  const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
-  const { data: user } = await supabase
-    .from("users")
-    .select()
-    .eq("user_name", params.username)
+  const user = await FindUser(params.username)
 
   if (user?.length) {
-    const { data: authUser } = await supabase.auth.getUser()
+    const authUser = await GetAuthUser()
 
-    if (authUser.user && authUser.user.id === user[0].id) {
+    if (authUser && authUser.id === user[0].id) {
       // show separate page for current user (has editing features)
       return <>{personalProfile}</>
     }

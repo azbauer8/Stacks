@@ -1,9 +1,6 @@
-import { cookies } from "next/headers"
 import Link from "next/link"
-import { createClient } from "@/utils/supabase/server"
-import { SupabaseClient } from "@supabase/supabase-js"
+import { FindUser, GetUserStacks } from "@/utils/querySupabase"
 
-import { Database } from "@/types/supabase"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { badgeVariants } from "@/components/ui/badge"
 import StackGrid from "@/components/StackGrid"
@@ -13,18 +10,10 @@ export default async function PersonalProfile({
 }: {
   params: { username: string }
 }) {
-  const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
-  const { data: findUser } = await supabase
-    .from("users")
-    .select()
-    .eq("user_name", params.username)
+  const findUser = await FindUser(params.username)
   if (findUser?.length) {
     const user = findUser[0]
-    const { data: stacks } = await supabase
-      .from("stacks")
-      .select()
-      .eq("user_id", user.id)
+    const stacks = await GetUserStacks(user.id)
     return (
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
