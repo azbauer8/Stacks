@@ -1,4 +1,5 @@
 import { cookies } from "next/headers"
+import Image from "next/image"
 import Link from "next/link"
 import { createClient } from "@/utils/supabase/server"
 import { PlusCircleIcon } from "lucide-react"
@@ -6,6 +7,7 @@ import { PlusCircleIcon } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { buttonVariants } from "@/components/ui/button"
 
+import favicon from "../../../assets/favicon.png"
 import LoginButton from "./LoginButton"
 import NavMenu from "./NavMenu"
 
@@ -21,8 +23,9 @@ export default async function Nav() {
     <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
       <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
         <div className="flex items-center gap-2">
-          <Link href="/" className="text-xl font-bold">
-            📚 Stacks
+          <Link href="/" className="flex items-center gap-1 text-xl font-bold">
+            <Image src={favicon} alt="Favicon" width={32} height={32} />
+            <h1>Stacks</h1>
           </Link>
         </div>
         <div className="flex items-center gap-2">

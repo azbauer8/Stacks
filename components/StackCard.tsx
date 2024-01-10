@@ -22,7 +22,7 @@ export default function StackCard({
       <CardHeader>
         <CardTitle>
           <Link
-            href={`/s/${stack.id}`}
+            href={`/stack/${stack.id}`}
             className="underline-offset-4 hover:underline"
           >
             {stack.title}

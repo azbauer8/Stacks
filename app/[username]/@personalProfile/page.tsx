@@ -2,7 +2,6 @@ import { cookies } from "next/headers"
 import Link from "next/link"
 import { createClient } from "@/utils/supabase/server"
 import { SupabaseClient } from "@supabase/supabase-js"
-import { GithubIcon } from "lucide-react"
 
 import { Database } from "@/types/supabase"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -44,10 +43,9 @@ export default async function PersonalProfile({
               href={`https://github.com/${user.user_name}`}
               className={`${badgeVariants({
                 variant: "default",
-              })} flex w-fit items-center gap-0.5 text-[13px] tracking-wide`}
+              })} w-fit items-center text-[13px]`}
             >
-              <GithubIcon className="size-5" strokeWidth={1.75} />
-              <h2>{user.user_name}</h2>
+              <h2>@{user.user_name}</h2>
             </Link>
           </div>
         </div>
