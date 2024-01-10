@@ -1,7 +1,7 @@
 import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
 
-import GlobalStack from "@/components/GlobalStackPage"
-import PersonalStack from "@/components/PersonalStackPage"
+import GlobalStack from "@/components/StackPage/GlobalStackPage"
+import PersonalStack from "@/components/StackPage/PersonalStackPage"
 
 export default async function StackPage({
   params,

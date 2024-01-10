@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
 
-import StackModal from "@/components/StackModal"
+import StackModal from "@/components/StackPage/StackModal"
 
 interface ModalPageProps {
   params: {

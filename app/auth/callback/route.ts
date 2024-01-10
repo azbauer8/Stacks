@@ -37,13 +37,12 @@ export async function GET(request: Request) {
       const user = await GetAuthUser()
       const authUser = await FindUser(user?.user_metadata.user_name)
 
-      if (authUser?.length) {
-        const storedUserData = authUser[0]
+      if (authUser) {
         if (
-          storedUserData.user_name !== user?.user_metadata.user_name ||
-          storedUserData.name !== user?.user_metadata.full_name ||
-          storedUserData.email !== user?.user_metadata.email ||
-          storedUserData.avatar !== user?.user_metadata.avatar_url
+          authUser.user_name !== user?.user_metadata.user_name ||
+          authUser.name !== user?.user_metadata.full_name ||
+          authUser.email !== user?.user_metadata.email ||
+          authUser.avatar !== user?.user_metadata.avatar_url
         ) {
           console.log("user data is outdated, updating it")
           const { error } = await supabase

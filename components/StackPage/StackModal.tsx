@@ -5,8 +5,8 @@ import { User } from "@supabase/supabase-js"
 
 import { Tables } from "@/types/supabase"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import GlobalStack from "@/components/GlobalStackPage"
-import PersonalStack from "@/components/PersonalStackPage"
+import GlobalStack from "@/components/StackPage/GlobalStackPage"
+import PersonalStack from "@/components/StackPage/PersonalStackPage"
 
 const StackModal = ({
   stack,

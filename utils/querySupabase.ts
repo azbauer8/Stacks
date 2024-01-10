@@ -25,7 +25,15 @@ export async function FindUser(username: string) {
     .select()
     .eq("user_name", username)
 
-  return user
+  return user?.length ? user[0] : null
+}
+
+export async function FindUserById(id: string) {
+  const cookieStore = cookies()
+  const supabase: SupabaseClient<Database> = createClient(cookieStore)
+  const { data: user } = await supabase.from("users").select().eq("id", id)
+
+  return user?.length ? user[0] : null
 }
 
 export async function GetStackById(id: string) {

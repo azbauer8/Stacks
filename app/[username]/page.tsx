@@ -1,18 +1,19 @@
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { FindUser, GetUserStacks } from "@/utils/querySupabase"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { badgeVariants } from "@/components/ui/badge"
 import StackGrid from "@/components/StackGrid"
 
-export default async function PersonalProfile({
+export default async function UserPageLayout({
   params,
 }: {
   params: { username: string }
 }) {
-  const findUser = await FindUser(params.username)
-  if (findUser?.length) {
-    const user = findUser[0]
+  const user = await FindUser(params.username)
+
+  if (user) {
     const stacks = await GetUserStacks(user.id)
     return (
       <div className="flex flex-col gap-3">
@@ -38,9 +39,10 @@ export default async function PersonalProfile({
             </Link>
           </div>
         </div>
-        <p>This is your page</p>
-        {stacks && <StackGrid stacks={stacks} isPersonal />}
+        {stacks && <StackGrid stacks={stacks} />}
       </div>
     )
+  } else {
+    return notFound()
   }
 }

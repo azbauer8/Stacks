@@ -31,7 +31,9 @@ export default function RootLayout({
         >
           <main className="flex min-h-screen flex-col items-center gap-5">
             <Nav />
-            <div className="max-w-4xl flex-1 px-5 md:px-0">{children}</div>
+            <div className="w-full max-w-4xl flex-1 px-5 md:px-0">
+              {children}
+            </div>
             <Footer />
           </main>
           {stackModal}
