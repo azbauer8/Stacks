@@ -2,7 +2,7 @@ import Link from "next/link"
 import { FindUserById } from "@/utils/querySupabase"
 
 import { Tables } from "@/types/supabase"
-import { badgeVariants } from "@/components/ui/badge"
+import { Badge, badgeVariants } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -20,9 +20,9 @@ export default async function StackCard({
 
   return (
     <>
-      <Link href={`/stack/${stack.id}`} className="flex-1">
+      <Link href={`/stack/${stack.id}`}>
         <Card>
-          <CardHeader className="">
+          <CardHeader>
             <div className="space-y-1.5">
               <CardTitle>{stack.title}</CardTitle>
               <CardDescription>{stack.description}</CardDescription>
@@ -30,14 +30,9 @@ export default async function StackCard({
           </CardHeader>
           <CardContent>
             <div className="flex justify-between text-sm text-muted-foreground">
-              <Link
-                href={`/${user?.user_name}`}
-                className={`${badgeVariants({
-                  variant: "outline",
-                })} w-fit items-center`}
-              >
+              <Badge className="tracking-wide" variant={"outline"}>
                 @{user?.user_name}
-              </Link>
+              </Badge>
               <div>Updated {new Date(stack.updated_at).toDateString()}</div>
             </div>
           </CardContent>

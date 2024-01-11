@@ -1,34 +1,20 @@
 import { cookies } from "next/headers"
+import { notFound } from "next/navigation"
 import { NextResponse } from "next/server"
 import { FindUser, GetAuthUser } from "@/utils/querySupabase"
+import { createClient } from "@/utils/supabase/server"
 import { createServerClient, type CookieOptions } from "@supabase/ssr"
 
 import { Database } from "@/types/supabase"
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url)
-  const code = searchParams.get("code")
-  const next = searchParams.get("next") ?? "/"
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get("code")
 
   if (code) {
     const cookieStore = cookies()
-    const supabase = createServerClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value
-          },
-          set(name: string, value: string, options: CookieOptions) {
-            cookieStore.set({ name, value, ...options })
-          },
-          remove(name: string, options: CookieOptions) {
-            cookieStore.delete({ name, ...options })
-          },
-        },
-      }
-    )
+    const supabase = createClient(cookieStore)
+
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
       // TODO: check if user exists in users table
@@ -72,9 +58,9 @@ export async function GET(request: Request) {
         }
       }
 
-      return NextResponse.redirect(`${origin}${next}`)
+      return NextResponse.redirect(requestUrl.origin)
     }
   }
 
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+  return notFound()
 }
