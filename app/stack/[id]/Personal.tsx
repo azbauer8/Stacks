@@ -9,7 +9,7 @@ export default async function PersonalStack({
   return (
     <>
       <p>Hey, you made this!</p>
-      <StackCard stack={stack} />
+      {/* <StackCard stack={stack} /> */}
     </>
   )
 }

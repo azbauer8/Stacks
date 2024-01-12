@@ -2,7 +2,7 @@ import Link from "next/link"
 import { FindUserById } from "@/utils/querySupabase"
 
 import { Tables } from "@/types/supabase"
-import { Badge, badgeVariants } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,

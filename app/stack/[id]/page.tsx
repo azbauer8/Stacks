@@ -1,26 +1,15 @@
-import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
+import { Suspense } from "react"
 
-import GlobalStack from "@/components/StackPage/GlobalStackPage"
-import PersonalStack from "@/components/StackPage/PersonalStackPage"
+import Stack from "./Stack"
 
 export default async function StackPage({
   params,
 }: {
   params: { id: string }
 }) {
-  // check if stack exists
-  const stack = await GetStackById(params.id)
-
-  if (stack?.length) {
-    const authUser = await GetAuthUser()
-
-    if (authUser && authUser.id === stack[0].user_id) {
-      // show separate page for current user (has editing features)
-      return <PersonalStack stack={stack[0]} />
-    }
-
-    return <GlobalStack stack={stack[0]} />
-  } else {
-    return <div>Stack not found</div>
-  }
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <Stack id={params.id} />
+    </Suspense>
+  )
 }

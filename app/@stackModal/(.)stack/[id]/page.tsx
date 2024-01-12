@@ -1,19 +1,23 @@
-import { notFound } from "next/navigation"
-import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
+import { Suspense } from "react"
 
-import StackModal from "@/components/StackPage/StackModal"
+import Stack from "@/app/stack/[id]/Stack"
 
-interface ModalPageProps {
+import StackModalWrapper from "./StackModalWrapper"
+
+const StackModalPage = async ({
+  params,
+}: {
   params: {
     id: string
   }
-}
-
-const StackModalPage = async ({ params }: ModalPageProps) => {
-  const stack = await GetStackById(params.id)
-  const authUser = await GetAuthUser()
-  if (stack?.length) return <StackModal stack={stack[0]} authUser={authUser} />
-  else return notFound()
+}) => {
+  return (
+    <StackModalWrapper>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Stack id={params.id} />
+      </Suspense>
+    </StackModalWrapper>
+  )
 }
 
 export default StackModalPage

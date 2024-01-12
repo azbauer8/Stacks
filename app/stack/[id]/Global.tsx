@@ -8,7 +8,8 @@ export default async function GlobalStack({
 }) {
   return (
     <>
-      <StackCard stack={stack} />
+      Yo
+      {/* <StackCard stack={stack} /> */}
     </>
   )
 }
