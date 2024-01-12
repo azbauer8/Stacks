@@ -2,8 +2,6 @@ import { GeistSans } from "geist/font/sans"
 
 import "./globals.css"
 
-import { Analytics } from "@vercel/analytics/react"
-
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import Footer from "@/components/global/Footer"
 import Nav from "@/components/global/Navbar"
@@ -38,7 +36,6 @@ export default function RootLayout({
           </main>
           {stackModal}
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   )
