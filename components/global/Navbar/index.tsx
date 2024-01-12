@@ -1,12 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
+import favicon from "@/assets/favicon.png"
 import { GetAuthUser } from "@/utils/querySupabase"
 import { PlusCircleIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { buttonVariants } from "@/components/ui/button"
 
-import favicon from "../../../assets/favicon.png"
 import LoginButton from "./LoginButton"
 import NavMenu from "./NavMenu"
 

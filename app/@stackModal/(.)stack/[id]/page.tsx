@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 
+import StackLoader from "@/components/Loaders/StackLoader"
 import Stack from "@/app/stack/[id]/Stack"
 
 import StackModalWrapper from "./StackModalWrapper"
@@ -13,7 +14,7 @@ const StackModalPage = async ({
 }) => {
   return (
     <StackModalWrapper>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<StackLoader />}>
         <Stack id={params.id} />
       </Suspense>
     </StackModalWrapper>

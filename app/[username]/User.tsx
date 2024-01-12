@@ -5,6 +5,7 @@ import { FindUser } from "@/utils/querySupabase"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { badgeVariants } from "@/components/ui/badge"
+import StackGridLoader from "@/components/Loaders/StackGridLoader"
 import StackGrid from "@/components/StackGrid"
 
 export default async function UserPage({ username }: { username: string }) {
@@ -35,7 +36,7 @@ export default async function UserPage({ username }: { username: string }) {
             </Link>
           </div>
         </div>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<StackGridLoader />}>
           <StackGrid user={user.id} />
         </Suspense>
       </div>
