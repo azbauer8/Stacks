@@ -11,10 +11,10 @@ export default async function PersonalStack({
   stack: FormattedStack
 }) {
   return (
-    <div className="mx-auto mt-6 space-y-8">
+    <div className="mx-auto mt-6 space-y-8 px-0.5">
       <div>
-        <h2 className="text-3xl font-bold">{stack.title}</h2>
-        <div className="flex items-center justify-between text-sm">
+        <h2 className="text-4xl font-bold">{stack.title}</h2>
+        <div className="flex items-center justify-between space-y-1.5 text-sm">
           <Link
             href={`/${stack.user?.user_name}`}
             className={`${badgeVariants({
@@ -24,16 +24,11 @@ export default async function PersonalStack({
           >
             <h2>{stack.user?.user_name}</h2>
           </Link>
-          <div className="text-right">
-            <p>
-              Created <span className="font-medium">{stack.created_at}</span>
-            </p>
-            <p>
-              Updated <span className="font-medium">{stack.updated_at}</span>
-            </p>
+          <div className="text-right text-muted-foreground">
+            Updated <span className="font-medium">{stack.updated_at}</span>
           </div>
         </div>
-        <p className="mt-2 text-sm">{stack.description}</p>
+        <p className="mt-2 text-sm ">{stack.description}</p>
       </div>
       <div className="mt-8 space-y-3">
         {stack.language && (

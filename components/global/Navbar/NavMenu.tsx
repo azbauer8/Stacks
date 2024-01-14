@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server"
 import { User } from "@supabase/supabase-js"
 import { MoreVerticalIcon } from "lucide-react"
 
-import { Button, UnstyledButton } from "@/components/ui/button"
+import { UnstyledButton } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,

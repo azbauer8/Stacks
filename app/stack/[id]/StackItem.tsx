@@ -30,28 +30,26 @@ export default function StackItem({
     <Card className="hover:bg-secondary">
       <Link href={link ? link : "/"}>
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              {icon ? (
-                <Image
-                  src={`/icons/${iconPath}/${icon}`}
-                  alt={title}
-                  width="32"
-                  height="32"
-                />
-              ) : (
-                <Avatar className="size-8">
-                  <AvatarFallback>
-                    {title.match(/\b(\w)/g)?.join("")}
-                  </AvatarFallback>
-                </Avatar>
-              )}
-              <CardTitle>{title}</CardTitle>
-            </div>
-            <Badge className="w-fit rounded-md px-2 py-1 text-sm">
-              {header}
-            </Badge>
+          <div className="flex items-center space-x-3">
+            {icon ? (
+              <Image
+                src={`/icons/${iconPath}/${icon}`}
+                alt={title}
+                width="32"
+                height="32"
+              />
+            ) : (
+              <Avatar className="size-8">
+                <AvatarFallback>
+                  {title.match(/\b(\w)/g)?.join("")}
+                </AvatarFallback>
+              </Avatar>
+            )}
+            <CardTitle>{title}</CardTitle>
           </div>
+          <Badge className="ml-11 w-fit rounded-md px-1.5 text-sm">
+            {header}
+          </Badge>
         </CardHeader>
         <CardContent>
           <CardDescription>{description}</CardDescription>

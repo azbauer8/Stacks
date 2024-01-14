@@ -3,9 +3,6 @@ import { notFound } from "next/navigation"
 import { NextResponse } from "next/server"
 import { FindUser, GetAuthUser } from "@/utils/querySupabase"
 import { createClient } from "@/utils/supabase/server"
-import { createServerClient, type CookieOptions } from "@supabase/ssr"
-
-import { Database } from "@/types/supabase"
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
@@ -17,12 +14,12 @@ export async function GET(request: Request) {
 
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      // TODO: check if user exists in users table
-      // if exists, check if any data is outdated and update it if so
-      // else, create new user in users table
       const user = await GetAuthUser()
       const authUser = await FindUser(user?.user_metadata.user_name)
 
+      // check if user exists in users table
+      // if exists, check if any data is outdated and update it if so
+      // else, create new user in users table
       if (authUser) {
         if (
           authUser.user_name !== user?.user_metadata.user_name ||
@@ -30,7 +27,6 @@ export async function GET(request: Request) {
           authUser.email !== user?.user_metadata.email ||
           authUser.avatar !== user?.user_metadata.avatar_url
         ) {
-          console.log("user data is outdated, updating it")
           const { error } = await supabase
             .from("users")
             .update({

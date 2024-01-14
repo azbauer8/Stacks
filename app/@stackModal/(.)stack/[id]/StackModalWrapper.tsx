@@ -12,37 +12,37 @@ const StackModalWrapper = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
   const pathname = usePathname()
   const isDesktop = useMediaQuery("(min-width: 768px)")
-  const [open, setOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true)
 
-  const handleOnOpenChange = (open: boolean) => {
-    setOpen(!open)
-    if (!open) {
+  const handleOpenChange = (open: boolean) => {
+    if (pathname.includes("/stack/")) {
+      setIsOpen(true)
+    }
+    if (!open && pathname.includes("/stack/")) {
       router.back()
     }
   }
-
   useEffect(() => {
     if (!pathname.includes("/stack/")) {
-      setOpen(false)
+      setIsOpen(false)
     } else {
-      setOpen(true)
+      setIsOpen(true)
     }
   }, [pathname])
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={handleOnOpenChange}>
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         <DialogContent className="max-w-3xl">
           <ScrollArea className="h-[65vh] pb-5 pr-4">{children}</ScrollArea>
         </DialogContent>
       </Dialog>
     )
   }
-
   return (
-    <Drawer open onOpenChange={handleOnOpenChange}>
-      <DrawerContent>
-        <ScrollArea className="h-[65vh] pb-5">{children}</ScrollArea>
+    <Drawer open={isOpen} onOpenChange={handleOpenChange}>
+      <DrawerContent className="mx-2 outline-none focus:outline-none">
+        <ScrollArea className="h-[65vh] px-5 pb-5">{children}</ScrollArea>
       </DrawerContent>
     </Drawer>
   )
