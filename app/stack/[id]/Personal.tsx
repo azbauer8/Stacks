@@ -1,17 +1,13 @@
-import { formattedStack } from "@/utils/querySupabase"
-
-import { Tables } from "@/types/supabase"
-import StackCard from "@/components/StackGrid/StackCard"
+import { FormattedStack } from "@/utils/querySupabase"
 
 export default async function PersonalStack({
   stack,
 }: {
-  stack: formattedStack
+  stack: FormattedStack
 }) {
   return (
     <>
       <p>Hey, you made this!</p>
-      {/* <StackCard stack={stack} /> */}
     </>
   )
 }

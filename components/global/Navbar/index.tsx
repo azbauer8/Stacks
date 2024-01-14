@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-import favicon from "@/assets/favicon.png"
 import { GetAuthUser } from "@/utils/querySupabase"
 import { PlusCircleIcon } from "lucide-react"
 
@@ -18,7 +17,7 @@ export default async function Nav() {
       <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-1 text-xl font-bold">
-            <Image src={favicon} alt="Favicon" width={32} height={32} />
+            <Image src="/favicon.png" alt="Favicon" width={32} height={32} />
             <h1>Stacks</h1>
           </Link>
         </div>

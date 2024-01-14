@@ -12,18 +12,21 @@ export interface Database {
       backend_frameworks: {
         Row: {
           description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -33,18 +36,21 @@ export interface Database {
       databases: {
         Row: {
           description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -53,19 +59,22 @@ export interface Database {
       }
       frameworks: {
         Row: {
-          desciption: string | null
+          description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -74,19 +83,22 @@ export interface Database {
       }
       languages: {
         Row: {
-          desciption: string | null
+          description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -95,19 +107,22 @@ export interface Database {
       }
       meta_frameworks: {
         Row: {
-          desciption: string | null
+          description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -118,6 +133,7 @@ export interface Database {
         Row: {
           category: number | null
           description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
@@ -125,6 +141,7 @@ export interface Database {
         Insert: {
           category?: number | null
           description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
@@ -132,6 +149,7 @@ export interface Database {
         Update: {
           category?: number | null
           description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -141,12 +159,12 @@ export interface Database {
             foreignKeyName: "other_libraries_category_fkey"
             columns: ["category"]
             isOneToOne: false
-            referencedRelation: "other_library_categories"
+            referencedRelation: "other_library_category"
             referencedColumns: ["id"]
           }
         ]
       }
-      other_library_categories: {
+      other_library_category: {
         Row: {
           id: number
           title: string
@@ -163,17 +181,14 @@ export interface Database {
       }
       stack_other_libraries: {
         Row: {
-          id: number
           other_library_id: number
           stack_id: number
         }
         Insert: {
-          id?: number
           other_library_id: number
           stack_id: number
         }
         Update: {
-          id?: number
           other_library_id?: number
           stack_id?: number
         }
@@ -194,43 +209,10 @@ export interface Database {
           }
         ]
       }
-      stack_use_cases: {
-        Row: {
-          id: number
-          stack_id: number
-          use_case_id: number
-        }
-        Insert: {
-          id?: number
-          stack_id: number
-          use_case_id: number
-        }
-        Update: {
-          id?: number
-          stack_id?: number
-          use_case_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "stack_use_cases_stack_id_fkey"
-            columns: ["stack_id"]
-            isOneToOne: false
-            referencedRelation: "stacks"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "stack_use_cases_use_case_id_fkey"
-            columns: ["use_case_id"]
-            isOneToOne: false
-            referencedRelation: "use_cases"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       stacks: {
         Row: {
           backend_framework: number | null
-          created_at: string | null
+          created_at: string
           database: number | null
           description: string | null
           framework: number | null
@@ -239,15 +221,16 @@ export interface Database {
           link: string | null
           meta_framework: number | null
           styling: number | null
-          title: string | null
+          title: string
           ui_library: number | null
           updated_at: string
+          use_case: number | null
           user: string
-          visibility: Database["public"]["Enums"]["visibility_enum"] | null
+          visibility: Database["public"]["Enums"]["visibility_enum"]
         }
         Insert: {
           backend_framework?: number | null
-          created_at?: string | null
+          created_at?: string
           database?: number | null
           description?: string | null
           framework?: number | null
@@ -256,15 +239,16 @@ export interface Database {
           link?: string | null
           meta_framework?: number | null
           styling?: number | null
-          title?: string | null
+          title: string
           ui_library?: number | null
           updated_at?: string
+          use_case?: number | null
           user: string
-          visibility?: Database["public"]["Enums"]["visibility_enum"] | null
+          visibility: Database["public"]["Enums"]["visibility_enum"]
         }
         Update: {
           backend_framework?: number | null
-          created_at?: string | null
+          created_at?: string
           database?: number | null
           description?: string | null
           framework?: number | null
@@ -273,11 +257,12 @@ export interface Database {
           link?: string | null
           meta_framework?: number | null
           styling?: number | null
-          title?: string | null
+          title?: string
           ui_library?: number | null
           updated_at?: string
+          use_case?: number | null
           user?: string
-          visibility?: Database["public"]["Enums"]["visibility_enum"] | null
+          visibility?: Database["public"]["Enums"]["visibility_enum"]
         }
         Relationships: [
           {
@@ -330,6 +315,13 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "stacks_use_case_fkey"
+            columns: ["use_case"]
+            isOneToOne: false
+            referencedRelation: "use_cases"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "stacks_user_fkey"
             columns: ["user"]
             isOneToOne: false
@@ -340,19 +332,22 @@ export interface Database {
       }
       stylings: {
         Row: {
-          desciption: string | null
+          description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -361,19 +356,22 @@ export interface Database {
       }
       ui_libraries: {
         Row: {
-          desciption: string | null
+          description: string | null
+          icon: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
-          desciption?: string | null
+          description?: string | null
+          icon?: string | null
           id?: number
           link?: string | null
           title?: string

@@ -39,98 +39,132 @@ export async function FindUserById(id: string) {
 export async function GetStackById(id: string) {
   const cookieStore = cookies()
   const supabase: SupabaseClient<Database> = createClient(cookieStore)
-  const { data: stack } = await supabase.from("stacks").select().eq("id", id)
+  const { data: stack, error } = await supabase
+    .from("stacks")
+    .select(
+      `*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))`
+    )
+    .eq("id", id)
 
-  return stack?.length ? await formatStack(stack[0], supabase) : null
+  if (!stack?.length || error) return
+
+  return formatStack(stack[0])
 }
 
 export async function GetUserStacks(user: string) {
   const cookieStore = cookies()
   const supabase: SupabaseClient<Database> = createClient(cookieStore)
-  const { data: stacks } = await supabase
+  const { data: stacks, error } = await supabase
     .from("stacks")
-    .select()
+    .select(
+      `*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))`
+    )
     .eq("user", user)
 
-  if (stacks) {
-    const formattedStacks: formattedStack[] = []
-    for (const stack in stacks) {
-      formattedStacks.push(await formatStack(stacks[stack], supabase))
-    }
-    return formattedStacks
-  }
-  return null
+  if (!stacks?.length || error) return
+
+  const formattedStacks: FormattedStack[] = []
+
+  stacks.forEach((stack) => {
+    formattedStacks.push(formatStack(stack))
+  })
+
+  return formattedStacks
 }
 
 export async function GetPublicStacks() {
   const cookieStore = cookies()
   const supabase: SupabaseClient<Database> = createClient(cookieStore)
-  const { data: stacks } = await supabase
+
+  const { data: stacks, error } = await supabase
     .from("stacks")
-    .select()
+    .select(
+      `*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))`
+    )
     .eq("visibility", "public")
-  if (stacks) {
-    const formattedStacks: formattedStack[] = []
-    for (const stack in stacks) {
-      formattedStacks.push(await formatStack(stacks[stack], supabase))
-    }
-    return formattedStacks
+
+  if (!stacks?.length || error) return
+
+  const formattedStacks: FormattedStack[] = []
+
+  stacks.forEach((stack) => {
+    formattedStacks.push(formatStack(stack))
+  })
+
+  return formattedStacks
+}
+
+type PreformattedStack = Tables<"stacks"> & {
+  users: Tables<"users"> | null
+  use_cases: Tables<"use_cases"> | null
+  languages: Tables<"languages"> | null
+  frameworks: Tables<"frameworks"> | null
+  meta_frameworks: Tables<"meta_frameworks"> | null
+  stylings: Tables<"stylings"> | null
+  ui_libraries: Tables<"ui_libraries"> | null
+  backend_frameworks: Tables<"backend_frameworks"> | null
+  databases: Tables<"databases"> | null
+  other_libraries: (Tables<"other_libraries"> & {
+    other_library_category: Tables<"other_library_category"> | null
+  })[]
+}
+
+export type FormattedStack = {
+  id: PreformattedStack["id"]
+  visibility: PreformattedStack["visibility"]
+  created_at: PreformattedStack["created_at"]
+  updated_at: PreformattedStack["updated_at"]
+  title: PreformattedStack["title"]
+  description: PreformattedStack["description"]
+  user: PreformattedStack["users"]
+  use_case: PreformattedStack["use_cases"]
+  language: PreformattedStack["languages"]
+  framework: PreformattedStack["frameworks"]
+  meta_framework: PreformattedStack["meta_frameworks"]
+  styling: PreformattedStack["stylings"]
+  ui_library: PreformattedStack["ui_libraries"]
+  backend_framework: PreformattedStack["backend_frameworks"]
+  database: PreformattedStack["databases"]
+  other_libraries: PreformattedStack["other_libraries"]
+}
+
+function formatStack(stack: PreformattedStack) {
+  const formattedStack: FormattedStack = {
+    id: stack.id,
+    visibility: stack.visibility,
+    created_at: formatDate(stack.created_at),
+    updated_at: formatDate(stack.updated_at),
+    title: stack.title,
+    description: stack.description,
+    user: stack.users,
+    use_case: stack.use_cases,
+    language: stack.languages,
+    framework: stack.frameworks,
+    meta_framework: stack.meta_frameworks,
+    styling: stack.stylings,
+    ui_library: stack.ui_libraries,
+    backend_framework: stack.backend_frameworks,
+    database: stack.databases,
+    other_libraries: stack.other_libraries.map((otherLibrary) => ({
+      ...otherLibrary,
+      other_library_category: otherLibrary.other_library_category,
+    })),
   }
-  return null
+  return formattedStack
 }
 
-export type formattedStack = Tables<"stacks"> & {
-  user: Tables<"users"> | null | undefined
-  language: Tables<"languages"> | null | undefined
-  framework: Tables<"frameworks"> | null | undefined
-  meta_framework: Tables<"meta_frameworks"> | null | undefined
-  styling: Tables<"stylings"> | null | undefined
-  ui_library: Tables<"ui_libraries"> | null | undefined
-  database: Tables<"databases"> | null | undefined
-  backend_framework: Tables<"backend_frameworks"> | null | undefined
-}
-
-async function formatStack(
-  stack: Tables<"stacks">,
-  supabase: SupabaseClient<Database>
-) {
-  const user = await FindUserById(stack.user)
-  const language = stack.language
-    ? await supabase.from("languages").select().eq("id", stack.language)
-    : undefined
-  const framework = stack.framework
-    ? await supabase.from("frameworks").select().eq("id", stack.framework)
-    : undefined
-  const meta_framework = stack.meta_framework
-    ? await supabase
-        .from("meta_frameworks")
-        .select()
-        .eq("id", stack.meta_framework)
-    : undefined
-  const styling = stack.styling
-    ? await supabase.from("stylings").select().eq("id", stack.styling)
-    : undefined
-  const ui_library = stack.ui_library
-    ? await supabase.from("ui_libraries").select().eq("id", stack.ui_library)
-    : undefined
-  const database = stack.database
-    ? await supabase.from("databases").select().eq("id", stack.database)
-    : undefined
-  const backend_framework = stack.backend_framework
-    ? await supabase
-        .from("backend_frameworks")
-        .select()
-        .eq("id", stack.backend_framework)
-    : undefined
-  return {
-    ...stack,
-    user,
-    language: language?.data,
-    framework: framework?.data,
-    meta_framework: meta_framework?.data,
-    styling: styling?.data,
-    ui_library: ui_library?.data,
-    database: database?.data,
-    backend_framework: backend_framework?.data,
-  } as formattedStack
+function formatDate(date: string) {
+  const formattedDate = new Date(date)
+  const dateOpt = {
+    year: "2-digit" as "numeric" | "2-digit" | undefined,
+    month: "short" as
+      | "2-digit"
+      | "numeric"
+      | "long"
+      | "short"
+      | "narrow"
+      | undefined,
+    day: "numeric" as "numeric" | "2-digit" | undefined,
+  }
+  return formattedDate.toLocaleString("en-US", dateOpt)
 }
