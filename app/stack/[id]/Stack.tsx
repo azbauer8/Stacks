@@ -6,14 +6,14 @@ import PersonalStack from "@/app/stack/[id]/Personal"
 export default async function Stack({ id }: { id: string }) {
   const stack = await GetStackById(id)
 
-  if (stack?.length) {
+  if (stack) {
     const authUser = await GetAuthUser()
 
-    if (authUser && authUser.id === stack[0].user_id) {
-      return <PersonalStack stack={stack[0]} />
+    if (authUser && authUser.id === stack.user?.id) {
+      return <PersonalStack stack={stack} />
     }
 
-    return <GlobalStack stack={stack[0]} />
+    return <GlobalStack stack={stack} />
   } else {
     return <div>Stack not found</div>
   }

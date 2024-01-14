@@ -242,7 +242,7 @@ export interface Database {
           title: string | null
           ui_library: number | null
           updated_at: string
-          user_id: string
+          user: string
           visibility: Database["public"]["Enums"]["visibility_enum"] | null
         }
         Insert: {
@@ -259,7 +259,7 @@ export interface Database {
           title?: string | null
           ui_library?: number | null
           updated_at?: string
-          user_id: string
+          user: string
           visibility?: Database["public"]["Enums"]["visibility_enum"] | null
         }
         Update: {
@@ -276,7 +276,7 @@ export interface Database {
           title?: string | null
           ui_library?: number | null
           updated_at?: string
-          user_id?: string
+          user?: string
           visibility?: Database["public"]["Enums"]["visibility_enum"] | null
         }
         Relationships: [
@@ -330,8 +330,8 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "stacks_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "stacks_user_fkey"
+            columns: ["user"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]

@@ -1,7 +1,6 @@
 import Link from "next/link"
-import { FindUserById } from "@/utils/querySupabase"
+import { formattedStack } from "@/utils/querySupabase"
 
-import { Tables } from "@/types/supabase"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -11,13 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-export default async function StackCard({
-  stack,
-}: {
-  stack: Tables<"stacks">
-}) {
-  const user = await FindUserById(stack.user_id)
-
+export default async function StackCard({ stack }: { stack: formattedStack }) {
   return (
     <>
       <Link href={`/stack/${stack.id}`}>
@@ -31,7 +24,7 @@ export default async function StackCard({
           <CardContent>
             <div className="flex justify-between text-sm text-muted-foreground">
               <Badge className="tracking-wide" variant={"outline"}>
-                @{user?.user_name}
+                @{stack.user.user_name}
               </Badge>
               <div>Updated {new Date(stack.updated_at).toDateString()}</div>
             </div>
