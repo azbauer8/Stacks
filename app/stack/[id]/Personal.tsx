@@ -25,7 +25,10 @@ export default async function PersonalStack({
             <h2>{stack.user?.user_name}</h2>
           </Link>
           <div className="text-right text-muted-foreground">
-            Updated <span className="font-medium">{stack.updated_at}</span>
+            Updated{" "}
+            <span className="font-medium">
+              {new Date(stack.updated_at).toDateString()}
+            </span>
           </div>
         </div>
         <p className="mt-2 text-sm ">{stack.description}</p>

@@ -29,7 +29,7 @@ export default function StackItem({
   return (
     <Card className="hover:bg-secondary">
       <Link href={link ? link : "/"}>
-        <CardHeader>
+        <CardHeader className="pb-2.5">
           <div className="flex items-center space-x-3">
             {icon ? (
               <Image
@@ -51,7 +51,7 @@ export default function StackItem({
             {header}
           </Badge>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pb-4">
           <CardDescription>{description}</CardDescription>
         </CardContent>
       </Link>
