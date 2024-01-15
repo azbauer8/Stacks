@@ -2,9 +2,7 @@ import { cookies } from "next/headers"
 import { notFound } from "next/navigation"
 import { NextResponse } from "next/server"
 import { FindUser, GetAuthUser } from "@/utils/querySupabase"
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
-
-import { Database } from "@/types/supabase"
+import { createClient } from "@/utils/supabase/server"
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
@@ -12,13 +10,16 @@ export async function GET(request: Request) {
 
   if (code) {
     const cookieStore = cookies()
-    const supabase = createRouteHandlerClient<Database>({
-      cookies: () => cookieStore,
-    })
+    const supabase = createClient(cookieStore)
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      const user = await GetAuthUser()
-      const authUser = await FindUser(user?.user_metadata.user_name)
+      const user = await GetAuthUser({
+        clientType: "server",
+      })
+      const authUser = await FindUser({
+        clientType: "server",
+        username: user?.user_metadata.user_name,
+      })
 
       // check if user exists in users table
       // if exists, check if any data is outdated and update it if so

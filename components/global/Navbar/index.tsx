@@ -10,7 +10,9 @@ import LoginButton from "./LoginButton"
 import NavMenu from "./NavMenu"
 
 export default async function Nav() {
-  const user = await GetAuthUser()
+  const user = await GetAuthUser({
+    clientType: "server",
+  })
 
   return (
     <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">

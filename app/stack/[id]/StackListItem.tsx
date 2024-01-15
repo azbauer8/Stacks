@@ -15,13 +15,15 @@ export default function StackItem({
   header,
   iconPath,
   icon,
+  hasDarkIcon,
   title,
   description,
   link,
 }: {
   header: string
-  iconPath: string
+  iconPath: string | null
   icon: string | null
+  hasDarkIcon: boolean
   title: string
   description: string | null
   link: string | null
@@ -37,6 +39,7 @@ export default function StackItem({
                 alt={title}
                 width="32"
                 height="32"
+                className={hasDarkIcon ? "dark:invert" : ""}
               />
             ) : (
               <Avatar className="size-8">

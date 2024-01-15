@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function UserLoader() {
+export default function UserLoading() {
   return (
     <div className="flex items-center gap-3">
       <Skeleton className="size-28 rounded-full" />

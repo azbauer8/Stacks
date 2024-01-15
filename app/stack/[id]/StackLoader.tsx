@@ -1,6 +1,18 @@
+import { Suspense } from "react"
+
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function StackLoader() {
+import StackController from "./StackController"
+
+export default function StackLoader({ id }: { id: string }) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <StackController id={id} />
+    </Suspense>
+  )
+}
+
+function Loading() {
   return (
     <>
       <div className="space-y-2">

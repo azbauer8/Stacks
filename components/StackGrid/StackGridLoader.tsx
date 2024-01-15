@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+
 import {
   Card,
   CardContent,
@@ -7,7 +9,23 @@ import {
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function StackGridLoader() {
+import StackGrid from "."
+
+export default function StackGridLoader({
+  user,
+  personal,
+}: {
+  user?: string
+  personal?: boolean
+}) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <StackGrid user={user} personal={personal} />
+    </Suspense>
+  )
+}
+
+function Loading() {
   return (
     <div className="grid grid-cols-1 gap-5 md:mx-5 md:grid-cols-2">
       <Card>

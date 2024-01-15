@@ -3,7 +3,7 @@ import { FormattedStack } from "@/utils/querySupabase"
 
 import { badgeVariants } from "@/components/ui/badge"
 
-import StackItem from "./StackItem"
+import StackItem from "./StackListItem"
 
 export default async function PersonalStack({
   stack,
@@ -37,8 +37,9 @@ export default async function PersonalStack({
         {stack.language && (
           <StackItem
             header="Language"
-            iconPath="languages"
+            iconPath={stack.language.icon_path}
             icon={stack.language.icon}
+            hasDarkIcon={stack.language.has_dark_icon}
             title={stack.language.title}
             description={stack.language.description}
             link={stack.language.link}
@@ -47,8 +48,9 @@ export default async function PersonalStack({
         {stack.framework && (
           <StackItem
             header="Frontend"
-            iconPath="frameworks"
+            iconPath={stack.framework.icon_path}
             icon={stack.framework.icon}
+            hasDarkIcon={stack.framework.has_dark_icon}
             title={stack.framework.title}
             description={stack.framework.description}
             link={stack.framework.link}
@@ -57,8 +59,9 @@ export default async function PersonalStack({
         {stack.meta_framework && (
           <StackItem
             header="Meta Framework"
-            iconPath="meta_frameworks"
+            iconPath={stack.meta_framework.icon_path}
             icon={stack.meta_framework.icon}
+            hasDarkIcon={stack.meta_framework.has_dark_icon}
             title={stack.meta_framework.title}
             description={stack.meta_framework.description}
             link={stack.meta_framework.link}
@@ -67,8 +70,9 @@ export default async function PersonalStack({
         {stack.styling && (
           <StackItem
             header="Styling"
-            iconPath="stylings"
+            iconPath={stack.styling.icon_path}
             icon={stack.styling.icon}
+            hasDarkIcon={stack.styling.has_dark_icon}
             title={stack.styling.title}
             description={stack.styling.description}
             link={stack.styling.link}
@@ -77,8 +81,9 @@ export default async function PersonalStack({
         {stack.ui_library && (
           <StackItem
             header="UI Library"
-            iconPath="ui_libraries"
+            iconPath={stack.ui_library.icon_path}
             icon={stack.ui_library.icon}
+            hasDarkIcon={stack.ui_library.has_dark_icon}
             title={stack.ui_library.title}
             description={stack.ui_library.description}
             link={stack.ui_library.link}
@@ -87,8 +92,9 @@ export default async function PersonalStack({
         {stack.database && (
           <StackItem
             header="Database"
-            iconPath="databases"
+            iconPath={stack.database.icon_path}
             icon={stack.database.icon}
+            hasDarkIcon={stack.database.has_dark_icon}
             title={stack.database.title}
             description={stack.database.description}
             link={stack.database.link}
@@ -97,8 +103,9 @@ export default async function PersonalStack({
         {stack.backend_framework && (
           <StackItem
             header="Backend"
-            iconPath="backend_frameworks"
+            iconPath={stack.backend_framework.icon_path}
             icon={stack.backend_framework.icon}
+            hasDarkIcon={stack.backend_framework.has_dark_icon}
             title={stack.backend_framework.title}
             description={stack.backend_framework.description}
             link={stack.backend_framework.link}
@@ -113,8 +120,9 @@ export default async function PersonalStack({
                   ? library.other_library_category.title
                   : "Misc. Library"
               }
-              iconPath="other_libraries"
+              iconPath={library.icon_path}
               icon={library.icon}
+              hasDarkIcon={library.has_dark_icon}
               title={library.title}
               description={library.description}
               link={library.link}

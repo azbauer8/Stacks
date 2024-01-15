@@ -1,12 +1,5 @@
-import { Suspense } from "react"
-
-import StackGridLoader from "@/components/Loaders/StackGridLoader"
-import StackGrid from "@/components/StackGrid"
+import StackGridLoader from "@/components/StackGrid/StackGridLoader"
 
 export default async function Index() {
-  return (
-    <Suspense fallback={<StackGridLoader />}>
-      <StackGrid />
-    </Suspense>
-  )
+  return <StackGridLoader />
 }

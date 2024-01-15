@@ -10,8 +10,8 @@ export default async function StackGrid({
   personal?: boolean
 }) {
   const stacks = user
-    ? await GetUserStacks({ user, personal })
-    : await GetPublicStacks()
+    ? await GetUserStacks({ clientType: "server", user, personal })
+    : await GetPublicStacks({ clientType: "server" })
 
   if (stacks) {
     return (

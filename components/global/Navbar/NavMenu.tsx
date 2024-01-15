@@ -1,10 +1,9 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/utils/supabase/server"
 import { User } from "@supabase/supabase-js"
 import { MoreVerticalIcon } from "lucide-react"
 
-import { Database } from "@/types/supabase"
 import { UnstyledButton } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -20,9 +19,8 @@ export default function NavMenu({ user }: { user: User | null }) {
     "use server"
 
     const cookieStore = cookies()
-    const supabase = createServerActionClient<Database>({
-      cookies: () => cookieStore,
-    })
+    const supabase = createClient(cookieStore)
+
     await supabase.auth.signOut()
     return redirect("/")
   }

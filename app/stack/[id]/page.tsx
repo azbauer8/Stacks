@@ -1,17 +1,9 @@
-import { Suspense } from "react"
-
-import StackLoader from "@/components/Loaders/StackLoader"
-
-import Stack from "./Stack"
+import StackLoader from "./StackLoader"
 
 export default async function StackPage({
   params,
 }: {
   params: { id: string }
 }) {
-  return (
-    <Suspense fallback={<StackLoader />}>
-      <Stack id={params.id} />
-    </Suspense>
-  )
+  return <StackLoader id={params.id} />
 }

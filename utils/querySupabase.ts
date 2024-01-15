@@ -1,15 +1,19 @@
-"use server"
-
 import { cookies } from "next/headers"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient as createBrowserClient } from "@/utils/supabase/client"
+import { createClient as createServerClient } from "@/utils/supabase/server"
 
-import { Database, Tables } from "@/types/supabase"
+import { Tables } from "@/types/supabase"
 
-export async function GetAuthUser() {
+export async function GetAuthUser({
+  clientType,
+}: {
+  clientType: "server" | "client"
+}) {
   const cookieStore = cookies()
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  })
+  const supabase =
+    clientType === "server"
+      ? createServerClient(cookieStore)
+      : createBrowserClient()
 
   const {
     data: { user },
@@ -18,11 +22,18 @@ export async function GetAuthUser() {
   return user
 }
 
-export async function FindUser(username: string) {
+export async function FindUser({
+  clientType,
+  username,
+}: {
+  clientType: "server" | "client"
+  username: string
+}) {
   const cookieStore = cookies()
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  })
+  const supabase =
+    clientType === "server"
+      ? createServerClient(cookieStore)
+      : createBrowserClient()
   const { data: user } = await supabase
     .from("users")
     .select()
@@ -31,21 +42,35 @@ export async function FindUser(username: string) {
   return user?.length ? user[0] : undefined
 }
 
-export async function FindUserById(id: string) {
+export async function FindUserById({
+  clientType,
+  id,
+}: {
+  clientType: "server" | "client"
+  id: string
+}) {
   const cookieStore = cookies()
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  })
+  const supabase =
+    clientType === "server"
+      ? createServerClient(cookieStore)
+      : createBrowserClient()
   const { data: user } = await supabase.from("users").select().eq("id", id)
 
   return user?.length ? user[0] : undefined
 }
 
-export async function GetStackById(id: string) {
+export async function GetStackById({
+  clientType,
+  id,
+}: {
+  clientType: "server" | "client"
+  id: string
+}) {
   const cookieStore = cookies()
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  })
+  const supabase =
+    clientType === "server"
+      ? createServerClient(cookieStore)
+      : createBrowserClient()
   const { data: stack, error } = await supabase
     .from("stacks")
     .select(
@@ -59,16 +84,19 @@ export async function GetStackById(id: string) {
 }
 
 export async function GetUserStacks({
+  clientType,
   user,
   personal,
 }: {
+  clientType: "server" | "client"
   user: string
   personal?: boolean
 }) {
   const cookieStore = cookies()
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  })
+  const supabase =
+    clientType === "server"
+      ? createServerClient(cookieStore)
+      : createBrowserClient()
   const { data: stacks, error } = personal
     ? await supabase
         .from("stacks")
@@ -95,11 +123,16 @@ export async function GetUserStacks({
   return formattedStacks
 }
 
-export async function GetPublicStacks() {
+export async function GetPublicStacks({
+  clientType,
+}: {
+  clientType: "server" | "client"
+}) {
   const cookieStore = cookies()
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  })
+  const supabase =
+    clientType === "server"
+      ? createServerClient(cookieStore)
+      : createBrowserClient()
 
   const { data: stacks, error } = await supabase
     .from("stacks")
