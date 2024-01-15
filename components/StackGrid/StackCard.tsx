@@ -13,7 +13,7 @@ import {
 export default async function StackCard({ stack }: { stack: FormattedStack }) {
   return (
     <Link href={`/stack/${stack.id}`}>
-      <Card className="h-full w-full max-w-md">
+      <Card className="flex h-full w-full flex-col justify-between">
         <CardHeader className="space-y-1">
           <CardTitle>{stack.title}</CardTitle>
           <div className="flex justify-between text-sm text-muted-foreground">
@@ -26,10 +26,10 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
             <span>Updated {stack.updated_at}</span>
           </div>
         </CardHeader>
-        <CardContent className="text-sm text-muted-foreground">
+        <CardContent className="pb-2.5 text-sm text-muted-foreground">
           {stack.description}
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pb-4">
           <div className="flex items-center gap-4">
             {stack.language && (
               <Image
