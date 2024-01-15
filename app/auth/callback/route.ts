@@ -2,7 +2,9 @@ import { cookies } from "next/headers"
 import { notFound } from "next/navigation"
 import { NextResponse } from "next/server"
 import { FindUser, GetAuthUser } from "@/utils/querySupabase"
-import { createClient } from "@/utils/supabase/server"
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
+
+import { Database } from "@/types/supabase"
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
@@ -10,8 +12,9 @@ export async function GET(request: Request) {
 
   if (code) {
     const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
-
+    const supabase = createRouteHandlerClient<Database>({
+      cookies: () => cookieStore,
+    })
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
       const user = await GetAuthUser()

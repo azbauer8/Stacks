@@ -12,21 +12,27 @@ export interface Database {
       backend_frameworks: {
         Row: {
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -36,21 +42,27 @@ export interface Database {
       databases: {
         Row: {
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -60,21 +72,27 @@ export interface Database {
       frameworks: {
         Row: {
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -84,21 +102,27 @@ export interface Database {
       languages: {
         Row: {
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -108,21 +132,27 @@ export interface Database {
       meta_frameworks: {
         Row: {
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -133,7 +163,9 @@ export interface Database {
         Row: {
           category: number | null
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -141,7 +173,9 @@ export interface Database {
         Insert: {
           category?: number | null
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -149,7 +183,9 @@ export interface Database {
         Update: {
           category?: number | null
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -333,21 +369,27 @@ export interface Database {
       stylings: {
         Row: {
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -357,21 +399,27 @@ export interface Database {
       ui_libraries: {
         Row: {
           description: string | null
+          has_dark_icon: boolean
           icon: string | null
+          icon_path: string | null
           id: number
           link: string | null
           title: string
         }
         Insert: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
         }
         Update: {
           description?: string | null
+          has_dark_icon?: boolean
           icon?: string | null
+          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string

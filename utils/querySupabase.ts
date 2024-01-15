@@ -1,14 +1,15 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { createClient } from "@/utils/supabase/server"
-import { SupabaseClient } from "@supabase/supabase-js"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 
 import { Database, Tables } from "@/types/supabase"
 
 export async function GetAuthUser() {
   const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  })
 
   const {
     data: { user },
@@ -19,7 +20,9 @@ export async function GetAuthUser() {
 
 export async function FindUser(username: string) {
   const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  })
   const { data: user } = await supabase
     .from("users")
     .select()
@@ -30,7 +33,9 @@ export async function FindUser(username: string) {
 
 export async function FindUserById(id: string) {
   const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  })
   const { data: user } = await supabase.from("users").select().eq("id", id)
 
   return user?.length ? user[0] : undefined
@@ -38,7 +43,9 @@ export async function FindUserById(id: string) {
 
 export async function GetStackById(id: string) {
   const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  })
   const { data: stack, error } = await supabase
     .from("stacks")
     .select(
@@ -53,7 +60,9 @@ export async function GetStackById(id: string) {
 
 export async function GetUserStacks(user: string) {
   const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  })
   const { data: stacks, error } = await supabase
     .from("stacks")
     .select(
@@ -74,7 +83,9 @@ export async function GetUserStacks(user: string) {
 
 export async function GetPublicStacks() {
   const cookieStore = cookies()
-  const supabase: SupabaseClient<Database> = createClient(cookieStore)
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  })
 
   const { data: stacks, error } = await supabase
     .from("stacks")

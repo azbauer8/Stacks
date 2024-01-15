@@ -1,8 +1,9 @@
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
-import { createClient } from "@/utils/supabase/server"
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs"
 import { GithubIcon } from "lucide-react"
 
+import { Database } from "@/types/supabase"
 import { Button } from "@/components/ui/button"
 
 export default async function LoginButton() {
@@ -10,7 +11,9 @@ export default async function LoginButton() {
     "use server"
     const origin = headers().get("origin")
     const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const supabase = createServerActionClient<Database>({
+      cookies: () => cookieStore,
+    })
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",

@@ -33,68 +33,80 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
           <div className="flex items-center gap-4">
             {stack.language && (
               <Image
-                src={`/icons/languages/${stack.language.icon}`}
-                alt="Language"
+                src={`/icons/${stack.language.icon_path}/${stack.language.icon}`}
+                alt={stack.language.title}
                 width="24"
                 height="24"
+                className={stack.language.has_dark_icon ? "dark:invert" : ""}
               />
             )}
             {stack.framework && (
               <Image
-                src={`/icons/frameworks/${stack.framework.icon}`}
-                alt="Framework"
+                src={`/icons/${stack.framework.icon_path}/${stack.framework.icon}`}
+                alt={stack.framework.title}
                 width="24"
                 height="24"
+                className={stack.framework.has_dark_icon ? "dark:invert" : ""}
               />
             )}
             {stack.meta_framework && (
               <Image
-                src={`/icons/meta_frameworks/${stack.meta_framework.icon}`}
-                alt="Meta Framework"
+                src={`/icons/${stack.meta_framework.icon_path}/${stack.meta_framework.icon}`}
+                alt={stack.meta_framework.title}
                 width="24"
                 height="24"
+                className={
+                  stack.meta_framework.has_dark_icon ? "dark:invert" : ""
+                }
               />
             )}
             {stack.styling && (
               <Image
-                src={`/icons/stylings/${stack.styling.icon}`}
-                alt="Styling"
+                src={`/icons/${stack.styling.icon_path}/${stack.styling.icon}`}
+                alt={stack.styling.title}
                 width="24"
                 height="24"
+                className={stack.styling.has_dark_icon ? "dark:invert" : ""}
               />
             )}
             {stack.ui_library && (
               <Image
-                src={`/icons/ui_libraries/${stack.ui_library.icon}`}
-                alt="UI Library"
+                src={`/icons/${stack.ui_library.icon_path}/${stack.ui_library.icon}`}
+                alt={stack.ui_library.title}
                 width="24"
                 height="24"
+                className={stack.ui_library.has_dark_icon ? "dark:invert" : ""}
               />
             )}
             {stack.database && (
               <Image
-                src={`/icons/databases/${stack.database.icon}`}
-                alt="Database"
+                src={`/icons/${stack.database.icon_path}/${stack.database.icon}`}
+                alt={stack.database.title}
                 width="24"
                 height="24"
+                className={stack.database.has_dark_icon ? "dark:invert" : ""}
               />
             )}
             {stack.backend_framework && (
               <Image
-                src={`/icons/backend_frameworks/${stack.backend_framework.icon}`}
-                alt="Backend Framework"
+                src={`/icons/${stack.backend_framework.icon_path}/${stack.backend_framework.icon}`}
+                alt={stack.backend_framework.title}
                 width="24"
                 height="24"
+                className={
+                  stack.backend_framework.has_dark_icon ? "dark:invert" : ""
+                }
               />
             )}
             {stack.other_libraries &&
               stack.other_libraries.map((library) => (
                 <Image
                   key={library.id}
-                  src={`/icons/other_libraries/${library.icon}`}
-                  alt="Backend Framework"
+                  src={`/icons/${library.icon_path}/${library.icon}`}
+                  alt={library.title}
                   width="24"
                   height="24"
+                  className={library.has_dark_icon ? "dark:invert" : ""}
                 />
               ))}
           </div>
