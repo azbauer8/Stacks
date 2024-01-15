@@ -42,7 +42,7 @@ const StackModalWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <Drawer open={isOpen} onOpenChange={handleOpenChange}>
       <DrawerContent className="mx-2 outline-none focus:outline-none">
-        <ScrollArea className="max-h-[65vh] px-5 pb-5">{children}</ScrollArea>
+        <ScrollArea className="h-[55rem] px-5 pb-5">{children}</ScrollArea>
       </DrawerContent>
     </Drawer>
   )
