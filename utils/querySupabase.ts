@@ -58,17 +58,31 @@ export async function GetStackById(id: string) {
   return formatStack(stack[0])
 }
 
-export async function GetUserStacks(user: string) {
+export async function GetUserStacks({
+  user,
+  personal,
+}: {
+  user: string
+  personal?: boolean
+}) {
   const cookieStore = cookies()
   const supabase = createServerComponentClient<Database>({
     cookies: () => cookieStore,
   })
-  const { data: stacks, error } = await supabase
-    .from("stacks")
-    .select(
-      `*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))`
-    )
-    .eq("user", user)
+  const { data: stacks, error } = personal
+    ? await supabase
+        .from("stacks")
+        .select(
+          `*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))`
+        )
+        .eq("user", user)
+    : await supabase
+        .from("stacks")
+        .select(
+          `*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))`
+        )
+        .eq("user", user)
+        .eq("visibility", "public")
 
   if (!stacks?.length || error) return
 

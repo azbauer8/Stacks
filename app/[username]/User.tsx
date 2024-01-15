@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { FindUser } from "@/utils/querySupabase"
+import { FindUser, GetAuthUser } from "@/utils/querySupabase"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { badgeVariants } from "@/components/ui/badge"
@@ -10,6 +10,7 @@ import StackGrid from "@/components/StackGrid"
 
 export default async function UserPage({ username }: { username: string }) {
   const user = await FindUser(username)
+  const authUser = await GetAuthUser()
 
   if (user) {
     return (
@@ -37,7 +38,7 @@ export default async function UserPage({ username }: { username: string }) {
           </div>
         </div>
         <Suspense fallback={<StackGridLoader />}>
-          <StackGrid user={user.id} />
+          <StackGrid user={user.id} personal={user.id === authUser?.id} />
         </Suspense>
       </div>
     )

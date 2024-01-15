@@ -2,8 +2,16 @@ import { GetPublicStacks, GetUserStacks } from "@/utils/querySupabase"
 
 import StackCard from "./StackCard"
 
-export default async function StackGrid({ user }: { user?: string }) {
-  const stacks = user ? await GetUserStacks(user) : await GetPublicStacks()
+export default async function StackGrid({
+  user,
+  personal,
+}: {
+  user?: string
+  personal?: boolean
+}) {
+  const stacks = user
+    ? await GetUserStacks({ user, personal })
+    : await GetPublicStacks()
 
   if (stacks) {
     return (
