@@ -13,8 +13,8 @@ export default async function UserPageLayout({
   params: { username: string }
 }) {
   const username = params.username
-  const user = await FindUser({ clientType: "server", username })
-  const authUser = await GetAuthUser({ clientType: "server" })
+  const user = await FindUser({ username })
+  const authUser = await GetAuthUser()
 
   if (user) {
     return (

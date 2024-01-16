@@ -13,11 +13,8 @@ export async function GET(request: Request) {
     const supabase = createClient(cookieStore)
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      const user = await GetAuthUser({
-        clientType: "server",
-      })
+      const user = await GetAuthUser()
       const authUser = await FindUser({
-        clientType: "server",
         username: user?.user_metadata.user_name,
       })
 

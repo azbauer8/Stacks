@@ -4,16 +4,9 @@ import { createClient as createServerClient } from "@/utils/supabase/server"
 
 import { Tables } from "@/types/supabase"
 
-export async function GetAuthUser({
-  clientType,
-}: {
-  clientType: "server" | "client"
-}) {
+export async function GetAuthUser() {
   const cookieStore = cookies()
-  const supabase =
-    clientType === "server"
-      ? createServerClient(cookieStore)
-      : createBrowserClient()
+  const supabase = createServerClient(cookieStore)
 
   const {
     data: { user },
@@ -22,18 +15,9 @@ export async function GetAuthUser({
   return user
 }
 
-export async function FindUser({
-  clientType,
-  username,
-}: {
-  clientType: "server" | "client"
-  username: string
-}) {
+export async function FindUser({ username }: { username: string }) {
   const cookieStore = cookies()
-  const supabase =
-    clientType === "server"
-      ? createServerClient(cookieStore)
-      : createBrowserClient()
+  const supabase = createServerClient(cookieStore)
   const { data: user } = await supabase
     .from("users")
     .select()
@@ -42,35 +26,17 @@ export async function FindUser({
   return user?.length ? user[0] : undefined
 }
 
-export async function FindUserById({
-  clientType,
-  id,
-}: {
-  clientType: "server" | "client"
-  id: string
-}) {
+export async function FindUserById({ id }: { id: string }) {
   const cookieStore = cookies()
-  const supabase =
-    clientType === "server"
-      ? createServerClient(cookieStore)
-      : createBrowserClient()
+  const supabase = createServerClient(cookieStore)
   const { data: user } = await supabase.from("users").select().eq("id", id)
 
   return user?.length ? user[0] : undefined
 }
 
-export async function GetStackById({
-  clientType,
-  id,
-}: {
-  clientType: "server" | "client"
-  id: string
-}) {
+export async function GetStackById({ id }: { id: string }) {
   const cookieStore = cookies()
-  const supabase =
-    clientType === "server"
-      ? createServerClient(cookieStore)
-      : createBrowserClient()
+  const supabase = createServerClient(cookieStore)
   const { data: stack, error } = await supabase
     .from("stacks")
     .select(
@@ -84,19 +50,14 @@ export async function GetStackById({
 }
 
 export async function GetUserStacks({
-  clientType,
   user,
   personal,
 }: {
-  clientType: "server" | "client"
   user: string
   personal?: boolean
 }) {
   const cookieStore = cookies()
-  const supabase =
-    clientType === "server"
-      ? createServerClient(cookieStore)
-      : createBrowserClient()
+  const supabase = createServerClient(cookieStore)
   const { data: stacks, error } = personal
     ? await supabase
         .from("stacks")
@@ -123,16 +84,9 @@ export async function GetUserStacks({
   return formattedStacks
 }
 
-export async function GetPublicStacks({
-  clientType,
-}: {
-  clientType: "server" | "client"
-}) {
+export async function GetPublicStacks() {
   const cookieStore = cookies()
-  const supabase =
-    clientType === "server"
-      ? createServerClient(cookieStore)
-      : createBrowserClient()
+  const supabase = createServerClient(cookieStore)
 
   const { data: stacks, error } = await supabase
     .from("stacks")

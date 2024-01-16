@@ -29,7 +29,7 @@ export default function NavMenu({ user }: { user: User | null }) {
     <DropdownMenu>
       <DropdownMenuTrigger className="w-fit rounded-md px-1 py-2 hover:bg-accent hover:text-accent-foreground">
         <MoreVerticalIcon className="size-[1.3rem]" />
-        <span className="sr-only">Toggle theme</span>
+        <span className="sr-only">Dropdown menu</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <ThemeToggle />

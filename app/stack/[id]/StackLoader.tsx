@@ -9,13 +9,13 @@ import {
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-import StackController from "./StackController"
+import StackPage from "./StackPage"
 
 export default function StackLoader({ id }: { id: string }) {
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <StackController id={id} />
+        <StackPage id={id} />
       </Suspense>
     </>
   )
