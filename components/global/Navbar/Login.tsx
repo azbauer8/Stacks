@@ -1,9 +1,6 @@
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { createClient } from "@/utils/supabase/server"
-import { GithubIcon } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
 
 import { LoginButton } from "./LoginButton"
 

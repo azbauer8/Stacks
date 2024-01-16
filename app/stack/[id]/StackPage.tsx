@@ -1,7 +1,9 @@
 import Link from "next/link"
 import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
+import { EyeIcon, EyeOffIcon, LinkIcon } from "lucide-react"
 
 import { badgeVariants } from "@/components/ui/badge"
+import { buttonVariants } from "@/components/ui/button"
 
 import StackItem from "./StackListItem"
 
@@ -17,11 +19,14 @@ export default async function StackPage({ id }: { id: string }) {
     // check that stack is either publicly viewable, or the user is the owner (so they can view it if it's private)
     if (stack.visibility === "public" || authUser?.id === stack.user?.id) {
       return (
-        <div className="mx-auto mt-6 space-y-8 px-0.5">
+        <div className="mx-auto mt-6 px-0.5">
           <div>
-            <h2 className="text-3xl font-bold leading-none tracking-tight">
-              {stack.title}
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-bold leading-none tracking-tight">
+                {stack.title}
+              </h2>
+              {stack.visibility === "public" ? <EyeIcon /> : <EyeOffIcon />}
+            </div>
             <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-sm">
               <Link
                 href={`/${stack.user?.user_name}`}
@@ -31,15 +36,23 @@ export default async function StackPage({ id }: { id: string }) {
               >
                 <h2>{stack.user?.user_name}</h2>
               </Link>
-              <div className="w-32" />
+              <div className="w-12" />
               <div className="text-right text-muted-foreground">
-                Updated{" "}
-                <span className="font-medium">
-                  {new Date(stack.updated_at).toDateString()}
-                </span>
+                Updated <span className="font-medium">{stack.updated_at}</span>
               </div>
             </div>
             <p className="mt-4 text-sm">{stack.description}</p>
+            {stack.link && (
+              <Link
+                href={stack.link}
+                className={`${buttonVariants({
+                  variant: "link",
+                })} gap-1 pl-0`}
+              >
+                <LinkIcon className="size-4" />
+                {stack.link}
+              </Link>
+            )}
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {stack.language && (

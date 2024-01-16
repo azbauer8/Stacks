@@ -11,8 +11,6 @@ import { Button } from "@/components/ui/button"
 export function LoginButton() {
   const { pending } = useFormStatus()
 
-  console.log(pending)
-
   return (
     <Button className="flex h-fit items-center gap-1 px-1.5 py-2">
       {pending ? (

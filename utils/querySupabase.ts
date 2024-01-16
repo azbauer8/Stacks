@@ -128,6 +128,7 @@ export type FormattedStack = {
   updated_at: PreformattedStack["updated_at"]
   title: PreformattedStack["title"]
   description: PreformattedStack["description"]
+  link: PreformattedStack["link"]
   user: PreformattedStack["users"]
   use_case: PreformattedStack["use_cases"]
   language: PreformattedStack["languages"]
@@ -148,6 +149,7 @@ function formatStack(stack: PreformattedStack) {
     updated_at: formatDate(stack.updated_at),
     title: stack.title,
     description: stack.description,
+    link: stack.link,
     user: stack.users,
     use_case: stack.use_cases,
     language: stack.languages,
@@ -168,7 +170,7 @@ function formatStack(stack: PreformattedStack) {
 function formatDate(date: string) {
   const formattedDate = new Date(date)
   const dateOpt = {
-    year: "2-digit" as "numeric" | "2-digit" | undefined,
+    year: "numeric" as "numeric" | "2-digit" | undefined,
     month: "short" as
       | "2-digit"
       | "numeric"
@@ -176,7 +178,6 @@ function formatDate(date: string) {
       | "short"
       | "narrow"
       | undefined,
-    day: "numeric" as "numeric" | "2-digit" | undefined,
   }
   return formattedDate.toLocaleString("en-US", dateOpt)
 }
