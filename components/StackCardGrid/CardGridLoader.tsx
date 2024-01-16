@@ -30,7 +30,7 @@ export default function CardGridLoader({
 export function Loading() {
   return (
     <div className="grid grid-cols-1 gap-5 md:mx-5 md:grid-cols-2">
-      <Card className="flex h-full w-full flex-col justify-between">
+      <Card className="flex flex-col justify-between">
         <CardHeader className="space-y-2">
           <CardTitle>
             <Skeleton className="h-6 w-[120px] rounded-xl" />
