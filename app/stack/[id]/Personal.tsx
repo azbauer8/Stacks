@@ -33,7 +33,7 @@ export default async function PersonalStack({
         </div>
         <p className="mt-2 text-sm ">{stack.description}</p>
       </div>
-      <div className="mt-8 space-y-3">
+      <div className="space-y-3">
         {stack.language && (
           <StackItem
             header="Language"
@@ -128,6 +128,7 @@ export default async function PersonalStack({
               link={library.link}
             />
           ))}
+        <div />
       </div>
     </div>
   )

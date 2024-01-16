@@ -4,7 +4,8 @@ import { FindUser, GetAuthUser } from "@/utils/querySupabase"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { badgeVariants } from "@/components/ui/badge"
-import StackGridLoader from "@/components/StackGrid/StackGridLoader"
+import { Skeleton } from "@/components/ui/skeleton"
+import CardGridLoader from "@/components/StackCardGrid/CardGridLoader"
 
 export default async function UserPageLayout({
   params,
@@ -40,7 +41,7 @@ export default async function UserPageLayout({
             </Link>
           </div>
         </div>
-        <StackGridLoader user={user.id} personal={user.id === authUser?.id} />
+        <CardGridLoader user={user.id} personal={user.id === authUser?.id} />
       </div>
     )
   } else {

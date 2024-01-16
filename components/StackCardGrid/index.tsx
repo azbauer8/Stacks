@@ -2,7 +2,7 @@ import { GetPublicStacks, GetUserStacks } from "@/utils/querySupabase"
 
 import StackCard from "./StackCard"
 
-export default async function StackGrid({
+export default async function StackCardGrid({
   user,
   personal,
 }: {

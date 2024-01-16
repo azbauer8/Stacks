@@ -34,7 +34,7 @@ const StackModalWrapper = ({ children }: { children: React.ReactNode }) => {
     return (
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         <DialogContent className="max-w-3xl">
-          <ScrollArea className="max-h-[65vh] pb-5 pr-4">{children}</ScrollArea>
+          <ScrollArea className="max-h-[65vh] pr-4">{children}</ScrollArea>
         </DialogContent>
       </Dialog>
     )
@@ -42,7 +42,7 @@ const StackModalWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <Drawer open={isOpen} onOpenChange={handleOpenChange}>
       <DrawerContent className="mx-2 outline-none focus:outline-none">
-        <ScrollArea className="h-[55rem] px-5 pb-5">{children}</ScrollArea>
+        <ScrollArea className="h-[55rem] px-5">{children}</ScrollArea>
       </DrawerContent>
     </Drawer>
   )

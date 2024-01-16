@@ -1,5 +1,5 @@
-import StackGridLoader from "@/components/StackGrid/StackGridLoader"
+import CardGridLoader from "@/components/StackCardGrid/CardGridLoader"
 
 export default async function Index() {
-  return <StackGridLoader />
+  return <CardGridLoader />
 }
