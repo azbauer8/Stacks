@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FindUser, GetAuthUser } from "@/utils/querySupabase"
+import { GithubIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { badgeVariants } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
 import CardGridLoader from "@/components/StackCardGrid/CardGridLoader"
 
 export default async function UserPageLayout({
@@ -37,7 +37,10 @@ export default async function UserPageLayout({
                 variant: "default",
               })} w-fit items-center text-[13px]`}
             >
-              <h2>@{user.user_name}</h2>
+              <h2 className="flex items-center gap-0.5">
+                <GithubIcon className="size-4" />
+                {user.user_name}
+              </h2>
             </Link>
           </div>
         </div>

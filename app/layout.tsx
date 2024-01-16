@@ -34,7 +34,7 @@ export default function RootLayout({
             <Suspense fallback={<NavLoader />}>
               <Nav />
             </Suspense>
-            <div className="w-full max-w-4xl flex-1 px-5 md:px-0">
+            <div className="w-full max-w-4xl flex-1 px-5 lg:px-0">
               {children}
             </div>
             <Footer />

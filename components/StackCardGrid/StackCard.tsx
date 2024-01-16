@@ -13,7 +13,7 @@ import {
 export default async function StackCard({ stack }: { stack: FormattedStack }) {
   return (
     <Link href={`/stack/${stack.id}`}>
-      <Card className="flex h-full w-full flex-col justify-between">
+      <Card className="flex flex-col justify-between hover:bg-secondary">
         <CardHeader className="space-y-1">
           <CardTitle>{stack.title}</CardTitle>
           <div className="flex justify-between text-sm text-muted-foreground">

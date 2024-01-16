@@ -35,7 +35,7 @@ function Loading() {
         <Skeleton className="h-4 w-96 rounded-xl" />
       </div>
       <div className="space-y-3">
-        <Card className="hover:bg-secondary">
+        <Card>
           <CardHeader className="pb-2.5">
             <div className="flex items-center space-x-3">
               <Skeleton className="h-10 w-10 rounded-full" />
@@ -51,7 +51,7 @@ function Loading() {
             </CardDescription>
           </CardContent>
         </Card>
-        <Card className="hover:bg-secondary">
+        <Card>
           <CardHeader className="pb-2.5">
             <div className="flex items-center space-x-3">
               <Skeleton className="h-10 w-10 rounded-full" />
@@ -67,7 +67,7 @@ function Loading() {
             </CardDescription>
           </CardContent>
         </Card>
-        <Card className="hover:bg-secondary">
+        <Card>
           <CardHeader className="pb-2.5">
             <div className="flex items-center space-x-3">
               <Skeleton className="h-10 w-10 rounded-full" />
@@ -83,7 +83,7 @@ function Loading() {
             </CardDescription>
           </CardContent>
         </Card>
-        <Card className="hover:bg-secondary">
+        <Card>
           <CardHeader className="pb-2.5">
             <div className="flex items-center space-x-3">
               <Skeleton className="h-10 w-10 rounded-full" />
@@ -99,7 +99,7 @@ function Loading() {
             </CardDescription>
           </CardContent>
         </Card>
-        <Card className="hover:bg-secondary">
+        <Card>
           <CardHeader className="pb-2.5">
             <div className="flex items-center space-x-3">
               <Skeleton className="h-10 w-10 rounded-full" />

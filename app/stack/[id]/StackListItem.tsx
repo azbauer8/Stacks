@@ -31,7 +31,8 @@ export default function StackItem({
   return (
     <Card className="hover:bg-secondary">
       <Link href={link ? link : "/"}>
-        <CardHeader className="pb-2.5">
+        <CardHeader className="space-y-2 p-3">
+          <Badge className="w-fit rounded-md px-1.5 text-xs">{header}</Badge>
           <div className="flex items-center space-x-3">
             {icon ? (
               <Image
@@ -48,13 +49,10 @@ export default function StackItem({
                 </AvatarFallback>
               </Avatar>
             )}
-            <CardTitle>{title}</CardTitle>
+            <CardTitle className="text-xl">{title}</CardTitle>
           </div>
-          <Badge className="ml-11 w-fit rounded-md px-1.5 text-sm">
-            {header}
-          </Badge>
         </CardHeader>
-        <CardContent className="pb-4">
+        <CardContent className="px-3 pb-2">
           <CardDescription>{description}</CardDescription>
         </CardContent>
       </Link>
