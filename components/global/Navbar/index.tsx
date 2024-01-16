@@ -6,7 +6,7 @@ import { PlusCircleIcon } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { buttonVariants } from "@/components/ui/button"
 
-import LoginButton from "./LoginButton"
+import Login from "./Login"
 import NavMenu from "./NavMenu"
 
 export default async function Nav() {
@@ -43,7 +43,7 @@ export default async function Nav() {
               </Link>
             </>
           ) : (
-            <LoginButton />
+            <Login />
           )}
           <NavMenu user={user} />
         </div>

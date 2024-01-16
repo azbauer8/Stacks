@@ -1,38 +1,31 @@
-import { cookies, headers } from "next/headers"
-import { redirect } from "next/navigation"
-import { createClient } from "@/utils/supabase/server"
+"use client"
+
+import Image from "next/image"
 import { GithubIcon } from "lucide-react"
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import { useFormStatus } from "react-dom"
 
 import { Button } from "@/components/ui/button"
 
-export default async function LoginButton() {
-  const signInWithGithub = async () => {
-    "use server"
-    const origin = headers().get("origin")
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+export function LoginButton() {
+  const { pending } = useFormStatus()
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: `${origin}/auth/callback`,
-      },
-    })
-
-    if (error) {
-      console.error(error)
-      return redirect("/")
-    }
-
-    redirect(data.url)
-  }
+  console.log(pending)
 
   return (
-    <form action={signInWithGithub}>
-      <Button className="flex h-fit items-center gap-1 px-1.5 py-2">
+    <Button className="flex h-fit items-center gap-1 px-1.5 py-2">
+      {pending ? (
+        <Image
+          src={"/svg-loaders/tail-spin.svg"}
+          alt="Loading"
+          width={20}
+          height={20}
+        />
+      ) : (
         <GithubIcon className="size-5" />
-        Sign In
-      </Button>
-    </form>
+      )}
+      Sign In
+    </Button>
   )
 }
