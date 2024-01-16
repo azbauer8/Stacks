@@ -13,7 +13,9 @@ export default async function StackPage({ id }: { id: string }) {
 
     if (authUser && authUser.id === stack.user?.id) {
       // this is a personal stack
-    } else if (stack.visibility === "public") {
+    }
+    // check that stack is either publicly viewable, or the user is the owner (so they can view it if it's private)
+    if (stack.visibility === "public" || authUser?.id === stack.user?.id) {
       return (
         <div className="mx-auto mt-6 space-y-8 px-0.5">
           <div>
