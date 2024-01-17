@@ -1,16 +1,58 @@
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
 import { EyeIcon, EyeOffIcon, LinkIcon } from "lucide-react"
 
+import { Tables } from "@/types/supabase"
 import { badgeVariants } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 
 import StackItem from "./StackListItem"
 
+type StackElement = Tables<"frameworks"> & { header: string }
+
 export default async function StackPage({ id }: { id: string }) {
   const stack = await GetStackById({ id })
 
   if (stack) {
+    const allStackElements = [
+      { type: "language", header: "Language" },
+      { type: "framework", header: "Framework" },
+      { type: "meta_framework", header: "Meta Framework" },
+      { type: "styling", header: "Styling" },
+      { type: "ui_library", header: "UI Library" },
+      { type: "backend_framework", header: "Backend Framework" },
+      { type: "database", header: "Database" },
+      { type: "other_libraries", header: "Other Libraries" },
+    ]
+    const stackElements: StackElement[] = []
+    allStackElements.forEach((stackElement) => {
+      // TODO: figure out how to do this without surpressing ts errors
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (stack[stackElement.type]) {
+        if (stackElement.type === "other_libraries") {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          stack[stackElement.type].map((other_library) => {
+            stackElements.push({
+              ...other_library,
+              header: other_library.other_library_category?.title
+                ? other_library.other_library_category.title
+                : "Misc. Library",
+            })
+          })
+        } else {
+          stackElements.push({
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            ...stack[stackElement.type],
+            header: stackElement.header,
+          })
+        }
+      }
+    })
+
     const authUser = await GetAuthUser()
 
     if (authUser && authUser.id === stack.user?.id) {
@@ -55,107 +97,25 @@ export default async function StackPage({ id }: { id: string }) {
             )}
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            {stack.language && (
+            {stackElements.map((stackElement) => (
               <StackItem
-                header="Language"
-                iconPath={stack.language.icon_path}
-                icon={stack.language.icon}
-                hasDarkIcon={stack.language.has_dark_icon}
-                title={stack.language.title}
-                description={stack.language.description}
-                link={stack.language.link}
+                key={stackElement.id}
+                header={stackElement.header}
+                iconPath={stackElement.icon_path}
+                icon={stackElement.icon}
+                hasDarkIcon={stackElement.has_dark_icon}
+                title={stackElement.title}
+                description={stackElement.description}
+                link={stackElement.link}
               />
-            )}
-            {stack.framework && (
-              <StackItem
-                header="Frontend"
-                iconPath={stack.framework.icon_path}
-                icon={stack.framework.icon}
-                hasDarkIcon={stack.framework.has_dark_icon}
-                title={stack.framework.title}
-                description={stack.framework.description}
-                link={stack.framework.link}
-              />
-            )}
-            {stack.meta_framework && (
-              <StackItem
-                header="Meta Framework"
-                iconPath={stack.meta_framework.icon_path}
-                icon={stack.meta_framework.icon}
-                hasDarkIcon={stack.meta_framework.has_dark_icon}
-                title={stack.meta_framework.title}
-                description={stack.meta_framework.description}
-                link={stack.meta_framework.link}
-              />
-            )}
-            {stack.styling && (
-              <StackItem
-                header="Styling"
-                iconPath={stack.styling.icon_path}
-                icon={stack.styling.icon}
-                hasDarkIcon={stack.styling.has_dark_icon}
-                title={stack.styling.title}
-                description={stack.styling.description}
-                link={stack.styling.link}
-              />
-            )}
-            {stack.ui_library && (
-              <StackItem
-                header="UI Library"
-                iconPath={stack.ui_library.icon_path}
-                icon={stack.ui_library.icon}
-                hasDarkIcon={stack.ui_library.has_dark_icon}
-                title={stack.ui_library.title}
-                description={stack.ui_library.description}
-                link={stack.ui_library.link}
-              />
-            )}
-            {stack.database && (
-              <StackItem
-                header="Database"
-                iconPath={stack.database.icon_path}
-                icon={stack.database.icon}
-                hasDarkIcon={stack.database.has_dark_icon}
-                title={stack.database.title}
-                description={stack.database.description}
-                link={stack.database.link}
-              />
-            )}
-            {stack.backend_framework && (
-              <StackItem
-                header="Backend"
-                iconPath={stack.backend_framework.icon_path}
-                icon={stack.backend_framework.icon}
-                hasDarkIcon={stack.backend_framework.has_dark_icon}
-                title={stack.backend_framework.title}
-                description={stack.backend_framework.description}
-                link={stack.backend_framework.link}
-              />
-            )}
-            {stack.other_libraries &&
-              stack.other_libraries.map((library) => (
-                <StackItem
-                  key={library.id}
-                  header={
-                    library.other_library_category?.title
-                      ? library.other_library_category.title
-                      : "Misc. Library"
-                  }
-                  iconPath={library.icon_path}
-                  icon={library.icon}
-                  hasDarkIcon={library.has_dark_icon}
-                  title={library.title}
-                  description={library.description}
-                  link={library.link}
-                />
-              ))}
+            ))}
           </div>
         </div>
       )
     } else {
-      return <div>Stack not found</div>
+      return notFound()
     }
   } else {
-    return <div>Stack not found</div>
+    return notFound()
   }
 }

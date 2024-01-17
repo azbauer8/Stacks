@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { FormattedStack } from "@/utils/querySupabase"
 
+import { Tables } from "@/types/supabase"
 import {
   Card,
   CardContent,
@@ -11,6 +12,38 @@ import {
 } from "@/components/ui/card"
 
 export default async function StackCard({ stack }: { stack: FormattedStack }) {
+  const iconPool = [
+    "language",
+    "framework",
+    "meta_framework",
+    "styling",
+    "ui_library",
+    "backend_framework",
+    "database",
+  ]
+  const icons: Tables<"frameworks">[] = []
+  let count = 0
+  const COUNT_LIMIT = 6
+  iconPool.forEach((type) => {
+    if (count === COUNT_LIMIT) return
+    // TODO: figure out how to do this without surpressing ts errors
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (stack[type]) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      icons.push(stack[type])
+      count = count + 1
+    }
+  })
+  if (count < COUNT_LIMIT && stack.other_libraries) {
+    stack.other_libraries.map((other_library) => {
+      if (count === COUNT_LIMIT) return
+      icons.push(other_library)
+      count = count + 1
+    })
+  }
+  console.log(icons)
   return (
     <Link href={`/stack/${stack.id}`}>
       <Card className="flex h-full flex-col hover:bg-secondary">
@@ -34,86 +67,16 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
           </CardContent>
           <CardFooter className="pb-4">
             <div className="flex items-center gap-4">
-              {stack.language && (
+              {icons.map((icon) => (
                 <Image
-                  src={`/icons/${stack.language.icon_path}/${stack.language.icon}`}
-                  alt={stack.language.title}
+                  key={icon.id}
+                  src={`/icons/${icon.icon_path}/${icon.icon}`}
+                  alt={icon.title}
                   width="24"
                   height="24"
-                  className={stack.language.has_dark_icon ? "dark:invert" : ""}
+                  className={icon.has_dark_icon ? "dark:invert" : ""}
                 />
-              )}
-              {stack.framework && (
-                <Image
-                  src={`/icons/${stack.framework.icon_path}/${stack.framework.icon}`}
-                  alt={stack.framework.title}
-                  width="24"
-                  height="24"
-                  className={stack.framework.has_dark_icon ? "dark:invert" : ""}
-                />
-              )}
-              {stack.meta_framework && (
-                <Image
-                  src={`/icons/${stack.meta_framework.icon_path}/${stack.meta_framework.icon}`}
-                  alt={stack.meta_framework.title}
-                  width="24"
-                  height="24"
-                  className={
-                    stack.meta_framework.has_dark_icon ? "dark:invert" : ""
-                  }
-                />
-              )}
-              {stack.styling && (
-                <Image
-                  src={`/icons/${stack.styling.icon_path}/${stack.styling.icon}`}
-                  alt={stack.styling.title}
-                  width="24"
-                  height="24"
-                  className={stack.styling.has_dark_icon ? "dark:invert" : ""}
-                />
-              )}
-              {stack.ui_library && (
-                <Image
-                  src={`/icons/${stack.ui_library.icon_path}/${stack.ui_library.icon}`}
-                  alt={stack.ui_library.title}
-                  width="24"
-                  height="24"
-                  className={
-                    stack.ui_library.has_dark_icon ? "dark:invert" : ""
-                  }
-                />
-              )}
-              {stack.database && (
-                <Image
-                  src={`/icons/${stack.database.icon_path}/${stack.database.icon}`}
-                  alt={stack.database.title}
-                  width="24"
-                  height="24"
-                  className={stack.database.has_dark_icon ? "dark:invert" : ""}
-                />
-              )}
-              {stack.backend_framework && (
-                <Image
-                  src={`/icons/${stack.backend_framework.icon_path}/${stack.backend_framework.icon}`}
-                  alt={stack.backend_framework.title}
-                  width="24"
-                  height="24"
-                  className={
-                    stack.backend_framework.has_dark_icon ? "dark:invert" : ""
-                  }
-                />
-              )}
-              {stack.other_libraries &&
-                stack.other_libraries.map((library) => (
-                  <Image
-                    key={library.id}
-                    src={`/icons/${library.icon_path}/${library.icon}`}
-                    alt={library.title}
-                    width="24"
-                    height="24"
-                    className={library.has_dark_icon ? "dark:invert" : ""}
-                  />
-                ))}
+              ))}
             </div>
           </CardFooter>
         </div>
