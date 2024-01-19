@@ -4,10 +4,11 @@ import "./globals.css"
 
 import { Suspense } from "react"
 
-import { ThemeProvider } from "@/components/ui/theme-provider"
+import CreateStack from "@/components/CreateStack"
 import Footer from "@/components/global/Footer"
 import Nav from "@/components/global/Navbar"
 import NavLoader from "@/components/global/Navbar/NavLoader"
+import { Providers } from "@/components/Providers"
 
 export const metadata = {
   title: "Stacks",
@@ -24,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-        <ThemeProvider
+        <Providers
           attribute="class"
           defaultTheme="system"
           enableSystem
@@ -40,7 +41,8 @@ export default function RootLayout({
             <Footer />
           </main>
           {stackModal}
-        </ThemeProvider>
+          <CreateStack />
+        </Providers>
       </body>
     </html>
   )

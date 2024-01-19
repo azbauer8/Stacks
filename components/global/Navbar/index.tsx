@@ -1,11 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { GetAuthUser } from "@/utils/querySupabase"
-import { PlusCircleIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { buttonVariants } from "@/components/ui/button"
 
+import CreateStackButton from "./CreateStackButton"
 import Login from "./Login"
 import NavMenu from "./NavMenu"
 
@@ -24,15 +23,7 @@ export default async function Nav() {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              <Link
-                href=""
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "icon",
-                })}
-              >
-                <PlusCircleIcon className="size-6" />
-              </Link>
+              <CreateStackButton />
               <Link href={`/${user.user_metadata.preferred_username}`}>
                 <Avatar className="hover:brightness-50">
                   <AvatarImage src={user.user_metadata.avatar_url} />

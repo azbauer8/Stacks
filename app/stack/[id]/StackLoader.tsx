@@ -34,89 +34,35 @@ function Loading() {
         </div>
         <Skeleton className="h-4 w-96 rounded-xl" />
       </div>
-      <div className="space-y-3">
-        <Card>
-          <CardHeader className="pb-2.5">
-            <div className="flex items-center space-x-3">
-              <Skeleton className="h-10 w-10 rounded-full" />
-              <CardTitle>
-                <Skeleton className="h-6 w-[130px] rounded-xl" />
-              </CardTitle>
-            </div>
-            <Skeleton className="ml-14 h-5 w-20 rounded-md px-1.5" />
-          </CardHeader>
-          <CardContent className="pb-4">
-            <CardDescription>
-              <Skeleton className="h-4 w-96 rounded-xl" />
-            </CardDescription>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2.5">
-            <div className="flex items-center space-x-3">
-              <Skeleton className="h-10 w-10 rounded-full" />
-              <CardTitle>
-                <Skeleton className="h-6 w-[130px] rounded-xl" />
-              </CardTitle>
-            </div>
-            <Skeleton className="ml-14 h-5 w-20 rounded-md px-1.5" />
-          </CardHeader>
-          <CardContent className="pb-4">
-            <CardDescription>
-              <Skeleton className="h-4 w-96 rounded-xl" />
-            </CardDescription>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2.5">
-            <div className="flex items-center space-x-3">
-              <Skeleton className="h-10 w-10 rounded-full" />
-              <CardTitle>
-                <Skeleton className="h-6 w-[130px] rounded-xl" />
-              </CardTitle>
-            </div>
-            <Skeleton className="ml-14 h-5 w-20 rounded-md px-1.5" />
-          </CardHeader>
-          <CardContent className="pb-4">
-            <CardDescription>
-              <Skeleton className="h-4 w-96 rounded-xl" />
-            </CardDescription>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2.5">
-            <div className="flex items-center space-x-3">
-              <Skeleton className="h-10 w-10 rounded-full" />
-              <CardTitle>
-                <Skeleton className="h-6 w-[130px] rounded-xl" />
-              </CardTitle>
-            </div>
-            <Skeleton className="ml-14 h-5 w-20 rounded-md px-1.5" />
-          </CardHeader>
-          <CardContent className="pb-4">
-            <CardDescription>
-              <Skeleton className="h-4 w-96 rounded-xl" />
-            </CardDescription>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2.5">
-            <div className="flex items-center space-x-3">
-              <Skeleton className="h-10 w-10 rounded-full" />
-              <CardTitle>
-                <Skeleton className="h-6 w-[130px] rounded-xl" />
-              </CardTitle>
-            </div>
-            <Skeleton className="ml-14 h-5 w-20 rounded-md px-1.5" />
-          </CardHeader>
-          <CardContent className="pb-4">
-            <CardDescription>
-              <Skeleton className="h-4 w-96 rounded-xl" />
-            </CardDescription>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <StackCardSkeleton />
+        <StackCardSkeleton />
+        <StackCardSkeleton />
+        <StackCardSkeleton />
+        <StackCardSkeleton />
         <div />
       </div>
     </div>
+  )
+}
+
+function StackCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader className="pb-2.5">
+        <Skeleton className=" h-5 w-20 rounded-md px-1.5" />
+        <div className="flex items-center space-x-3">
+          <Skeleton className="h-10 w-10 rounded-full" />
+          <CardTitle>
+            <Skeleton className="h-6 w-[130px] rounded-xl" />
+          </CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent className="pb-4">
+        <CardDescription>
+          <Skeleton className="h-4 w-72 rounded-xl md:w-56" />
+        </CardDescription>
+      </CardContent>
+    </Card>
   )
 }
