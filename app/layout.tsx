@@ -5,7 +5,6 @@ import "./globals.css"
 import { Suspense } from "react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
-import CreateStack from "@/components/CreateStack"
 import Footer from "@/components/global/Footer"
 import Nav from "@/components/global/Navbar"
 import NavLoader from "@/components/global/Navbar/NavLoader"
@@ -42,7 +41,6 @@ export default function RootLayout({
             <Footer />
           </main>
           {stackModal}
-          <CreateStack />
         </Providers>
         <SpeedInsights />
       </body>
