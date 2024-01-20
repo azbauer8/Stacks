@@ -23,26 +23,31 @@ export default function RootLayout({
   stackModal: React.ReactNode
 }) {
   return (
+    // <html lang="en" className={GeistSans.className}>
+    //   <body className="bg-background text-foreground">
+    //     <Providers
+    //       attribute="class"
+    //       defaultTheme="system"
+    //       enableSystem
+    //       disableTransitionOnChange
+    //     >
+    //       <main className="flex min-h-screen flex-col items-center gap-5">
+    //         <Suspense fallback={<NavLoader />}>
+    //           <Nav />
+    //         </Suspense>
+    //         <div className="w-full max-w-4xl flex-1 px-5 lg:px-0">
+    //           {children}
+    //         </div>
+    //         <Footer />
+    //       </main>
+    //       {stackModal}
+    //       <CreateStack />
+    //     </Providers>
+    //   </body>
+    // </html>
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-        <Providers
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="flex min-h-screen flex-col items-center gap-5">
-            <Suspense fallback={<NavLoader />}>
-              <Nav />
-            </Suspense>
-            <div className="w-full max-w-4xl flex-1 px-5 lg:px-0">
-              {children}
-            </div>
-            <Footer />
-          </main>
-          {stackModal}
-          <CreateStack />
-        </Providers>
+        <div className="w-full max-w-4xl flex-1 px-5 lg:px-0">{children}</div>
       </body>
     </html>
   )

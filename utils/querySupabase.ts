@@ -1,5 +1,4 @@
 import { cookies } from "next/headers"
-import { createClient as createBrowserClient } from "@/utils/supabase/client"
 import { createClient as createServerClient } from "@/utils/supabase/server"
 
 import { Tables } from "@/types/supabase"
