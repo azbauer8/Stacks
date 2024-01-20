@@ -7,36 +7,42 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Form } from "@/components/ui/form"
+
+import BasicInfo from "./FormFields/BasicInfo"
+import UseCases from "./FormFields/UseCase"
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  title: z.string().min(1, {
+    message: "Title must be at least 1 character.",
   }),
+  description: z.string().optional(),
+  link: z.string().url().optional(),
+  visibility: z.enum(["public", "private"], {
+    required_error: "You need to select a visibility type.",
+  }),
+  use_case: z.object({ id: z.number(), title: z.string() }).optional(),
 })
+
+export type FormData = z.infer<typeof formSchema>
 
 export default function ProfileForm() {
   const supabase = createClient()
+  // use this to assign the created stack to the user
   const query = useQuery({
     queryKey: ["authUser"],
     queryFn: async () => await supabase.auth.getUser(),
   })
-  query.isSuccess && console.log(query.data)
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      title: "",
+      description: undefined,
+      link: undefined,
+      visibility: "public",
+      use_case: undefined,
     },
   })
 
@@ -50,23 +56,9 @@ export default function ProfileForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+        <BasicInfo form={form} />
+        <UseCases form={form} />
+        <Button type="submit">Create</Button>
       </form>
     </Form>
   )

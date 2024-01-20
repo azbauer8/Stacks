@@ -43,7 +43,6 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
       count = count + 1
     })
   }
-  console.log(icons)
   return (
     <Link href={`/stack/${stack.id}`}>
       <Card className="flex h-full flex-col hover:bg-secondary">

@@ -8,7 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Footer from "@/components/global/Footer"
 import Nav from "@/components/global/Navbar"
 import NavLoader from "@/components/global/Navbar/NavLoader"
-import { Providers } from "@/components/Providers"
+import { Providers } from "@/components/global/Providers"
 
 export const metadata = {
   title: "Stacks",
