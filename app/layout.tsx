@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans"
 import "./globals.css"
 
 import { Suspense } from "react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import CreateStack from "@/components/CreateStack"
 import Footer from "@/components/global/Footer"
@@ -43,6 +44,7 @@ export default function RootLayout({
           {stackModal}
           <CreateStack />
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   )
