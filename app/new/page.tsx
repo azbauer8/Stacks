@@ -104,7 +104,9 @@ export default function NewStack() {
               <BackendFramework form={form} />
             </div>
             <OtherLibraries form={form} />
-            <Button type="submit">Create Stack</Button>
+            <Button type="submit" className="w-full md:w-fit">
+              Create Stack
+            </Button>
           </form>
         </Form>
       </div>

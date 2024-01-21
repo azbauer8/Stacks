@@ -10,7 +10,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Switch } from "@/components/ui/switch"
 
 import { FormData } from "../page"
 
@@ -22,8 +24,7 @@ export default function BasicInfo({ form }: { form: UseFormReturn<FormData> }) {
         name="visibility"
         render={({ field }) => (
           <FormItem className="space-y-3">
-            <FormLabel>Visibility</FormLabel>
-            <FormControl>
+            {/* <FormControl>
               <RadioGroup
                 onValueChange={field.onChange}
                 defaultValue={field.value}
@@ -42,7 +43,24 @@ export default function BasicInfo({ form }: { form: UseFormReturn<FormData> }) {
                   <FormLabel className="font-normal">Private</FormLabel>
                 </FormItem>
               </RadioGroup>
-            </FormControl>
+            </FormControl> */}
+            <FormLabel>Visibility</FormLabel>
+            <div className="flex items-center space-x-2">
+              <FormControl>
+                <Switch
+                  id="visibility"
+                  checked={field.value === "public"}
+                  onCheckedChange={(checked) => {
+                    form.setValue("visibility", checked ? "public" : "private")
+                  }}
+                />
+              </FormControl>
+              <Label htmlFor="visibility">
+                {form.getValues("visibility") === "public"
+                  ? "Public"
+                  : "Private"}
+              </Label>
+            </div>
             <FormMessage />
           </FormItem>
         )}

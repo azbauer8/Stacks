@@ -67,8 +67,6 @@ export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
             </PopoverTrigger>
             <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
-                <CommandInput placeholder="Search ui libraries..." />
-                <CommandEmpty>No ui libraries found.</CommandEmpty>
                 <CommandGroup>
                   {UILibraries.data?.data &&
                     UILibraries.data?.data.map((ui_library) => (
