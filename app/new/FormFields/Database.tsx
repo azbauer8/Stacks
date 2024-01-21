@@ -8,7 +8,12 @@ import { UseFormReturn } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command"
 import {
   FormControl,
   FormField,
@@ -24,21 +29,21 @@ import {
 
 import { FormData } from "../page"
 
-export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
+export default function Database({ form }: { form: UseFormReturn<FormData> }) {
   const [open, setOpen] = React.useState(false)
   const supabase = createClient()
-  const useCases = useQuery({
-    queryKey: ["useCases"],
-    queryFn: async () => await supabase.from("use_cases").select("*"),
+  const Databases = useQuery({
+    queryKey: ["databases"],
+    queryFn: async () => await supabase.from("databases").select("*"),
   })
 
   return (
     <FormField
       control={form.control}
-      name="use_case"
+      name="database"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Use Case</FormLabel>
+          <FormLabel>Database</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
@@ -51,10 +56,10 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                   )}
                 >
                   {field.value
-                    ? useCases.data?.data?.find(
-                        (use_case) => use_case.id === field.value?.id
+                    ? Databases.data?.data?.find(
+                        (database) => database.id === field.value?.id
                       )?.title
-                    : "Select a use case"}
+                    : "Select a database"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
@@ -62,17 +67,17 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
             <PopoverContent className="w-[200px] p-0">
               <Command>
                 <CommandGroup>
-                  {useCases.data?.data &&
-                    useCases.data?.data.map((use_case) => (
+                  {Databases.data?.data &&
+                    Databases.data?.data.map((database) => (
                       <CommandItem
-                        value={use_case.title}
-                        key={use_case.id}
+                        value={database.title}
+                        key={database.id}
                         onSelect={() => {
                           form.setValue(
-                            "use_case",
-                            field.value?.id === use_case.id
+                            "database",
+                            field.value?.id === database.id
                               ? undefined
-                              : use_case
+                              : database
                           )
                           setOpen(false)
                         }}
@@ -80,12 +85,12 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            use_case.id === field.value?.id
+                            database.id === field.value?.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}
                         />
-                        {use_case.title}
+                        {database.title}
                       </CommandItem>
                     ))}
                 </CommandGroup>

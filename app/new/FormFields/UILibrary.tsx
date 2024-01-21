@@ -8,7 +8,13 @@ import { UseFormReturn } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command"
 import {
   FormControl,
   FormField,
@@ -24,21 +30,21 @@ import {
 
 import { FormData } from "../page"
 
-export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
+export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
   const [open, setOpen] = React.useState(false)
   const supabase = createClient()
-  const useCases = useQuery({
-    queryKey: ["useCases"],
-    queryFn: async () => await supabase.from("use_cases").select("*"),
+  const UILibraries = useQuery({
+    queryKey: ["ui_libraries"],
+    queryFn: async () => await supabase.from("ui_libraries").select("*"),
   })
 
   return (
     <FormField
       control={form.control}
-      name="use_case"
+      name="ui_library"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Use Case</FormLabel>
+          <FormLabel>UI Library</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
@@ -51,28 +57,30 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                   )}
                 >
                   {field.value
-                    ? useCases.data?.data?.find(
-                        (use_case) => use_case.id === field.value?.id
+                    ? UILibraries.data?.data?.find(
+                        (ui_library) => ui_library.id === field.value?.id
                       )?.title
-                    : "Select a use case"}
+                    : "Select a ui library"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
               <Command>
+                <CommandInput placeholder="Search ui libraries..." />
+                <CommandEmpty>No ui libraries found.</CommandEmpty>
                 <CommandGroup>
-                  {useCases.data?.data &&
-                    useCases.data?.data.map((use_case) => (
+                  {UILibraries.data?.data &&
+                    UILibraries.data?.data.map((ui_library) => (
                       <CommandItem
-                        value={use_case.title}
-                        key={use_case.id}
+                        value={ui_library.title}
+                        key={ui_library.id}
                         onSelect={() => {
                           form.setValue(
-                            "use_case",
-                            field.value?.id === use_case.id
+                            "ui_library",
+                            field.value?.id === ui_library.id
                               ? undefined
-                              : use_case
+                              : ui_library
                           )
                           setOpen(false)
                         }}
@@ -80,12 +88,12 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            use_case.id === field.value?.id
+                            ui_library.id === field.value?.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}
                         />
-                        {use_case.title}
+                        {ui_library.title}
                       </CommandItem>
                     ))}
                 </CommandGroup>

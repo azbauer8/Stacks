@@ -9,20 +9,16 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 
+import BackendFramework from "./FormFields/BackendFramework"
 import BasicInfo from "./FormFields/BasicInfo"
-import UseCases from "./FormFields/UseCase"
-
-const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title must be at least 1 character.",
-  }),
-  description: z.string().optional(),
-  link: z.string().url().optional(),
-  visibility: z.enum(["public", "private"], {
-    required_error: "You need to select a visibility type.",
-  }),
-  use_case: z.object({ id: z.number(), title: z.string() }).optional(),
-})
+import Database from "./FormFields/Database"
+import Framework from "./FormFields/Framework"
+import Language from "./FormFields/Language"
+import MetaFramework from "./FormFields/MetaFramework"
+import Styling from "./FormFields/Styling"
+import UILibrary from "./FormFields/UILibrary"
+import UseCase from "./FormFields/UseCase"
+import { formSchema } from "./formSchema"
 
 export type FormData = z.infer<typeof formSchema>
 
@@ -38,14 +34,11 @@ export default function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: undefined,
-      link: undefined,
       visibility: "public",
-      use_case: undefined,
     },
   })
 
+  console.log(form.getValues())
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -54,12 +47,22 @@ export default function ProfileForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <BasicInfo form={form} />
-        <UseCases form={form} />
-        <Button type="submit">Create</Button>
-      </form>
-    </Form>
+    <div className="space-y-5">
+      <h1 className="text-4xl font-bold">Create a Stack</h1>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <BasicInfo form={form} />
+          <UseCase form={form} />
+          <Language form={form} />
+          <Framework form={form} />
+          <MetaFramework form={form} />
+          <Styling form={form} />
+          <UILibrary form={form} />
+          <Database form={form} />
+          <BackendFramework form={form} />
+          <Button type="submit">Create Stack</Button>
+        </form>
+      </Form>
+    </div>
   )
 }

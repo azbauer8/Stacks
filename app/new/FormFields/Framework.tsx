@@ -8,7 +8,12 @@ import { UseFormReturn } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command"
 import {
   FormControl,
   FormField,
@@ -24,21 +29,21 @@ import {
 
 import { FormData } from "../page"
 
-export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
+export default function Framework({ form }: { form: UseFormReturn<FormData> }) {
   const [open, setOpen] = React.useState(false)
   const supabase = createClient()
-  const useCases = useQuery({
-    queryKey: ["useCases"],
-    queryFn: async () => await supabase.from("use_cases").select("*"),
+  const Frameworks = useQuery({
+    queryKey: ["frameworks"],
+    queryFn: async () => await supabase.from("frameworks").select("*"),
   })
 
   return (
     <FormField
       control={form.control}
-      name="use_case"
+      name="framework"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Use Case</FormLabel>
+          <FormLabel>Framework</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
@@ -51,10 +56,10 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                   )}
                 >
                   {field.value
-                    ? useCases.data?.data?.find(
-                        (use_case) => use_case.id === field.value?.id
+                    ? Frameworks.data?.data?.find(
+                        (framework) => framework.id === field.value?.id
                       )?.title
-                    : "Select a use case"}
+                    : "Select a framework"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
@@ -62,17 +67,17 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
             <PopoverContent className="w-[200px] p-0">
               <Command>
                 <CommandGroup>
-                  {useCases.data?.data &&
-                    useCases.data?.data.map((use_case) => (
+                  {Frameworks.data?.data &&
+                    Frameworks.data?.data.map((framework) => (
                       <CommandItem
-                        value={use_case.title}
-                        key={use_case.id}
+                        value={framework.title}
+                        key={framework.id}
                         onSelect={() => {
                           form.setValue(
-                            "use_case",
-                            field.value?.id === use_case.id
+                            "framework",
+                            field.value?.id === framework.id
                               ? undefined
-                              : use_case
+                              : framework
                           )
                           setOpen(false)
                         }}
@@ -80,12 +85,12 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            use_case.id === field.value?.id
+                            framework.id === field.value?.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}
                         />
-                        {use_case.title}
+                        {framework.title}
                       </CommandItem>
                     ))}
                 </CommandGroup>

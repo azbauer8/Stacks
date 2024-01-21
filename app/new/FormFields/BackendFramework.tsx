@@ -8,7 +8,12 @@ import { UseFormReturn } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command"
 import {
   FormControl,
   FormField,
@@ -24,21 +29,25 @@ import {
 
 import { FormData } from "../page"
 
-export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
+export default function BackendFramework({
+  form,
+}: {
+  form: UseFormReturn<FormData>
+}) {
   const [open, setOpen] = React.useState(false)
   const supabase = createClient()
-  const useCases = useQuery({
-    queryKey: ["useCases"],
-    queryFn: async () => await supabase.from("use_cases").select("*"),
+  const BackendFrameworks = useQuery({
+    queryKey: ["backend_frameworks"],
+    queryFn: async () => await supabase.from("backend_frameworks").select("*"),
   })
 
   return (
     <FormField
       control={form.control}
-      name="use_case"
+      name="backend_framework"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Use Case</FormLabel>
+          <FormLabel>Backend Framework</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
@@ -46,33 +55,34 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-[250px] justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
-                    ? useCases.data?.data?.find(
-                        (use_case) => use_case.id === field.value?.id
+                    ? BackendFrameworks.data?.data?.find(
+                        (backend_framework) =>
+                          backend_framework.id === field.value?.id
                       )?.title
-                    : "Select a use case"}
+                    : "Select a backend framework"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[250px] p-0">
               <Command>
                 <CommandGroup>
-                  {useCases.data?.data &&
-                    useCases.data?.data.map((use_case) => (
+                  {BackendFrameworks.data?.data &&
+                    BackendFrameworks.data?.data.map((backend_framework) => (
                       <CommandItem
-                        value={use_case.title}
-                        key={use_case.id}
+                        value={backend_framework.title}
+                        key={backend_framework.id}
                         onSelect={() => {
                           form.setValue(
-                            "use_case",
-                            field.value?.id === use_case.id
+                            "backend_framework",
+                            field.value?.id === backend_framework.id
                               ? undefined
-                              : use_case
+                              : backend_framework
                           )
                           setOpen(false)
                         }}
@@ -80,12 +90,12 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            use_case.id === field.value?.id
+                            backend_framework.id === field.value?.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}
                         />
-                        {use_case.title}
+                        {backend_framework.title}
                       </CommandItem>
                     ))}
                 </CommandGroup>

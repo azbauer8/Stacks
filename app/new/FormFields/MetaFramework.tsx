@@ -24,21 +24,25 @@ import {
 
 import { FormData } from "../page"
 
-export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
+export default function MetaFramework({
+  form,
+}: {
+  form: UseFormReturn<FormData>
+}) {
   const [open, setOpen] = React.useState(false)
   const supabase = createClient()
-  const useCases = useQuery({
-    queryKey: ["useCases"],
-    queryFn: async () => await supabase.from("use_cases").select("*"),
+  const MetaFrameworks = useQuery({
+    queryKey: ["meta_frameworks"],
+    queryFn: async () => await supabase.from("meta_frameworks").select("*"),
   })
 
   return (
     <FormField
       control={form.control}
-      name="use_case"
+      name="meta_framework"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Use Case</FormLabel>
+          <FormLabel>Meta Framework</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
@@ -46,33 +50,34 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-[250px] justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
-                    ? useCases.data?.data?.find(
-                        (use_case) => use_case.id === field.value?.id
+                    ? MetaFrameworks.data?.data?.find(
+                        (meta_framework) =>
+                          meta_framework.id === field.value?.id
                       )?.title
-                    : "Select a use case"}
+                    : "Select a meta framework"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[250px] p-0">
               <Command>
                 <CommandGroup>
-                  {useCases.data?.data &&
-                    useCases.data?.data.map((use_case) => (
+                  {MetaFrameworks.data?.data &&
+                    MetaFrameworks.data?.data.map((meta_framework) => (
                       <CommandItem
-                        value={use_case.title}
-                        key={use_case.id}
+                        value={meta_framework.title}
+                        key={meta_framework.id}
                         onSelect={() => {
                           form.setValue(
-                            "use_case",
-                            field.value?.id === use_case.id
+                            "meta_framework",
+                            field.value?.id === meta_framework.id
                               ? undefined
-                              : use_case
+                              : meta_framework
                           )
                           setOpen(false)
                         }}
@@ -80,12 +85,12 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            use_case.id === field.value?.id
+                            meta_framework.id === field.value?.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}
                         />
-                        {use_case.title}
+                        {meta_framework.title}
                       </CommandItem>
                     ))}
                 </CommandGroup>

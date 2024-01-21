@@ -24,21 +24,21 @@ import {
 
 import { FormData } from "../page"
 
-export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
+export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
   const [open, setOpen] = React.useState(false)
   const supabase = createClient()
-  const useCases = useQuery({
-    queryKey: ["useCases"],
-    queryFn: async () => await supabase.from("use_cases").select("*"),
+  const Stylings = useQuery({
+    queryKey: ["stylings"],
+    queryFn: async () => await supabase.from("stylings").select("*"),
   })
 
   return (
     <FormField
       control={form.control}
-      name="use_case"
+      name="styling"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Use Case</FormLabel>
+          <FormLabel>Styling</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
@@ -46,33 +46,31 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-[220px] justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
-                    ? useCases.data?.data?.find(
-                        (use_case) => use_case.id === field.value?.id
+                    ? Stylings.data?.data?.find(
+                        (styling) => styling.id === field.value?.id
                       )?.title
-                    : "Select a use case"}
+                    : "Select a styling library"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[220px] p-0">
               <Command>
                 <CommandGroup>
-                  {useCases.data?.data &&
-                    useCases.data?.data.map((use_case) => (
+                  {Stylings.data?.data &&
+                    Stylings.data?.data.map((styling) => (
                       <CommandItem
-                        value={use_case.title}
-                        key={use_case.id}
+                        value={styling.title}
+                        key={styling.id}
                         onSelect={() => {
                           form.setValue(
-                            "use_case",
-                            field.value?.id === use_case.id
-                              ? undefined
-                              : use_case
+                            "styling",
+                            field.value?.id === styling.id ? undefined : styling
                           )
                           setOpen(false)
                         }}
@@ -80,12 +78,12 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            use_case.id === field.value?.id
+                            styling.id === field.value?.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}
                         />
-                        {use_case.title}
+                        {styling.title}
                       </CommandItem>
                     ))}
                 </CommandGroup>
