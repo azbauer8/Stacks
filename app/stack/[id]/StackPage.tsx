@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
-import { EyeIcon, EyeOffIcon, LinkIcon } from "lucide-react"
+import { LinkIcon, LockIcon } from "lucide-react"
 
 import { Tables } from "@/types/supabase"
 import { badgeVariants } from "@/components/ui/badge"
@@ -67,7 +67,7 @@ export default async function StackPage({ id }: { id: string }) {
               <h2 className="text-3xl font-bold leading-none tracking-tight">
                 {stack.title}
               </h2>
-              {stack.visibility === "public" ? <EyeIcon /> : <EyeOffIcon />}
+              {stack.visibility === "private" && <LockIcon />}
             </div>
             <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-sm">
               <Link

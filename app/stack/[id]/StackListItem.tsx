@@ -32,7 +32,12 @@ export default function StackItem({
     <Card className="hover:bg-accent">
       <Link href={link ? link : "/"}>
         <CardHeader className="space-y-2 p-3">
-          <Badge className="w-fit rounded-md px-1.5 text-xs">{header}</Badge>
+          <Badge
+            variant={"secondary"}
+            className="w-fit rounded-md px-1.5 text-xs"
+          >
+            {header}
+          </Badge>
           <div className="flex items-center space-x-3">
             {icon ? (
               <Image
