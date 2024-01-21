@@ -8,12 +8,7 @@ import { UseFormReturn } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-} from "@/components/ui/command"
+import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
 import {
   FormControl,
   FormField,
@@ -55,34 +50,34 @@ export default function BackendFramework({
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[250px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
                     ? BackendFrameworks.data?.data?.find(
                         (backend_framework) =>
-                          backend_framework.id === field.value?.id
+                          backend_framework.id === field.value
                       )?.title
                     : "Select a backend framework"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[250px] p-0">
+            <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
                 <CommandGroup>
                   {BackendFrameworks.data?.data &&
                     BackendFrameworks.data?.data.map((backend_framework) => (
                       <CommandItem
-                        value={backend_framework.title}
+                        value={backend_framework.id.toString()}
                         key={backend_framework.id}
                         onSelect={() => {
                           form.setValue(
                             "backend_framework",
-                            field.value?.id === backend_framework.id
+                            field.value === backend_framework.id
                               ? undefined
-                              : backend_framework
+                              : backend_framework.id
                           )
                           setOpen(false)
                         }}
@@ -90,7 +85,7 @@ export default function BackendFramework({
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            backend_framework.id === field.value?.id
+                            backend_framework.id === field.value
                               ? "opacity-100"
                               : "opacity-0"
                           )}

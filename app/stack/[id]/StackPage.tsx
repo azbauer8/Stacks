@@ -14,8 +14,6 @@ type StackElement = Tables<"frameworks"> & { header: string }
 export default async function StackPage({ id }: { id: string }) {
   const stack = await GetStackById({ id })
 
-  console.log(stack)
-
   if (stack) {
     const allStackElements = [
       { type: "language", header: "Language" },

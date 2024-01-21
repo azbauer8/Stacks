@@ -8,12 +8,7 @@ import { UseFormReturn } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-} from "@/components/ui/command"
+import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
 import {
   FormControl,
   FormField,
@@ -51,33 +46,33 @@ export default function Database({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
                     ? Databases.data?.data?.find(
-                        (database) => database.id === field.value?.id
+                        (database) => database.id === field.value
                       )?.title
                     : "Select a database"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
                 <CommandGroup>
                   {Databases.data?.data &&
                     Databases.data?.data.map((database) => (
                       <CommandItem
-                        value={database.title}
+                        value={database.id.toString()}
                         key={database.id}
                         onSelect={() => {
                           form.setValue(
                             "database",
-                            field.value?.id === database.id
+                            field.value === database.id
                               ? undefined
-                              : database
+                              : database.id
                           )
                           setOpen(false)
                         }}
@@ -85,7 +80,7 @@ export default function Database({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            database.id === field.value?.id
+                            database.id === field.value
                               ? "opacity-100"
                               : "opacity-0"
                           )}

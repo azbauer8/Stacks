@@ -50,34 +50,33 @@ export default function MetaFramework({
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[250px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
                     ? MetaFrameworks.data?.data?.find(
-                        (meta_framework) =>
-                          meta_framework.id === field.value?.id
+                        (meta_framework) => meta_framework.id === field.value
                       )?.title
                     : "Select a meta framework"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[250px] p-0">
+            <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
                 <CommandGroup>
                   {MetaFrameworks.data?.data &&
                     MetaFrameworks.data?.data.map((meta_framework) => (
                       <CommandItem
-                        value={meta_framework.title}
+                        value={meta_framework.id.toString()}
                         key={meta_framework.id}
                         onSelect={() => {
                           form.setValue(
                             "meta_framework",
-                            field.value?.id === meta_framework.id
+                            field.value === meta_framework.id
                               ? undefined
-                              : meta_framework
+                              : meta_framework.id
                           )
                           setOpen(false)
                         }}
@@ -85,7 +84,7 @@ export default function MetaFramework({
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            meta_framework.id === field.value?.id
+                            meta_framework.id === field.value
                               ? "opacity-100"
                               : "opacity-0"
                           )}

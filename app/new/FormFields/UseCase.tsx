@@ -46,33 +46,33 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
                     ? useCases.data?.data?.find(
-                        (use_case) => use_case.id === field.value?.id
+                        (use_case) => use_case.id === field.value
                       )?.title
                     : "Select a use case"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
                 <CommandGroup>
                   {useCases.data?.data &&
                     useCases.data?.data.map((use_case) => (
                       <CommandItem
-                        value={use_case.title}
+                        value={use_case.id.toString()}
                         key={use_case.id}
                         onSelect={() => {
                           form.setValue(
                             "use_case",
-                            field.value?.id === use_case.id
+                            field.value === use_case.id
                               ? undefined
-                              : use_case
+                              : use_case.id
                           )
                           setOpen(false)
                         }}
@@ -80,7 +80,7 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            use_case.id === field.value?.id
+                            use_case.id === field.value
                               ? "opacity-100"
                               : "opacity-0"
                           )}

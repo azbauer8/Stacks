@@ -52,20 +52,20 @@ export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
                     ? UILibraries.data?.data?.find(
-                        (ui_library) => ui_library.id === field.value?.id
+                        (ui_library) => ui_library.id === field.value
                       )?.title
                     : "Select a ui library"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
                 <CommandInput placeholder="Search ui libraries..." />
                 <CommandEmpty>No ui libraries found.</CommandEmpty>
@@ -73,14 +73,14 @@ export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
                   {UILibraries.data?.data &&
                     UILibraries.data?.data.map((ui_library) => (
                       <CommandItem
-                        value={ui_library.title}
+                        value={ui_library.id.toString()}
                         key={ui_library.id}
                         onSelect={() => {
                           form.setValue(
                             "ui_library",
-                            field.value?.id === ui_library.id
+                            field.value === ui_library.id
                               ? undefined
-                              : ui_library
+                              : ui_library.id
                           )
                           setOpen(false)
                         }}
@@ -88,7 +88,7 @@ export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            ui_library.id === field.value?.id
+                            ui_library.id === field.value
                               ? "opacity-100"
                               : "opacity-0"
                           )}

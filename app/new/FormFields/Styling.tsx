@@ -46,31 +46,31 @@ export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[220px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
                     ? Stylings.data?.data?.find(
-                        (styling) => styling.id === field.value?.id
+                        (styling) => styling.id === field.value
                       )?.title
                     : "Select a styling library"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[220px] p-0">
+            <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
                 <CommandGroup>
                   {Stylings.data?.data &&
                     Stylings.data?.data.map((styling) => (
                       <CommandItem
-                        value={styling.title}
+                        value={styling.id.toString()}
                         key={styling.id}
                         onSelect={() => {
                           form.setValue(
                             "styling",
-                            field.value?.id === styling.id ? undefined : styling
+                            field.value === styling.id ? undefined : styling.id
                           )
                           setOpen(false)
                         }}
@@ -78,7 +78,7 @@ export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            styling.id === field.value?.id
+                            styling.id === field.value
                               ? "opacity-100"
                               : "opacity-0"
                           )}

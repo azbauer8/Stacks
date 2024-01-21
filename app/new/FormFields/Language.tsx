@@ -46,33 +46,33 @@ export default function Language({ form }: { form: UseFormReturn<FormData> }) {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
                   {field.value
                     ? Languages.data?.data?.find(
-                        (language) => language.id === field.value?.id
+                        (language) => language.id === field.value
                       )?.title
                     : "Select a language"}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
               <Command>
                 <CommandGroup>
                   {Languages.data?.data &&
                     Languages.data?.data.map((language) => (
                       <CommandItem
-                        value={language.title}
+                        value={language.id.toString()}
                         key={language.id}
                         onSelect={() => {
                           form.setValue(
                             "language",
-                            field.value?.id === language.id
+                            field.value === language.id
                               ? undefined
-                              : language
+                              : language.id
                           )
                           setOpen(false)
                         }}
@@ -80,7 +80,7 @@ export default function Language({ form }: { form: UseFormReturn<FormData> }) {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            language.id === field.value?.id
+                            language.id === field.value
                               ? "opacity-100"
                               : "opacity-0"
                           )}

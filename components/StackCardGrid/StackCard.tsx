@@ -45,7 +45,7 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
   }
   return (
     <Link href={`/stack/${stack.id}`}>
-      <Card className="flex h-full flex-col hover:bg-secondary">
+      <Card className="flex h-full flex-col hover:bg-accent">
         <CardHeader className="space-y-1">
           <CardTitle>{stack.title}</CardTitle>
           <div className="flex flex-wrap justify-between gap-1 text-sm text-muted-foreground">
