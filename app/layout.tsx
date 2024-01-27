@@ -11,6 +11,8 @@ import NavLoader from "@/components/global/Navbar/NavLoader"
 import { Providers } from "@/components/global/Providers"
 
 export const runtime = "edge"
+export const preferredRegion = "home"
+export const dynamic = "force-dynamic"
 
 export const metadata = {
   title: "Stacks",
