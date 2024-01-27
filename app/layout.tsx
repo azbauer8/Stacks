@@ -21,10 +21,8 @@ export const metadata = {
 
 export default function RootLayout({
 	children,
-	stackModal,
 }: {
 	children: React.ReactNode
-	stackModal: React.ReactNode
 }) {
 	return (
 		<html lang="en" className={inter.className}>
@@ -42,7 +40,7 @@ export default function RootLayout({
 						</div>
 						<Footer />
 					</main>
-					{stackModal}
+					{/* {stackModal} */}
 				</Providers>
 				<SpeedInsights />
 			</body>
