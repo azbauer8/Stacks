@@ -9,6 +9,8 @@ import Nav from "@/components/global/Navbar"
 import { Providers } from "@/components/global/Providers"
 
 export const runtime = "edge"
+export const preferredRegion = "home"
+export const dynamic = "force-dynamic"
 
 const inter = Inter({ subsets: ["latin"] })
 
