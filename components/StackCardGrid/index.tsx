@@ -1,25 +1,21 @@
-import { GetPublicStacks, GetUserStacks } from "@/utils/querySupabase"
+import { GetAllStacks, GetUserStacks } from "@/utils/querySupabase"
 
 import StackCard from "./StackCard"
 
 export default async function StackCardGrid({
-  user,
-  personal,
+	user,
 }: {
-  user?: string
-  personal?: boolean
+	user?: string
 }) {
-  const stacks = user
-    ? await GetUserStacks({ user, personal })
-    : await GetPublicStacks()
+	const stacks = user ? await GetUserStacks({ user }) : await GetAllStacks()
 
-  if (stacks) {
-    return (
-      <div className="grid grid-cols-1 gap-5 md:mx-5 md:grid-cols-2">
-        {stacks.map((stack) => (
-          <StackCard key={stack.id} stack={stack} />
-        ))}
-      </div>
-    )
-  }
+	if (stacks) {
+		return (
+			<div className="grid grid-cols-1 gap-5 md:mx-5 md:grid-cols-2">
+				{stacks.map((stack) => (
+					<StackCard key={stack.id} stack={stack} />
+				))}
+			</div>
+		)
+	}
 }

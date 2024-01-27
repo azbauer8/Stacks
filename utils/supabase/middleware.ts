@@ -1,63 +1,61 @@
-import { NextResponse, type NextRequest } from "next/server"
-import { createServerClient, type CookieOptions } from "@supabase/ssr"
+import { type CookieOptions, createServerClient } from "@supabase/ssr"
+import { type NextRequest, NextResponse } from "next/server"
 
 import { Database } from "@/types/supabase"
 
 export const createClient = (request: NextRequest) => {
-  // Create an unmodified response
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  })
+	// Create an unmodified response
+	let response = NextResponse.next({
+		request: {
+			headers: request.headers,
+		},
+	})
+	const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ""
+	const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          // If the cookie is updated, update the cookies for the request and response
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-        },
-        remove(name: string, options: CookieOptions) {
-          // If the cookie is removed, update the cookies for the request and response
-          request.cookies.set({
-            name,
-            value: "",
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value: "",
-            ...options,
-          })
-        },
-      },
-    }
-  )
+	const supabase = createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
+		cookies: {
+			get(name: string) {
+				return request.cookies.get(name)?.value
+			},
+			set(name: string, value: string, options: CookieOptions) {
+				// If the cookie is updated, update the cookies for the request and response
+				request.cookies.set({
+					name,
+					value,
+					...options,
+				})
+				response = NextResponse.next({
+					request: {
+						headers: request.headers,
+					},
+				})
+				response.cookies.set({
+					name,
+					value,
+					...options,
+				})
+			},
+			remove(name: string, options: CookieOptions) {
+				// If the cookie is removed, update the cookies for the request and response
+				request.cookies.set({
+					name,
+					value: "",
+					...options,
+				})
+				response = NextResponse.next({
+					request: {
+						headers: request.headers,
+					},
+				})
+				response.cookies.set({
+					name,
+					value: "",
+					...options,
+				})
+			},
+		},
+	})
 
-  return { supabase, response }
+	return { supabase, response }
 }
