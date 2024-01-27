@@ -10,7 +10,7 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 
-import { Skeleton } from "@/components/ui/skeleton"
+import Loader from "@/components/ui/loader"
 import BackendFramework from "./FormFields/BackendFramework"
 import BasicInfo from "./FormFields/BasicInfo"
 import Database from "./FormFields/Database"
@@ -117,5 +117,5 @@ export default function NewStack() {
 			</div>
 		)
 	}
-	return <Skeleton className="h-4 w-64 rounded-xl" />
+	// return <Loader />
 }
