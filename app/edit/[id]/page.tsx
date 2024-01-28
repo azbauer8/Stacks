@@ -3,34 +3,45 @@
 import { createClient } from "@/utils/supabase/client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
+import { notFound, useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 
-import BackendFramework from "./FormFields/BackendFramework"
-import BasicInfo from "./FormFields/BasicInfo"
-import Database from "./FormFields/Database"
-import Framework from "./FormFields/Framework"
-import Language from "./FormFields/Language"
-import MetaFramework from "./FormFields/MetaFramework"
-import { OtherLibraries } from "./FormFields/OtherLibraries"
-import Styling from "./FormFields/Styling"
-import UILibrary from "./FormFields/UILibrary"
-import UseCase from "./FormFields/UseCase"
-import { formSchema } from "./formSchema"
+import { GetStackById, formatStack } from "@/utils/querySupabase"
+import { useEffect } from "react"
+import BackendFramework from "../../new/FormFields/BackendFramework"
+import BasicInfo from "../../new/FormFields/BasicInfo"
+import Database from "../../new/FormFields/Database"
+import Framework from "../../new/FormFields/Framework"
+import Language from "../../new/FormFields/Language"
+import MetaFramework from "../../new/FormFields/MetaFramework"
+import { OtherLibraries } from "../../new/FormFields/OtherLibraries"
+import Styling from "../../new/FormFields/Styling"
+import UILibrary from "../../new/FormFields/UILibrary"
+import UseCase from "../../new/FormFields/UseCase"
+import { formSchema } from "../../new/formSchema"
 
 export type FormData = z.infer<typeof formSchema>
 
-export default function NewStack() {
+export default function EditStack({
+	params: { id },
+}: {
+	params: { id: string }
+}) {
 	const router = useRouter()
 	const supabase = createClient()
 	// use this to assign the created stack to the user
 	const authUser = useQuery({
 		queryKey: ["authUser"],
 		queryFn: async () => await supabase.auth.getUser(),
+	})
+
+	const stack = useQuery({
+		queryKey: [id],
+		queryFn: async () => await supabase.from("stacks").select("*").eq("id", id),
 	})
 
 	// 1. Define your form.
@@ -40,6 +51,17 @@ export default function NewStack() {
 			visibility: "public",
 		},
 	})
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: it works
+	useEffect(() => {
+		if (stack.isSuccess && !stack.data.data?.length) {
+			return notFound()
+		}
+		if (stack.isSuccess && form) {
+			console.log(stack.data.data?.[0])
+			// form.reset(stack.data.data?.[0])
+		}
+	}, [stack.isSuccess])
 
 	// 2. Define a submit handler.
 	function onSubmit(values: FormData) {
@@ -84,14 +106,10 @@ export default function NewStack() {
 		}, 300)
 	}
 
-	if (authUser.data?.error) {
-		return <div>You must be signed in to create a stack</div>
-	}
-
-	if (authUser.data?.data?.user) {
+	if (stack?.data?.data) {
 		return (
 			<div className="space-y-5">
-				<h1 className="text-4xl font-bold">Create a Stack</h1>
+				<h1 className="text-4xl font-bold">Edit Stack</h1>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
 						<BasicInfo form={form} />

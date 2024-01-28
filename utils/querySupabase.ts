@@ -86,7 +86,7 @@ export async function GetAllStacks() {
 	return formattedStacks
 }
 
-function formatStack(stack: PreformattedStack) {
+export function formatStack(stack: PreformattedStack) {
 	const formattedStack: FormattedStack = {
 		id: stack.id,
 		visibility: stack.visibility,
