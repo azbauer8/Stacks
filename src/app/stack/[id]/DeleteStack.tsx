@@ -11,8 +11,15 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { createClient } from "@/utils/supabase/client"
+import { useRouter } from "next/navigation"
 
-export default function DeleteStack({ stackId }: { stackId: number }) {
+export default function DeleteStack({
+	user,
+	stackId,
+}: { user: string; stackId: number }) {
+	const router = useRouter()
+	const supabase = createClient()
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger>
@@ -33,9 +40,15 @@ export default function DeleteStack({ stackId }: { stackId: number }) {
 					</AlertDialogCancel>
 					<AlertDialogAction
 						className={buttonVariants({ variant: "destructive" })}
-						onClick={() => {
-							// TODO
-							console.log("deleting stack", stackId)
+						onClick={async () => {
+							const { error } = await supabase
+								.from("stacks")
+								.delete()
+								.eq("id", stackId)
+							if (!error) {
+								router.push(`/${user}`)
+								router.refresh()
+							}
 						}}
 					>
 						Delete Stack

@@ -7,7 +7,13 @@ import * as React from "react"
 import { UseFormReturn } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+} from "@/components/ui/command"
 import {
 	FormControl,
 	FormField,
@@ -22,27 +28,23 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
-export default function BackendFramework({
-	form,
-}: {
-	form: UseFormReturn<FormData>
-}) {
+export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
 	const [open, setOpen] = React.useState(false)
 	const supabase = createClient()
-	const BackendFrameworks = useQuery({
-		queryKey: ["backend_frameworks"],
-		queryFn: async () => await supabase.from("backend_frameworks").select("*"),
+	const UILibraries = useQuery({
+		queryKey: ["ui_libraries"],
+		queryFn: async () => await supabase.from("ui_libraries").select("*"),
 	})
 
 	return (
 		<FormField
 			control={form.control}
-			name="backend_framework"
+			name="ui_library"
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>Backend Framework</FormLabel>
+					<FormLabel>UI Library</FormLabel>
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -55,11 +57,10 @@ export default function BackendFramework({
 									)}
 								>
 									{field.value
-										? BackendFrameworks.data?.data?.find(
-												(backend_framework) =>
-													backend_framework.id === field.value,
+										? UILibraries.data?.data?.find(
+												(ui_library) => ui_library.id === field.value,
 										  )?.title
-										: "Select a backend framework"}
+										: "Select a ui library"}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
@@ -67,16 +68,16 @@ export default function BackendFramework({
 						<PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
 							<Command>
 								<CommandGroup>
-									{BackendFrameworks.data?.data?.map((backend_framework) => (
+									{UILibraries.data?.data?.map((ui_library) => (
 										<CommandItem
-											value={backend_framework.id.toString()}
-											key={backend_framework.id}
+											value={ui_library.id.toString()}
+											key={ui_library.id}
 											onSelect={() => {
 												form.setValue(
-													"backend_framework",
-													field.value === backend_framework.id
+													"ui_library",
+													field.value === ui_library.id
 														? undefined
-														: backend_framework.id,
+														: ui_library.id,
 												)
 												setOpen(false)
 											}}
@@ -84,12 +85,12 @@ export default function BackendFramework({
 											<Check
 												className={cn(
 													"mr-2 h-4 w-4",
-													backend_framework.id === field.value
+													ui_library.id === field.value
 														? "opacity-100"
 														: "opacity-0",
 												)}
 											/>
-											{backend_framework.title}
+											{ui_library.title}
 										</CommandItem>
 									))}
 								</CommandGroup>

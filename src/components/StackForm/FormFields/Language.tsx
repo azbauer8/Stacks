@@ -22,23 +22,23 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
-export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
+export default function Language({ form }: { form: UseFormReturn<FormData> }) {
 	const [open, setOpen] = React.useState(false)
 	const supabase = createClient()
-	const useCases = useQuery({
-		queryKey: ["useCases"],
-		queryFn: async () => await supabase.from("use_cases").select("*"),
+	const Languages = useQuery({
+		queryKey: ["languages"],
+		queryFn: async () => await supabase.from("languages").select("*"),
 	})
 
 	return (
 		<FormField
 			control={form.control}
-			name="use_case"
+			name="language"
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>Use Case</FormLabel>
+					<FormLabel>Language</FormLabel>
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -51,10 +51,10 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
 									)}
 								>
 									{field.value
-										? useCases.data?.data?.find(
-												(use_case) => use_case.id === field.value,
+										? Languages.data?.data?.find(
+												(language) => language.id === field.value,
 										  )?.title
-										: "Select a use case"}
+										: "Select a language"}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
@@ -62,14 +62,14 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
 						<PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
 							<Command>
 								<CommandGroup>
-									{useCases.data?.data?.map((use_case) => (
+									{Languages.data?.data?.map((language) => (
 										<CommandItem
-											value={use_case.id.toString()}
-											key={use_case.id}
+											value={language.id.toString()}
+											key={language.id}
 											onSelect={() => {
 												form.setValue(
-													"use_case",
-													field.value === use_case.id ? undefined : use_case.id,
+													"language",
+													field.value === language.id ? undefined : language.id,
 												)
 												setOpen(false)
 											}}
@@ -77,12 +77,12 @@ export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
 											<Check
 												className={cn(
 													"mr-2 h-4 w-4",
-													use_case.id === field.value
+													language.id === field.value
 														? "opacity-100"
 														: "opacity-0",
 												)}
 											/>
-											{use_case.title}
+											{language.title}
 										</CommandItem>
 									))}
 								</CommandGroup>

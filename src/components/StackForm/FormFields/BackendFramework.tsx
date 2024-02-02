@@ -21,24 +21,27 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
+import { FormData } from "../"
 
-import { FormData } from "../page"
-
-export default function Framework({ form }: { form: UseFormReturn<FormData> }) {
+export default function BackendFramework({
+	form,
+}: {
+	form: UseFormReturn<FormData>
+}) {
 	const [open, setOpen] = React.useState(false)
 	const supabase = createClient()
-	const Frameworks = useQuery({
-		queryKey: ["frameworks"],
-		queryFn: async () => await supabase.from("frameworks").select("*"),
+	const BackendFrameworks = useQuery({
+		queryKey: ["backend_frameworks"],
+		queryFn: async () => await supabase.from("backend_frameworks").select("*"),
 	})
 
 	return (
 		<FormField
 			control={form.control}
-			name="framework"
+			name="backend_framework"
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>Framework</FormLabel>
+					<FormLabel>Backend Framework</FormLabel>
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -51,10 +54,11 @@ export default function Framework({ form }: { form: UseFormReturn<FormData> }) {
 									)}
 								>
 									{field.value
-										? Frameworks.data?.data?.find(
-												(framework) => framework.id === field.value,
+										? BackendFrameworks.data?.data?.find(
+												(backend_framework) =>
+													backend_framework.id === field.value,
 										  )?.title
-										: "Select a framework"}
+										: "Select a backend framework"}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
@@ -62,16 +66,16 @@ export default function Framework({ form }: { form: UseFormReturn<FormData> }) {
 						<PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
 							<Command>
 								<CommandGroup>
-									{Frameworks.data?.data?.map((framework) => (
+									{BackendFrameworks.data?.data?.map((backend_framework) => (
 										<CommandItem
-											value={framework.id.toString()}
-											key={framework.id}
+											value={backend_framework.id.toString()}
+											key={backend_framework.id}
 											onSelect={() => {
 												form.setValue(
-													"framework",
-													field.value === framework.id
+													"backend_framework",
+													field.value === backend_framework.id
 														? undefined
-														: framework.id,
+														: backend_framework.id,
 												)
 												setOpen(false)
 											}}
@@ -79,12 +83,12 @@ export default function Framework({ form }: { form: UseFormReturn<FormData> }) {
 											<Check
 												className={cn(
 													"mr-2 h-4 w-4",
-													framework.id === field.value
+													backend_framework.id === field.value
 														? "opacity-100"
 														: "opacity-0",
 												)}
 											/>
-											{framework.title}
+											{backend_framework.title}
 										</CommandItem>
 									))}
 								</CommandGroup>

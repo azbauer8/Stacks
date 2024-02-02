@@ -7,13 +7,7 @@ import * as React from "react"
 import { UseFormReturn } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
-import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-} from "@/components/ui/command"
+import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
 import {
 	FormControl,
 	FormField,
@@ -28,23 +22,23 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
-export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
+export default function UseCase({ form }: { form: UseFormReturn<FormData> }) {
 	const [open, setOpen] = React.useState(false)
 	const supabase = createClient()
-	const UILibraries = useQuery({
-		queryKey: ["ui_libraries"],
-		queryFn: async () => await supabase.from("ui_libraries").select("*"),
+	const useCases = useQuery({
+		queryKey: ["useCases"],
+		queryFn: async () => await supabase.from("use_cases").select("*"),
 	})
 
 	return (
 		<FormField
 			control={form.control}
-			name="ui_library"
+			name="use_case"
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>UI Library</FormLabel>
+					<FormLabel>Use Case</FormLabel>
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -57,10 +51,10 @@ export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
 									)}
 								>
 									{field.value
-										? UILibraries.data?.data?.find(
-												(ui_library) => ui_library.id === field.value,
+										? useCases.data?.data?.find(
+												(use_case) => use_case.id === field.value,
 										  )?.title
-										: "Select a ui library"}
+										: "Select a use case"}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
@@ -68,16 +62,14 @@ export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
 						<PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
 							<Command>
 								<CommandGroup>
-									{UILibraries.data?.data?.map((ui_library) => (
+									{useCases.data?.data?.map((use_case) => (
 										<CommandItem
-											value={ui_library.id.toString()}
-											key={ui_library.id}
+											value={use_case.id.toString()}
+											key={use_case.id}
 											onSelect={() => {
 												form.setValue(
-													"ui_library",
-													field.value === ui_library.id
-														? undefined
-														: ui_library.id,
+													"use_case",
+													field.value === use_case.id ? undefined : use_case.id,
 												)
 												setOpen(false)
 											}}
@@ -85,12 +77,12 @@ export default function UILibrary({ form }: { form: UseFormReturn<FormData> }) {
 											<Check
 												className={cn(
 													"mr-2 h-4 w-4",
-													ui_library.id === field.value
+													use_case.id === field.value
 														? "opacity-100"
 														: "opacity-0",
 												)}
 											/>
-											{ui_library.title}
+											{use_case.title}
 										</CommandItem>
 									))}
 								</CommandGroup>

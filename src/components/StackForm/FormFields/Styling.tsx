@@ -22,23 +22,23 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
-export default function Database({ form }: { form: UseFormReturn<FormData> }) {
+export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
 	const [open, setOpen] = React.useState(false)
 	const supabase = createClient()
-	const Databases = useQuery({
-		queryKey: ["databases"],
-		queryFn: async () => await supabase.from("databases").select("*"),
+	const Stylings = useQuery({
+		queryKey: ["stylings"],
+		queryFn: async () => await supabase.from("stylings").select("*"),
 	})
 
 	return (
 		<FormField
 			control={form.control}
-			name="database"
+			name="styling"
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>Database</FormLabel>
+					<FormLabel>Styling</FormLabel>
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -51,10 +51,10 @@ export default function Database({ form }: { form: UseFormReturn<FormData> }) {
 									)}
 								>
 									{field.value
-										? Databases.data?.data?.find(
-												(database) => database.id === field.value,
+										? Stylings.data?.data?.find(
+												(styling) => styling.id === field.value,
 										  )?.title
-										: "Select a database"}
+										: "Select a styling library"}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
@@ -62,14 +62,14 @@ export default function Database({ form }: { form: UseFormReturn<FormData> }) {
 						<PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
 							<Command>
 								<CommandGroup>
-									{Databases.data?.data?.map((database) => (
+									{Stylings.data?.data?.map((styling) => (
 										<CommandItem
-											value={database.id.toString()}
-											key={database.id}
+											value={styling.id.toString()}
+											key={styling.id}
 											onSelect={() => {
 												form.setValue(
-													"database",
-													field.value === database.id ? undefined : database.id,
+													"styling",
+													field.value === styling.id ? undefined : styling.id,
 												)
 												setOpen(false)
 											}}
@@ -77,12 +77,12 @@ export default function Database({ form }: { form: UseFormReturn<FormData> }) {
 											<Check
 												className={cn(
 													"mr-2 h-4 w-4",
-													database.id === field.value
+													styling.id === field.value
 														? "opacity-100"
 														: "opacity-0",
 												)}
 											/>
-											{database.title}
+											{styling.title}
 										</CommandItem>
 									))}
 								</CommandGroup>

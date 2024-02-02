@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
 export default function MetaFramework({
 	form,

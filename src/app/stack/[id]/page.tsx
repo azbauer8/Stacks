@@ -66,7 +66,10 @@ export default async function StackPage({
 						>
 							Edit
 						</Link>
-						<DeleteStack stackId={stack.id} />
+						<DeleteStack
+							user={authUser?.user_metadata.user_name}
+							stackId={stack.id}
+						/>
 					</div>
 				)}
 				<div className="flex items-center justify-between">

@@ -22,23 +22,23 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
-export default function Language({ form }: { form: UseFormReturn<FormData> }) {
+export default function Database({ form }: { form: UseFormReturn<FormData> }) {
 	const [open, setOpen] = React.useState(false)
 	const supabase = createClient()
-	const Languages = useQuery({
-		queryKey: ["languages"],
-		queryFn: async () => await supabase.from("languages").select("*"),
+	const Databases = useQuery({
+		queryKey: ["databases"],
+		queryFn: async () => await supabase.from("databases").select("*"),
 	})
 
 	return (
 		<FormField
 			control={form.control}
-			name="language"
+			name="database"
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>Language</FormLabel>
+					<FormLabel>Database</FormLabel>
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -51,10 +51,10 @@ export default function Language({ form }: { form: UseFormReturn<FormData> }) {
 									)}
 								>
 									{field.value
-										? Languages.data?.data?.find(
-												(language) => language.id === field.value,
+										? Databases.data?.data?.find(
+												(database) => database.id === field.value,
 										  )?.title
-										: "Select a language"}
+										: "Select a database"}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
@@ -62,14 +62,14 @@ export default function Language({ form }: { form: UseFormReturn<FormData> }) {
 						<PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
 							<Command>
 								<CommandGroup>
-									{Languages.data?.data?.map((language) => (
+									{Databases.data?.data?.map((database) => (
 										<CommandItem
-											value={language.id.toString()}
-											key={language.id}
+											value={database.id.toString()}
+											key={database.id}
 											onSelect={() => {
 												form.setValue(
-													"language",
-													field.value === language.id ? undefined : language.id,
+													"database",
+													field.value === database.id ? undefined : database.id,
 												)
 												setOpen(false)
 											}}
@@ -77,12 +77,12 @@ export default function Language({ form }: { form: UseFormReturn<FormData> }) {
 											<Check
 												className={cn(
 													"mr-2 h-4 w-4",
-													language.id === field.value
+													database.id === field.value
 														? "opacity-100"
 														: "opacity-0",
 												)}
 											/>
-											{language.title}
+											{database.title}
 										</CommandItem>
 									))}
 								</CommandGroup>

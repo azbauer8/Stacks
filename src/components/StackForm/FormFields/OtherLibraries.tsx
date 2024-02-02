@@ -18,15 +18,19 @@ import {
 } from "@/components/ui/form"
 import { Tables } from "@/types/supabase"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
-export function OtherLibraries({ form }: { form: UseFormReturn<FormData> }) {
+export function OtherLibraries({
+	form,
+	initialData,
+}: { form: UseFormReturn<FormData>; initialData?: number[] }) {
 	const inputRef = React.useRef<HTMLInputElement>(null)
 	const [open, setOpen] = React.useState(false)
 	const [selected, setSelected] = React.useState<Tables<"other_libraries">[]>(
 		[],
 	)
 	const [inputValue, setInputValue] = React.useState("")
+	const [initData, setInitData] = React.useState<number[]>(initialData || [])
 
 	const supabase = createClient()
 	const OtherLibraries = useQuery({
@@ -36,6 +40,18 @@ export function OtherLibraries({ form }: { form: UseFormReturn<FormData> }) {
 				.from("other_libraries")
 				.select("*, other_library_category(*)"),
 	})
+
+	// if initial data passed in, set selected to libraries with ids in provided data
+	React.useEffect(() => {
+		if (OtherLibraries?.data?.data && initialData && initData.length > 0) {
+			setSelected(
+				OtherLibraries?.data?.data?.filter((library) =>
+					initData.includes(library.id),
+				),
+			)
+			setInitData([])
+		}
+	}, [OtherLibraries?.data?.data])
 
 	const handleUnselect = React.useCallback(
 		(library: Tables<"other_libraries">) => {
@@ -57,7 +73,6 @@ export function OtherLibraries({ form }: { form: UseFormReturn<FormData> }) {
 						})
 					}
 				}
-				// This is not a default behaviour of the <input /> field
 				if (e.key === "Escape") {
 					input.blur()
 				}
@@ -113,7 +128,6 @@ export function OtherLibraries({ form }: { form: UseFormReturn<FormData> }) {
 											</Badge>
 										)
 									})}
-									{/* Avoid having the "Search" Icon */}
 									<CommandPrimitive.Input
 										ref={inputRef}
 										value={inputValue}

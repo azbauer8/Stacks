@@ -22,23 +22,23 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-import { FormData } from "../page"
+import { FormData } from "../"
 
-export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
+export default function Framework({ form }: { form: UseFormReturn<FormData> }) {
 	const [open, setOpen] = React.useState(false)
 	const supabase = createClient()
-	const Stylings = useQuery({
-		queryKey: ["stylings"],
-		queryFn: async () => await supabase.from("stylings").select("*"),
+	const Frameworks = useQuery({
+		queryKey: ["frameworks"],
+		queryFn: async () => await supabase.from("frameworks").select("*"),
 	})
 
 	return (
 		<FormField
 			control={form.control}
-			name="styling"
+			name="framework"
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>Styling</FormLabel>
+					<FormLabel>Framework</FormLabel>
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -51,10 +51,10 @@ export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
 									)}
 								>
 									{field.value
-										? Stylings.data?.data?.find(
-												(styling) => styling.id === field.value,
+										? Frameworks.data?.data?.find(
+												(framework) => framework.id === field.value,
 										  )?.title
-										: "Select a styling library"}
+										: "Select a framework"}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
@@ -62,14 +62,16 @@ export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
 						<PopoverContent className="w-[calc(100vw-3.5rem)] p-0 md:w-[290px] md:max-w-[29vw]">
 							<Command>
 								<CommandGroup>
-									{Stylings.data?.data?.map((styling) => (
+									{Frameworks.data?.data?.map((framework) => (
 										<CommandItem
-											value={styling.id.toString()}
-											key={styling.id}
+											value={framework.id.toString()}
+											key={framework.id}
 											onSelect={() => {
 												form.setValue(
-													"styling",
-													field.value === styling.id ? undefined : styling.id,
+													"framework",
+													field.value === framework.id
+														? undefined
+														: framework.id,
 												)
 												setOpen(false)
 											}}
@@ -77,12 +79,12 @@ export default function Styling({ form }: { form: UseFormReturn<FormData> }) {
 											<Check
 												className={cn(
 													"mr-2 h-4 w-4",
-													styling.id === field.value
+													framework.id === field.value
 														? "opacity-100"
 														: "opacity-0",
 												)}
 											/>
-											{styling.title}
+											{framework.title}
 										</CommandItem>
 									))}
 								</CommandGroup>
