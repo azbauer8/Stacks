@@ -14,7 +14,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -23,7 +22,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -32,7 +30,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -44,7 +41,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -53,7 +49,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -62,7 +57,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -74,7 +68,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -83,7 +76,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -92,7 +84,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -104,7 +95,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -113,7 +103,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -122,7 +111,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -134,7 +122,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -143,7 +130,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -152,7 +138,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -165,7 +150,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -175,7 +159,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -185,7 +168,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -371,7 +353,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -380,7 +361,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -389,7 +369,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string
@@ -401,7 +380,6 @@ export interface Database {
           description: string | null
           has_dark_icon: boolean
           icon: string | null
-          icon_path: string | null
           id: number
           link: string | null
           title: string
@@ -410,7 +388,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title: string
@@ -419,7 +396,6 @@ export interface Database {
           description?: string | null
           has_dark_icon?: boolean
           icon?: string | null
-          icon_path?: string | null
           id?: number
           link?: string | null
           title?: string

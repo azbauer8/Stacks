@@ -109,7 +109,6 @@ export default async function StackPage({
 						<StackItem
 							key={stackElement.id}
 							header={stackElement.header}
-							iconPath={stackElement.icon_path}
 							icon={stackElement.icon}
 							hasDarkIcon={stackElement.has_dark_icon}
 							title={stackElement.title}

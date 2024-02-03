@@ -66,7 +66,7 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
 							{icons.map((icon) => (
 								<Image
 									key={icon.id}
-									src={`/icons/${icon.icon_path}/${icon.icon}`}
+									src={icon.icon as string}
 									alt={icon.title}
 									width="24"
 									height="24"
