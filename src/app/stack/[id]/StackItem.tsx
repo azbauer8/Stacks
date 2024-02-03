@@ -27,7 +27,7 @@ export default function StackItem({
 	link: string | null
 }) {
 	return (
-		<Card className="hover:bg-accent">
+		<Card className="hover:bg-accent shadow-md">
 			<Link href={link ? link : "/"}>
 				<CardHeader className="space-y-2 p-3">
 					<Badge
