@@ -1,6 +1,6 @@
 "use client"
 
-import { createClient } from "@/utils/supabase/client"
+import { createClient } from "@/utils/supabase-clients/client"
 import { useQuery } from "@tanstack/react-query"
 import { Command as CommandPrimitive } from "cmdk"
 import { X } from "lucide-react"

@@ -1,4 +1,4 @@
-import { createClient as createServerClient } from "@/utils/supabase/server"
+import { createClient as createServerClient } from "@/utils/supabase-clients/server"
 import { cookies } from "next/headers"
 
 import { FormattedStack, PreformattedStack } from "@/types/stack"

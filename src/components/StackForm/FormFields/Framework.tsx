@@ -1,6 +1,6 @@
 "use client"
 
-import { createClient } from "@/utils/supabase/client"
+import { createClient } from "@/utils/supabase-clients/client"
 import { useQuery } from "@tanstack/react-query"
 import { Check, ChevronsUpDown } from "lucide-react"
 import * as React from "react"

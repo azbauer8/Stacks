@@ -11,7 +11,7 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { createClient } from "@/utils/supabase/client"
+import { createClient } from "@/utils/supabase-clients/client"
 import { useRouter } from "next/navigation"
 
 export default function DeleteStack({
@@ -22,10 +22,10 @@ export default function DeleteStack({
 	const supabase = createClient()
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger>
-				<Button size={"sm"} variant={"destructive"}>
-					Delete
-				</Button>
+			<AlertDialogTrigger
+				className={buttonVariants({ variant: "destructive", size: "sm" })}
+			>
+				Delete
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>

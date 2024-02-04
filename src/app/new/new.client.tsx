@@ -2,9 +2,10 @@
 
 import StackForm from "@/components/StackForm"
 import { FormData } from "@/components/StackForm"
-import { createClient } from "@/utils/supabase/client"
+import { createClient } from "@/utils/supabase-clients/client"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 export default function NewStack({ user }: { user: string }) {
 	const router = useRouter()
@@ -41,9 +42,18 @@ export default function NewStack({ user }: { user: string }) {
 
 	createPostRequest.isError && console.log(createPostRequest.error)
 
-	if (createPostRequest.isSuccess && createPostRequest.data) {
-		router.push(`/stack/${createPostRequest.data?.data[0].id}`)
-	}
+	useEffect(() => {
+		if (createPostRequest.isSuccess && createPostRequest.data) {
+			router.push(`/stack/${createPostRequest.data?.data[0].id}`)
+			router.refresh()
+		}
+	}, [
+		createPostRequest.isSuccess,
+		createPostRequest.data,
+		createPostRequest.data?.data[0].id,
+		router.push,
+		router.refresh,
+	])
 
 	return <StackForm type="Create" onSubmit={onSubmit} />
 }

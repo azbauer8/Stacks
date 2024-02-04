@@ -1,5 +1,5 @@
 import { FormData } from "@/components/StackForm"
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/utils/supabase-clients/server"
 import { cookies } from "next/headers"
 import { notFound } from "next/navigation"
 import EditStack from "./edit.client"

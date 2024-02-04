@@ -1,6 +1,6 @@
-const {
-	withHydrationOverlay,
-} = require("@builder.io/react-hydration-overlay/next")
+// const {
+// 	withHydrationOverlay,
+// } = require("@builder.io/react-hydration-overlay/next")
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -14,4 +14,4 @@ const nextConfig = {
 	},
 }
 
-module.exports = withHydrationOverlay({})(nextConfig)
+module.exports = nextConfig

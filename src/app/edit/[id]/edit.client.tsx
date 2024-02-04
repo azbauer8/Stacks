@@ -1,11 +1,12 @@
 "use client"
 
-import { createClient } from "@/utils/supabase/client"
+import { createClient } from "@/utils/supabase-clients/client"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 
 import StackForm from "@/components/StackForm"
 import { FormData } from "@/components/StackForm"
+import { useEffect } from "react"
 
 export default function EditStack({
 	id,
@@ -24,6 +25,7 @@ export default function EditStack({
 	const createEditRequest = useMutation({
 		mutationFn: async (data: FormData) => {
 			const { other_libraries, ...submitData } = data
+			replaceUndefinedWithNull(submitData)
 			await supabase.from("stacks").update(submitData).eq("id", id)
 			const stack_other_libraries = await supabase
 				.from("stack_other_libraries")
@@ -65,10 +67,12 @@ export default function EditStack({
 		},
 	})
 
-	if (createEditRequest.isSuccess) {
-		router.push(`/stack/${id}`)
-		router.refresh()
-	}
+	useEffect(() => {
+		if (createEditRequest.isSuccess) {
+			router.push(`/stack/${id}`)
+			router.refresh()
+		}
+	}, [id, createEditRequest.isSuccess, router.push, router.refresh])
 
 	return (
 		<StackForm
@@ -77,4 +81,14 @@ export default function EditStack({
 			onSubmit={onSubmit}
 		/>
 	)
+}
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+function replaceUndefinedWithNull(obj: any): void {
+	for (const key in obj) {
+		if (obj[key] === undefined) {
+			obj[key] = null
+		} else if (typeof obj[key] === "object") {
+			replaceUndefinedWithNull(obj[key])
+		}
+	}
 }

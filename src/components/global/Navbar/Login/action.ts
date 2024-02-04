@@ -3,7 +3,7 @@
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
 
-import { createClient } from "@/utils/supabase/actions"
+import { createClient } from "@/utils/supabase-clients/actions"
 import { revalidatePath } from "next/cache"
 
 export async function login() {

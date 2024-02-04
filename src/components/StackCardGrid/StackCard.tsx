@@ -25,7 +25,7 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
 	let count = 0
 	const COUNT_LIMIT = 6
 	for (const type of iconPool) {
-		if (count === COUNT_LIMIT) return
+		if (count === COUNT_LIMIT) break
 		// @ts-ignore
 		if (stack[type]) {
 			// @ts-ignore
@@ -40,6 +40,7 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
 			count = count + 1
 		})
 	}
+
 	return (
 		<Link href={`/stack/${stack.id}`}>
 			<Card className="flex h-full flex-col hover:bg-accent drop-shadow-md">
@@ -65,7 +66,7 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
 						<div className="flex items-center gap-4">
 							{icons.map((icon) => (
 								<Image
-									key={icon.id}
+									key={icon.title}
 									src={icon.icon as string}
 									alt={icon.title}
 									width="24"

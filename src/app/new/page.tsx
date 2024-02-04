@@ -8,5 +8,5 @@ export default async function NewStackPage() {
 		return <p>You must be signed in to create a stack.</p>
 	}
 
-	return <NewStack user={user.user_metadata.user_name} />
+	return <NewStack user={user.id} />
 }
