@@ -1,8 +1,5 @@
-import { createClient } from "@/utils/supabase/server"
 import { User } from "@supabase/supabase-js"
 import { MoreVerticalIcon } from "lucide-react"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 
 import { UnstyledButton } from "@/components/ui/button"
 import {
@@ -12,19 +9,10 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { logout } from "../Login/action"
 import { ThemeToggle } from "./ThemeToggle"
 
 export default function NavMenu({ user }: { user: User | null }) {
-	const signOut = async () => {
-		"use server"
-
-		const cookieStore = cookies()
-		const supabase = createClient(cookieStore)
-
-		await supabase.auth.signOut()
-		return redirect("/")
-	}
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className="w-fit rounded-md px-1 py-2 hover:bg-accent hover:text-accent-foreground">
@@ -36,7 +24,7 @@ export default function NavMenu({ user }: { user: User | null }) {
 				{user && (
 					<>
 						<DropdownMenuItem className="mx-0" action>
-							<form action={signOut} className="mx-0 w-full">
+							<form action={logout} className="mx-0 w-full">
 								<UnstyledButton className="w-full">Sign Out</UnstyledButton>
 							</form>
 						</DropdownMenuItem>
