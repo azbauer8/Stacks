@@ -7,30 +7,30 @@ import { createClient } from "@/utils/supabase-clients/actions"
 import { revalidatePath } from "next/cache"
 
 export async function login() {
-	const origin = headers().get("origin")
-	const cookieStore = cookies()
-	const supabase = createClient(cookieStore)
+  const origin = headers().get("origin")
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
 
-	const { data, error } = await supabase.auth.signInWithOAuth({
-		provider: "github",
-		options: {
-			redirectTo: `${origin}/auth/callback`,
-		},
-	})
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+    options: {
+      redirectTo: `${origin}/auth/callback`,
+    },
+  })
 
-	if (error) {
-		console.error(error)
-		return redirect("/")
-	}
+  if (error) {
+    console.error(error)
+    return redirect("/")
+  }
 
-	redirect(data.url)
+  redirect(data.url)
 }
 
 export async function logout() {
-	const cookieStore = cookies()
-	const supabase = createClient(cookieStore)
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
 
-	await supabase.auth.signOut()
-	revalidatePath("/", "layout")
-	return redirect("/")
+  await supabase.auth.signOut()
+  revalidatePath("/", "layout")
+  return redirect("/")
 }

@@ -2,11 +2,11 @@ import { GetAuthUser } from "@/utils/querySupabase"
 import NewStack from "./new.client"
 
 export default async function NewStackPage() {
-	const user = await GetAuthUser()
+  const user = await GetAuthUser()
 
-	if (!user) {
-		return <p>You must be signed in to create a stack.</p>
-	}
+  if (!user) {
+    return <p>You must be signed in to create a stack.</p>
+  }
 
-	return <NewStack user={user.id} />
+  return <NewStack user={user.id} />
 }

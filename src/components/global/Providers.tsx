@@ -6,10 +6,10 @@ import { type ThemeProviderProps } from "next-themes/dist/types"
 import * as React from "react"
 
 export function Providers({ children, ...props }: ThemeProviderProps) {
-	const queryClient = new QueryClient()
-	return (
-		<NextThemesProvider {...props}>
-			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-		</NextThemesProvider>
-	)
+  const queryClient = new QueryClient()
+  return (
+    <NextThemesProvider {...props}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </NextThemesProvider>
+  )
 }

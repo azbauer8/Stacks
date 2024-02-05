@@ -22,52 +22,52 @@ import { formSchema } from "./formSchema"
 export type FormData = z.infer<typeof formSchema>
 
 export default function StackForm({
-	type,
-	initialData,
-	onSubmit,
+  type,
+  initialData,
+  onSubmit,
 }: {
-	type: "Create" | "Edit"
-	initialData?: FormData
-	onSubmit: (data: FormData) => void
+  type: "Create" | "Edit"
+  initialData?: FormData
+  onSubmit: (data: FormData) => void
 }) {
-	const form = useForm<FormData>({
-		resolver: zodResolver(formSchema),
-		defaultValues: { visibility: "public" },
-	})
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { visibility: "public" },
+  })
 
-	useEffect(() => {
-		if (initialData) {
-			form.reset(initialData)
-		}
-	}, [initialData, form.reset])
+  useEffect(() => {
+    if (initialData) {
+      form.reset(initialData)
+    }
+  }, [initialData, form.reset])
 
-	return (
-		<div className="space-y-5">
-			<h1 className="text-4xl font-bold">{type} Stack</h1>
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-					<BasicInfo form={form} />
-					<div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-3 ">
-						<UseCase form={form} />
-						<Language form={form} />
-						<Framework form={form} />
-						<MetaFramework form={form} />
+  return (
+    <div className="space-y-5">
+      <h1 className="text-4xl font-bold">{type} Stack</h1>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <BasicInfo form={form} />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-3 ">
+            <UseCase form={form} />
+            <Language form={form} />
+            <Framework form={form} />
+            <MetaFramework form={form} />
 
-						<Styling form={form} />
-						<UILibrary form={form} />
+            <Styling form={form} />
+            <UILibrary form={form} />
 
-						<Database form={form} />
-						<BackendFramework form={form} />
-					</div>
-					<OtherLibraries
-						form={form}
-						initialData={initialData?.other_libraries}
-					/>
-					<Button type="submit" className="w-full md:w-fit">
-						{type} Stack
-					</Button>
-				</form>
-			</Form>
-		</div>
-	)
+            <Database form={form} />
+            <BackendFramework form={form} />
+          </div>
+          <OtherLibraries
+            form={form}
+            initialData={initialData?.other_libraries}
+          />
+          <Button type="submit" className="w-full md:w-fit">
+            {type} Stack
+          </Button>
+        </form>
+      </Form>
+    </div>
+  )
 }
