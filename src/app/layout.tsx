@@ -8,7 +8,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Footer from "@/components/global/Footer"
 import Nav from "@/components/global/Navbar"
 import { Providers } from "@/components/global/Providers"
-
+import { Suspense } from "react"
+import Image from "next/image"
+import NavMenu from "@/components/global/Navbar/NavMenu"
+import Login from "@/components/global/Navbar/Login"
 export const runtime = "edge"
 export const preferredRegion = "home"
 export const dynamic = "force-dynamic"
@@ -35,7 +38,24 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="flex min-h-screen flex-col items-center gap-5">
-            <Nav />
+           <Suspense fallback={
+               <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
+      <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 text-xl font-bold">
+            <Image src="/favicon.png" alt="Favicon" width={32} height={32} />
+            <h1>Stacks</h1>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <Login />
+          <NavMenu user={null} />
+        </div>
+      </div>
+    </nav>
+           
+           
+           }> <Nav /></Suspense>
             <div className="w-full max-w-4xl flex-1 px-5 lg:px-0">
               {children}
             </div>
@@ -48,3 +68,4 @@ export default function RootLayout({
     </html>
   )
 }
+ 
