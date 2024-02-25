@@ -12,7 +12,7 @@ export default function NavWrapper({
     <NextUINavbar
       maxWidth="xl"
       position="sticky"
-      isBlurred={true}
+      isBlurred={false}
       classNames={{
         base: "bg-transparent",
         wrapper: `transition-all ease-in-out duration-300 rounded-3xl bg-transparent ${
