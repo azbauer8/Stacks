@@ -1,15 +1,17 @@
 import { FormattedStack } from "@/types/stack"
-import Image from "next/image"
 import Link from "next/link"
 
+import { Tables } from "@/types/supabase"
 import {
+  Avatar,
+  AvatarGroup,
   Card,
-  CardContent,
+  CardBody,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Tables } from "@/types/supabase"
+} from "@nextui-org/react"
+import { Tooltip } from "@nextui-org/react"
+import { Route } from "next"
 
 export default async function StackCard({ stack }: { stack: FormattedStack }) {
   const iconPool = [
@@ -22,61 +24,56 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
     "database",
   ]
   const icons: Tables<"frameworks">[] = []
-  let count = 0
-  const COUNT_LIMIT = 6
   for (const type of iconPool) {
-    if (count === COUNT_LIMIT) break
     // @ts-ignore
     if (stack[type]) {
       // @ts-ignore
       icons.push(stack[type])
-      count = count + 1
     }
   }
-  if (count < COUNT_LIMIT && stack.other_libraries) {
+  if (stack.other_libraries) {
     stack.other_libraries.map((other_library) => {
-      if (count === COUNT_LIMIT) return
       icons.push(other_library)
-      count = count + 1
     })
   }
 
   return (
-    <Link href={`/stack/${stack.id}`}>
-      <Card className="flex h-full flex-col hover:bg-accent drop-shadow-md">
-        <CardHeader className="space-y-1">
-          <CardTitle>{stack.title}</CardTitle>
-          <div className="flex flex-wrap justify-between gap-1 text-sm text-muted-foreground">
+    <Link href={`/stack/${stack.id}` as Route}>
+      <Card className="h-full p-1 border-2 border-transparent hover:border-divider hover:bg-default-100">
+        <CardHeader className="flex-col items-start gap-1.5">
+          <h1 className="text-2xl font-semibold leading-none tracking-tight">
+            {stack.title}
+          </h1>
+          <div className="flex flex-wrap justify-between text-sm text-default-500 w-full">
             <h2>
               By{" "}
-              <span className="text-card-foreground">
-                {stack.user?.user_name}
-              </span>
+              <span className="text-foreground">{stack.user?.user_name}</span>
             </h2>
             <div className="w-12" />
 
             <span>Updated {stack.updated_at}</span>
           </div>
         </CardHeader>
-        <div className="flex h-full flex-col justify-between">
-          <CardContent className="pb-2.5 text-sm text-muted-foreground">
-            {stack.description}
-          </CardContent>
-          <CardFooter className="pb-4">
-            <div className="flex items-center gap-4">
-              {icons.map((icon) => (
-                <Image
-                  key={icon.title}
+        <CardBody className="text-sm text-default-500">
+          {stack.description}
+        </CardBody>
+        <CardFooter>
+          <AvatarGroup isBordered max={6} size="sm" className="pl-3">
+            {icons.map((icon) => (
+              <Tooltip key={icon.title} content={icon.title}>
+                <Avatar
                   src={icon.icon as string}
-                  alt={icon.title}
-                  width="24"
-                  height="24"
-                  className={icon.has_dark_icon ? "dark:invert" : ""}
+                  classNames={{
+                    img: `${icon.has_dark_icon && "dark:invert"}`,
+                  }}
+                  imgProps={{
+                    loading: "eager",
+                  }}
                 />
-              ))}
-            </div>
-          </CardFooter>
-        </div>
+              </Tooltip>
+            ))}
+          </AvatarGroup>
+        </CardFooter>
       </Card>
     </Link>
   )
