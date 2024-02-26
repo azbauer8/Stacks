@@ -1,7 +1,5 @@
-import { FormattedStack } from "@/types/stack"
+import { Route } from "next"
 import Link from "next/link"
-
-import { Tables } from "@/types/supabase"
 import {
   Avatar,
   AvatarGroup,
@@ -9,9 +7,11 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Tooltip,
 } from "@nextui-org/react"
-import { Tooltip } from "@nextui-org/react"
-import { Route } from "next"
+
+import { FormattedStack } from "@/types/stack"
+import { Tables } from "@/types/supabase"
 
 export default async function StackCard({ stack }: { stack: FormattedStack }) {
   const iconPool = [
@@ -25,9 +25,9 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
   ]
   const icons: Tables<"frameworks">[] = []
   for (const type of iconPool) {
-    // @ts-ignore
+    // @ts-expect-error because the type of stack[type] is not known
     if (stack[type]) {
-      // @ts-ignore
+      // @ts-expect-error because the type of stack[type] is not known
       icons.push(stack[type])
     }
   }
@@ -39,12 +39,12 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
 
   return (
     <Link href={`/stack/${stack.id}` as Route}>
-      <Card className="h-full p-1 border-2 border-transparent hover:border-divider hover:bg-default-100">
+      <Card className="h-full border-2 border-transparent p-1 hover:border-divider hover:bg-default-100">
         <CardHeader className="flex-col items-start gap-1.5">
           <h1 className="text-2xl font-semibold leading-none tracking-tight">
             {stack.title}
           </h1>
-          <div className="flex flex-wrap justify-between text-sm text-default-500 w-full">
+          <div className="flex w-full flex-wrap justify-between text-sm text-default-500">
             <h2>
               By{" "}
               <span className="text-foreground">{stack.user?.user_name}</span>

@@ -1,12 +1,13 @@
 "use client"
 
 import { Navbar as NextUINavbar } from "@nextui-org/react"
-
 import { useWindowScroll } from "@uidotdev/usehooks"
 
 export default function NavWrapper({
   children,
-}: { children: React.ReactNode }) {
+}: {
+  children: React.ReactNode
+}) {
   const [{ y }] = useWindowScroll()
   return (
     <NextUINavbar

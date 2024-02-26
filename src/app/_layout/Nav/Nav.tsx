@@ -1,11 +1,11 @@
-import { siteConfig } from "@/config"
-import { NavbarBrand, NavbarContent } from "@nextui-org/react"
+import { Suspense } from "react"
 import Image from "next/image"
 import NextLink from "next/link"
-import NavWrapper from "./NavWrapper"
+import { siteConfig } from "@/config"
+import { NavbarBrand, NavbarContent } from "@nextui-org/react"
 
-import { Suspense } from "react"
 import NavActions from "./NavActions"
+import NavWrapper from "./NavWrapper"
 
 export default function Nav() {
   return (
@@ -20,7 +20,7 @@ export default function Nav() {
               height={22}
               alt="Site logo"
             />
-            <p className="font-bold text-lg">{siteConfig.title}</p>
+            <p className="text-lg font-bold">{siteConfig.title}</p>
           </NextLink>
         </NavbarBrand>
       </NavbarContent>

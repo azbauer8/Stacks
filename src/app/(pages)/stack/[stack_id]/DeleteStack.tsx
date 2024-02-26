@@ -1,5 +1,7 @@
 "use client"
 
+import { Route } from "next"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/utils/supabase-clients/client"
 import {
   Button,
@@ -7,13 +9,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react"
-import { Route } from "next"
-import { useRouter } from "next/navigation"
 
 export default function DeleteStack({
   user,
   stackId,
-}: { user: string; stackId: number }) {
+}: {
+  user: string
+  stackId: number
+}) {
   const router = useRouter()
   const supabase = createClient()
 
@@ -30,15 +33,15 @@ export default function DeleteStack({
         </Button>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="px-1 py-2 w-full">
+        <div className="w-full px-1 py-2">
           <p className="text-small font-bold text-foreground">Are you sure?</p>
-          <div className="mt-2 flex flex-col gap-2 w-full">
+          <div className="mt-2 flex w-full flex-col gap-2">
             This action cannot be undone.
             <Button
               size="sm"
               variant="ghost"
               color="danger"
-              className="w-fit ml-auto"
+              className="ml-auto w-fit"
               onClick={async () => {
                 const { error } = await supabase
                   .from("stacks")

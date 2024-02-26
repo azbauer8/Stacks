@@ -1,10 +1,12 @@
-import { ThemeToggle } from "@/app/_layout/Nav/ThemeToggle"
-import { signIn } from "@/app/auth/actions"
+import { Route } from "next"
+import Link from "next/link"
 import { GetAuthUser } from "@/utils/querySupabase"
 import { Button } from "@nextui-org/react"
 import { PlusIcon } from "lucide-react"
-import { Route } from "next"
-import Link from "next/link"
+
+import { ThemeToggle } from "@/app/_layout/Nav/ThemeToggle"
+import { signIn } from "@/app/auth/actions"
+
 import NavMenu from "./NavMenu"
 import { SignInButton } from "./SignInButton"
 

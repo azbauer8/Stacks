@@ -1,9 +1,9 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Button } from "@nextui-org/react"
 import { MoonIcon, SunIcon, SunMoonIcon } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
 
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
@@ -23,7 +23,7 @@ export function ThemeToggle() {
 
   function toggleTheme() {
     setTheme(
-      theme === "system" ? "light" : theme === "light" ? "dark" : "system",
+      theme === "system" ? "light" : theme === "light" ? "dark" : "system"
     )
   }
 
@@ -41,7 +41,10 @@ export function ThemeToggle() {
   function ThemeButton({
     placeholder,
     children,
-  }: { placeholder?: boolean; children: React.ReactNode }) {
+  }: {
+    placeholder?: boolean
+    children: React.ReactNode
+  }) {
     return (
       <Button
         isIconOnly

@@ -3,10 +3,11 @@ import { Providers } from "@/app/_layout/Providers"
 
 import "@/styles.css"
 
-import { siteConfig } from "@/config"
-import clsx from "clsx"
 import { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { siteConfig } from "@/config"
+import clsx from "clsx"
+
 import Nav from "./_layout/Nav"
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default function RootLayout({
       <body
         className={clsx(
           "bg-background text-foreground antialiased",
-          inter.className,
+          inter.className
         )}
       >
         <Providers>

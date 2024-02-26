@@ -21,7 +21,7 @@ function PageTitle({
     <h1
       className={clsx(
         "text-4xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]",
-        className,
+        className
       )}
       {...props}
     />
@@ -36,7 +36,7 @@ function PageDescription({
     <Balance
       className={clsx(
         "max-w-[1200px] text-base text-default-500 sm:text-xl",
-        className,
+        className
       )}
       {...props}
     />

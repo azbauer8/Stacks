@@ -1,16 +1,14 @@
+import { LandingHeader, LandingTitle } from "@/components/LandingHeader"
 import StackGridWrapper from "@/components/StackCardGrid/StackGridWrapper"
-import {
-  LandingTitle,
-  MotionLandingHeader,
-} from "@/components/LandingHeader"
+
 export default async function Home() {
   return (
     <>
-      <MotionLandingHeader>
+      <LandingHeader>
         <LandingTitle>
           A repository of web dev stacks for you to catalog and discover.
         </LandingTitle>
-      </MotionLandingHeader>
+      </LandingHeader>
       <StackGridWrapper title="Public Stacks" />
     </>
   )

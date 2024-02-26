@@ -1,5 +1,5 @@
-import { createClient as createServerClient } from "@/utils/supabase-clients/server"
 import { cookies } from "next/headers"
+import { createClient as createServerClient } from "@/utils/supabase-clients/server"
 
 import { FormattedStack, PreformattedStack } from "@/types/stack"
 
@@ -31,7 +31,7 @@ export async function GetStackById({ id }: { id: string }) {
   const { data: stack, error } = await supabase
     .from("stacks")
     .select(
-      "*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))",
+      "*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))"
     )
     .eq("id", id)
 
@@ -40,17 +40,13 @@ export async function GetStackById({ id }: { id: string }) {
   return formatStack(stack[0])
 }
 
-export async function GetUserStacks({
-  user,
-}: {
-  user: string
-}) {
+export async function GetUserStacks({ user }: { user: string }) {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
   const { data: stacks, error } = await supabase
     .from("stacks")
     .select(
-      "*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))",
+      "*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))"
     )
     .eq("user", user)
 
@@ -72,7 +68,7 @@ export async function GetAllStacks() {
   const { data: stacks, error } = await supabase
     .from("stacks")
     .select(
-      "*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))",
+      "*, users(*), use_cases(*), languages(*), frameworks(*), meta_frameworks(*), stylings(*), ui_libraries(*), backend_frameworks(*), databases(*), other_libraries(*, other_library_category(*))"
     )
 
   if (!stacks?.length || error) return

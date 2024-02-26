@@ -1,7 +1,8 @@
+import { notFound } from "next/navigation"
 import { GetAllStacks, GetUserStacks } from "@/utils/querySupabase"
 
 import { Tables } from "@/types/supabase"
-import { notFound } from "next/navigation"
+
 import StackCard from "./StackCard"
 
 export default async function StackCardGrid({

@@ -1,12 +1,12 @@
-import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
-import { LockIcon } from "lucide-react"
+import { Route } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
+import { Button, Chip, Link as NextUILink } from "@nextui-org/react"
+import { LockIcon } from "lucide-react"
 
 import { Tables } from "@/types/supabase"
 
-import { Button, Chip, Link as NextUILink } from "@nextui-org/react"
-import { Route } from "next"
 import DeleteStack from "./DeleteStack"
 import StackItem from "./StackItem"
 
@@ -34,10 +34,9 @@ export default async function StackPage({
     const stackElements: StackElement[] = []
     for (const stackElement of allStackElements) {
       // TODO: figure out how to do this without surpressing ts errors
-      // @ts-ignore
+      // @ts-expect-error: this is a hack to get around the fact that the types are not correct
       if (stack[stackElement.type]) {
         if (stackElement.type === "other_libraries") {
-          // @ts-ignore
           stack[stackElement.type].map((other_library) => {
             stackElements.push({
               ...other_library,
@@ -48,7 +47,7 @@ export default async function StackPage({
           })
         } else {
           stackElements.push({
-            // @ts-ignore
+            // @ts-expect-error: this is a hack to get around the fact that the types are not correct
             ...stack[stackElement.type],
             header: stackElement.header,
           })
@@ -58,7 +57,7 @@ export default async function StackPage({
     return (
       <div className="mx-auto px-0.5">
         {authUser?.id === stack.user?.id && (
-          <div className="flex justify-end pb-3 space-x-2.5">
+          <div className="flex justify-end space-x-2.5 pb-3">
             <Button
               as={Link}
               href={`/edit/${stack.id}`}
@@ -74,7 +73,7 @@ export default async function StackPage({
             />
           </div>
         )}
-        <div className="space-y-2 mb-4">
+        <div className="mb-4 space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-bold leading-none tracking-tight">
               {stack.title}
@@ -92,7 +91,7 @@ export default async function StackPage({
               </Chip>
             </Link>
             <div className="w-12" />
-            <div className="text-right text-muted-foreground">
+            <div className="text-right text-default-500">
               Updated <span className="font-medium">{stack.updated_at}</span>
             </div>
           </div>
@@ -109,7 +108,7 @@ export default async function StackPage({
             {stack.link}
           </NextUILink>
         )}
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 mt-4">
+        <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
           {stackElements.map((stackElement) => (
             <StackItem
               key={stackElement.id}

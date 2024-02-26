@@ -1,6 +1,6 @@
 "use client"
 
-import { signOut } from "@/app/auth/actions"
+import Link from "next/link"
 import {
   Avatar,
   Dropdown,
@@ -9,11 +9,11 @@ import {
   DropdownTrigger,
   User,
 } from "@nextui-org/react"
-
 import { User as AuthUser } from "@supabase/supabase-js"
 import { MoonIcon, SunIcon, SunMoonIcon } from "lucide-react"
 import { useTheme } from "next-themes"
-import Link from "next/link"
+
+import { signOut } from "@/app/auth/actions"
 
 export default function NavMenu({ user }: { user: AuthUser }) {
   const { theme, setTheme } = useTheme()
@@ -50,7 +50,7 @@ export default function NavMenu({ user }: { user: AuthUser }) {
     >
       <DropdownTrigger>
         <Avatar
-          className="hover:brightness-90 cursor-pointer"
+          className="cursor-pointer hover:brightness-90"
           src={user.user_metadata.avatar_url}
           showFallback
         />
@@ -100,7 +100,7 @@ export default function NavMenu({ user }: { user: AuthUser }) {
         </DropdownItem>
         <DropdownItem key="signout" textValue="Sign Out">
           <form action={signOut}>
-            <button type="submit" className="w-full justify-start flex">
+            <button type="submit" className="flex w-full justify-start">
               Sign Out
             </button>
           </form>

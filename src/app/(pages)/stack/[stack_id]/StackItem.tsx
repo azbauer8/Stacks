@@ -1,7 +1,7 @@
-import { Avatar, Card, CardBody, CardHeader, Chip } from "@nextui-org/react"
 import { Route } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { Avatar, Card, CardBody, CardHeader, Chip } from "@nextui-org/react"
 
 export default function StackItem({
   header,
@@ -19,7 +19,7 @@ export default function StackItem({
   link: string | null
 }) {
   return (
-    <Card className="h-full p-1 border-2 border-transparent hover:border-divider hover:bg-default-100">
+    <Card className="h-full border-2 border-transparent p-1 hover:border-divider hover:bg-default-100">
       <Link href={link ? (link as Route) : "/"}>
         <CardHeader className="flex-col items-start gap-2.5">
           <Chip variant="flat" size="sm" radius="sm">

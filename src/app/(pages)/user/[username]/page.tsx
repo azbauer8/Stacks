@@ -1,9 +1,10 @@
-import StackGridWrapper from "@/components/StackCardGrid/StackGridWrapper"
+import Link from "next/link"
+import { notFound } from "next/navigation"
 import { FindUser } from "@/utils/querySupabase"
 import { Avatar, Chip } from "@nextui-org/react"
 import { GithubIcon } from "lucide-react"
-import Link from "next/link"
-import { notFound } from "next/navigation"
+
+import StackGridWrapper from "@/components/StackCardGrid/StackGridWrapper"
 
 export default async function Home({
   params,
