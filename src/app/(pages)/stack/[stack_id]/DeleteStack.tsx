@@ -41,7 +41,7 @@ export default function DeleteStack({
               size="sm"
               variant="ghost"
               color="danger"
-              className="ml-auto w-fit"
+              className="ml-auto w-fit font-medium"
               onClick={async () => {
                 const { error } = await supabase
                   .from("stacks")

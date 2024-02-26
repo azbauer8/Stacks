@@ -31,6 +31,9 @@ module.exports = {
             secondary: {
               DEFAULT: "#0E8AAA",
             },
+            danger: {
+              DEFAULT: "#ff6464",
+            },
           },
         },
         dark: {
@@ -42,6 +45,9 @@ module.exports = {
             },
             secondary: {
               DEFAULT: "#09AACD",
+            },
+            danger: {
+              DEFAULT: "#ff6464",
             },
           },
         },
