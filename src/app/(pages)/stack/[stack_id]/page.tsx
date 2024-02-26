@@ -56,29 +56,31 @@ export default async function StackPage({
     }
     return (
       <div className="mx-auto px-0.5">
-        {authUser?.id === stack.user?.id && (
-          <div className="flex justify-end space-x-2.5 pb-3">
-            <Button
-              as={Link}
-              href={`/edit/${stack.id}`}
-              size="sm"
-              variant="ghost"
-              className="font-medium"
-            >
-              Edit
-            </Button>
-            <DeleteStack
-              user={authUser?.user_metadata.user_name}
-              stackId={stack.id}
-            />
-          </div>
-        )}
         <div className="mb-4 space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-bold leading-none tracking-tight">
               {stack.title}
             </h2>
-            {stack.visibility === "private" && <LockIcon />}
+            <div className="flex items-center space-x-2">
+              {stack.visibility === "private" && <LockIcon />}
+              {authUser?.id === stack.user?.id && (
+                <>
+                  <Button
+                    as={Link}
+                    href={`/edit/${stack.id}`}
+                    size="sm"
+                    variant="ghost"
+                    className="font-medium"
+                  >
+                    Edit
+                  </Button>
+                  <DeleteStack
+                    user={authUser?.user_metadata.user_name}
+                    stackId={stack.id}
+                  />
+                </>
+              )}
+            </div>
           </div>
           <div className="flex flex-wrap items-center justify-between text-sm">
             <Link href={`/user/${stack.user?.user_name}` as Route}>
