@@ -1,9 +1,12 @@
+import { cache } from "react"
 import { cookies } from "next/headers"
 import { createClient as createServerClient } from "@/utils/supabase-clients/server"
 
 import { FormattedStack, PreformattedStack } from "@/types/stack"
 
-export async function getAuthUser() {
+import "server-only"
+
+export const getAuthUser = cache(async () => {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
 
@@ -12,9 +15,9 @@ export async function getAuthUser() {
   } = await supabase.auth.getUser()
 
   return user
-}
+})
 
-export async function findUser({ username }: { username: string }) {
+export const findUser = cache(async ({ username }: { username: string }) => {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
   const { data: user } = await supabase
@@ -23,9 +26,9 @@ export async function findUser({ username }: { username: string }) {
     .eq("user_name", username)
 
   return user?.length ? user[0] : undefined
-}
+})
 
-export async function getStackById({ id }: { id: string }) {
+export const getStackById = cache(async ({ id }: { id: string }) => {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
   const { data: stack, error } = await supabase
@@ -38,9 +41,9 @@ export async function getStackById({ id }: { id: string }) {
   if (!stack?.length || error) return
 
   return formatStack(stack[0])
-}
+})
 
-export async function getUserStacks({ user }: { user: string }) {
+export const getUserStacks = cache(async ({ user }: { user: string }) => {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
   const { data: stacks, error } = await supabase
@@ -59,9 +62,9 @@ export async function getUserStacks({ user }: { user: string }) {
   }
 
   return formattedStacks
-}
+})
 
-export async function getAllStacks() {
+export const getAllStacks = cache(async () => {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
 
@@ -80,9 +83,7 @@ export async function getAllStacks() {
   }
 
   return formattedStacks
-}
-
-
+})
 
 export function formatStack(stack: PreformattedStack) {
   const formattedStack: FormattedStack = {
