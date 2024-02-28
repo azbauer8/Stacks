@@ -1,6 +1,6 @@
 import { Route } from "next"
 import Link from "next/link"
-import { GetAuthUser } from "@/utils/querySupabase"
+import { getAuthUser } from "@/utils/querySupabase"
 import { Button } from "@nextui-org/react"
 import { PlusIcon } from "lucide-react"
 
@@ -11,7 +11,7 @@ import NavMenu from "./NavMenu"
 import { SignInButton } from "./SignInButton"
 
 export default async function NavActions() {
-  const user = await GetAuthUser()
+  const user = await getAuthUser()
   if (user) {
     return (
       <>

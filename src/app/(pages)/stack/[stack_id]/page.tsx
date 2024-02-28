@@ -1,7 +1,7 @@
 import { Route } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { GetAuthUser, GetStackById } from "@/utils/querySupabase"
+import { getAuthUser, getStackById } from "@/utils/querySupabase"
 import { Button, Chip, Link as NextUILink } from "@nextui-org/react"
 import { LockIcon } from "lucide-react"
 
@@ -17,10 +17,10 @@ export default async function StackPage({
 }: {
   params: { stack_id: string }
 }) {
-  const stack = await GetStackById({ id: params.stack_id })
+  const stack = await getStackById({ id: params.stack_id })
 
   if (stack) {
-    const authUser = await GetAuthUser()
+    const authUser = await getAuthUser()
     const allStackElements = [
       { type: "language", header: "Language" },
       { type: "framework", header: "Framework" },

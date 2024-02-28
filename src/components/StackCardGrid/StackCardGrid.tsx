@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { GetAllStacks, GetUserStacks } from "@/utils/querySupabase"
+import { getAllStacks, getUserStacks } from "@/utils/querySupabase"
 
 import { Tables } from "@/types/supabase"
 
@@ -11,8 +11,8 @@ export default async function StackCardGrid({
   user?: Tables<"users">
 }) {
   const stacks = user
-    ? await GetUserStacks({ user: user.id })
-    : await GetAllStacks()
+    ? await getUserStacks({ user: user.id })
+    : await getAllStacks()
 
   if (!stacks) return notFound()
 

@@ -3,7 +3,7 @@ import { createClient as createServerClient } from "@/utils/supabase-clients/ser
 
 import { FormattedStack, PreformattedStack } from "@/types/stack"
 
-export async function GetAuthUser() {
+export async function getAuthUser() {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
 
@@ -14,7 +14,7 @@ export async function GetAuthUser() {
   return user
 }
 
-export async function FindUser({ username }: { username: string }) {
+export async function findUser({ username }: { username: string }) {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
   const { data: user } = await supabase
@@ -25,7 +25,7 @@ export async function FindUser({ username }: { username: string }) {
   return user?.length ? user[0] : undefined
 }
 
-export async function GetStackById({ id }: { id: string }) {
+export async function getStackById({ id }: { id: string }) {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
   const { data: stack, error } = await supabase
@@ -40,7 +40,7 @@ export async function GetStackById({ id }: { id: string }) {
   return formatStack(stack[0])
 }
 
-export async function GetUserStacks({ user }: { user: string }) {
+export async function getUserStacks({ user }: { user: string }) {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
   const { data: stacks, error } = await supabase
@@ -61,7 +61,7 @@ export async function GetUserStacks({ user }: { user: string }) {
   return formattedStacks
 }
 
-export async function GetAllStacks() {
+export async function getAllStacks() {
   const cookieStore = cookies()
   const supabase = createServerClient(cookieStore)
 
@@ -81,6 +81,8 @@ export async function GetAllStacks() {
 
   return formattedStacks
 }
+
+
 
 export function formatStack(stack: PreformattedStack) {
   const formattedStack: FormattedStack = {

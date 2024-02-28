@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { FindUser } from "@/utils/querySupabase"
+import { findUser } from "@/utils/querySupabase"
 import { Avatar, Chip } from "@nextui-org/react"
 import { GithubIcon } from "lucide-react"
 
@@ -11,7 +11,7 @@ export default async function Home({
 }: {
   params: { username: string }
 }) {
-  const user = await FindUser({ username: params.username })
+  const user = await findUser({ username: params.username })
   if (!user) {
     notFound()
   }

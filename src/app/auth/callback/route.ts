@@ -1,7 +1,7 @@
 import { cookies } from "next/headers"
 import { notFound } from "next/navigation"
 import { NextResponse } from "next/server"
-import { FindUser, GetAuthUser } from "@/utils/querySupabase"
+import { findUser, getAuthUser } from "@/utils/querySupabase"
 import { createClient } from "@/utils/supabase-clients/actions"
 
 export async function GET(request: Request) {
@@ -13,8 +13,8 @@ export async function GET(request: Request) {
     const supabase = createClient(cookieStore)
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      const user = await GetAuthUser()
-      const authUser = await FindUser({
+      const user = await getAuthUser()
+      const authUser = await findUser({
         username: user?.user_metadata.user_name,
       })
 

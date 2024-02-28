@@ -1,7 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import {
+  Accordion,
+  AccordionItem,
   Avatar,
   Dropdown,
   DropdownItem,
@@ -17,6 +20,7 @@ import { signOut } from "@/app/auth/actions"
 
 export default function NavMenu({ user }: { user: AuthUser }) {
   const { theme, setTheme } = useTheme()
+  const [isOpen, setOpen] = useState(false)
 
   function toggleTheme() {
     if (theme === "system") {
@@ -47,6 +51,9 @@ export default function NavMenu({ user }: { user: AuthUser }) {
         base: "before:bg-default-200",
         content: "p-0 border-small border-divider bg-background",
       }}
+      isOpen={isOpen}
+      onOpenChange={setOpen}
+      closeOnSelect={false}
     >
       <DropdownTrigger>
         <Avatar
@@ -98,12 +105,12 @@ export default function NavMenu({ user }: { user: AuthUser }) {
         >
           {text}
         </DropdownItem>
-        <DropdownItem key="signout" textValue="Sign Out">
-          <form action={signOut}>
-            <button type="submit" className="flex w-full justify-start">
-              Sign Out
-            </button>
-          </form>
+        <DropdownItem
+          key="signout"
+          textValue="Sign Out"
+          onPress={async () => await signOut()}
+        >
+          Sign Out
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
