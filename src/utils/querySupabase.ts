@@ -1,5 +1,4 @@
 import { cache } from "react"
-import { cookies } from "next/headers"
 import { createClient as createServerClient } from "@/utils/supabase-clients/server"
 
 import { FormattedStack, PreformattedStack } from "@/types/stack"
@@ -7,8 +6,7 @@ import { FormattedStack, PreformattedStack } from "@/types/stack"
 import "server-only"
 
 export const getAuthUser = cache(async () => {
-  const cookieStore = cookies()
-  const supabase = createServerClient(cookieStore)
+  const supabase = createServerClient()
 
   const {
     data: { user },
@@ -18,8 +16,7 @@ export const getAuthUser = cache(async () => {
 })
 
 export const findUser = cache(async ({ username }: { username: string }) => {
-  const cookieStore = cookies()
-  const supabase = createServerClient(cookieStore)
+  const supabase = createServerClient()
   const { data: user } = await supabase
     .from("users")
     .select()
@@ -29,8 +26,7 @@ export const findUser = cache(async ({ username }: { username: string }) => {
 })
 
 export const getStackById = cache(async ({ id }: { id: string }) => {
-  const cookieStore = cookies()
-  const supabase = createServerClient(cookieStore)
+  const supabase = createServerClient()
   const { data: stack, error } = await supabase
     .from("stacks")
     .select(
@@ -44,8 +40,7 @@ export const getStackById = cache(async ({ id }: { id: string }) => {
 })
 
 export const getUserStacks = cache(async ({ user }: { user: string }) => {
-  const cookieStore = cookies()
-  const supabase = createServerClient(cookieStore)
+  const supabase = createServerClient()
   const { data: stacks, error } = await supabase
     .from("stacks")
     .select(
@@ -65,8 +60,7 @@ export const getUserStacks = cache(async ({ user }: { user: string }) => {
 })
 
 export const getAllStacks = cache(async () => {
-  const cookieStore = cookies()
-  const supabase = createServerClient(cookieStore)
+  const supabase = createServerClient()
 
   const { data: stacks, error } = await supabase
     .from("stacks")
