@@ -1,14 +1,13 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { cookies, headers } from "next/headers"
+import { headers } from "next/headers"
 import { redirect } from "next/navigation"
-import { createClient } from "@/utils/supabase-clients/actions"
+import { createClient } from "@/utils/supabase-clients/server"
 
 export async function signIn() {
   const origin = headers().get("origin")
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+  const supabase = createClient()
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
@@ -26,8 +25,7 @@ export async function signIn() {
 }
 
 export async function signOut() {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+  const supabase = createClient()
 
   await supabase.auth.signOut()
   revalidatePath("/", "layout")
