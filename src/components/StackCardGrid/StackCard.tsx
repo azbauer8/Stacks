@@ -9,6 +9,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Chip,
   Tooltip,
 } from "@nextui-org/react"
 
@@ -40,9 +41,16 @@ export default async function StackCard({ stack }: { stack: FormattedStack }) {
     <Link href={`/stack/${stack.id}` as Route}>
       <Card className="h-full border-2 border-divider/10 p-1 hover:border-divider hover:bg-default-100">
         <CardHeader className="flex-col items-start gap-1.5">
-          <h1 className="text-2xl font-semibold leading-none tracking-tight">
-            {stack.title}
-          </h1>
+          <div className="flex w-full flex-wrap justify-between">
+            <h1 className="text-2xl font-semibold leading-none tracking-tight">
+              {stack.title}
+            </h1>
+            {stack.use_case && (
+              <Chip size="sm" variant="bordered" radius="sm">
+                {stack.use_case.title}
+              </Chip>
+            )}
+          </div>
           <div className="flex w-full flex-wrap justify-between text-sm text-default-500">
             <h2>
               By{" "}
