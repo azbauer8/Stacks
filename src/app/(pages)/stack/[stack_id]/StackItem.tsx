@@ -19,7 +19,7 @@ export default function StackItem({
   link: string | null
 }) {
   return (
-    <Card className="h-full border-2 border-transparent p-1 hover:border-divider hover:bg-default-100">
+    <Card className="h-full border-2 border-divider/10 p-1 hover:border-divider hover:bg-default-100">
       <Link href={link ? (link as Route) : "/"}>
         <CardHeader className="flex-col items-start gap-2.5">
           <Chip variant="flat" size="sm" radius="sm">

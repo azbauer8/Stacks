@@ -4,7 +4,12 @@ import { notFound } from "next/navigation"
 import { Tables } from "@/supabase/dbTypes"
 import { getAuthUser, getStackById } from "@/supabase/queries"
 import { Button, Chip, Link as NextUILink } from "@nextui-org/react"
-import { LockIcon } from "lucide-react"
+import {
+  ChevronRightIcon,
+  CircleUserIcon,
+  LockIcon,
+  UserIcon,
+} from "lucide-react"
 
 import DeleteStack from "./DeleteStack"
 import StackItem from "./StackItem"
@@ -59,9 +64,16 @@ export default async function StackPage({
     <div className="mx-auto px-0.5">
       <div className="mb-4 space-y-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-3xl font-bold leading-none tracking-tight">
-            {stack.title}
-          </h2>
+          <div className="flex flex-col items-start gap-1.5">
+            {stack.use_case ? (
+              <Chip size="sm" variant="bordered" radius="sm">
+                {stack.use_case.title}
+              </Chip>
+            ) : null}
+            <h2 className="text-3xl font-bold leading-none tracking-tight">
+              {stack.title}
+            </h2>
+          </div>
           <div className="flex items-center space-x-2">
             {stack.visibility === "private" && <LockIcon />}
             {authUser?.user_metadata?.user_name === stack.user?.user_name && (
@@ -85,7 +97,15 @@ export default async function StackPage({
         </div>
         <div className="flex flex-wrap items-center justify-between text-sm">
           <Link href={`/user/${stack.user?.user_name}` as Route}>
-            <Chip variant="faded" radius="sm" className="hover:bg-default-200">
+            <Chip
+              variant="flat"
+              radius="sm"
+              color="primary"
+              className="pl-[8px] hover:bg-primary/10"
+              startContent={
+                <CircleUserIcon className="size-4" strokeWidth={2.25} />
+              }
+            >
               {stack.user?.user_name}
             </Chip>
           </Link>
