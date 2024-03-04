@@ -45,25 +45,31 @@ export default function StackForm({
         name="title"
         label="Title"
         defaultValue={initialData?.title ?? undefined}
+        variant="faded"
       />
       <Input
         name="description"
         label="Description"
         defaultValue={initialData?.description ?? undefined}
+        variant="faded"
       />
       <Input
         name="link"
         label="Link"
         defaultValue={initialData?.link ?? undefined}
+        variant="faded"
       />
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-3 ">
         <Autocomplete
           name="useCase"
           label="Use Case"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
           defaultSelectedKey={initialData?.use_case?.id.toString() ?? undefined}
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.useCases?.map((useCase) => (
             <AutocompleteItem key={useCase.id} value={useCase.id}>
@@ -74,9 +80,12 @@ export default function StackForm({
         <Autocomplete
           name="language"
           label="Language"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
           defaultSelectedKey={initialData?.language?.id.toString() ?? undefined}
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.languages?.map((language) => (
             <AutocompleteItem key={language.id} textValue={language.title}>
@@ -99,11 +108,14 @@ export default function StackForm({
         <Autocomplete
           name="framework"
           label="Framework"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
           defaultSelectedKey={
             initialData?.framework?.id.toString() ?? undefined
           }
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.frameworks?.map((framework) => (
             <AutocompleteItem key={framework.id} textValue={framework.title}>
@@ -126,11 +138,14 @@ export default function StackForm({
         <Autocomplete
           name="metaFramework"
           label="Meta Framework"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
           defaultSelectedKey={
             initialData?.meta_framework?.id.toString() ?? undefined
           }
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.metaFrameworks?.map((metaFramework) => (
             <AutocompleteItem
@@ -156,9 +171,12 @@ export default function StackForm({
         <Autocomplete
           name="styling"
           label="Styling"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
           defaultSelectedKey={initialData?.styling?.id.toString() ?? undefined}
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.stylings?.map((styling) => (
             <AutocompleteItem key={styling.id} textValue={styling.title}>
@@ -181,11 +199,14 @@ export default function StackForm({
         <Autocomplete
           name="uiLibrary"
           label="UI Library"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
           defaultSelectedKey={
             initialData?.ui_library?.id.toString() ?? undefined
           }
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.uiLibraries?.map((uiLibrary) => (
             <AutocompleteItem key={uiLibrary.id} textValue={uiLibrary.title}>
@@ -208,9 +229,12 @@ export default function StackForm({
         <Autocomplete
           name="database"
           label="Database"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
           defaultSelectedKey={initialData?.database?.id.toString() ?? undefined}
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.databases?.map((database) => (
             <AutocompleteItem key={database.id} textValue={database.title}>
@@ -233,10 +257,13 @@ export default function StackForm({
         <Autocomplete
           name="backendFramework"
           label="Backend Framework"
-          variant="bordered"
+          variant="faded"
           defaultSelectedKey={
             initialData?.backend_framework?.id.toString() ?? undefined
           }
+          classNames={{
+            listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
+          }}
         >
           {fieldOptions.backendFrameworks?.map((backendFramework) => (
             <AutocompleteItem
@@ -263,11 +290,12 @@ export default function StackForm({
       <Select
         name="otherLibraries"
         label="Other Libraries"
-        variant="bordered"
+        variant="faded"
         isMultiline={true}
         selectionMode="multiple"
         classNames={{
           label: "overflow-visible",
+          listboxWrapper: "scroll-py-6 max-h-[500px] w-full",
         }}
         defaultSelectedKeys={initialData?.other_libraries?.map((library) => {
           return library.id.toString()
@@ -293,7 +321,11 @@ export default function StackForm({
           return (
             <div className="flex flex-wrap gap-1">
               {items.map((item) => (
-                <Chip key={item.key} variant="bordered">
+                <Chip
+                  key={item.key}
+                  variant="faded"
+                  className="bg-background/25"
+                >
                   {item.data?.title}
                 </Chip>
               ))}

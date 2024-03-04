@@ -36,7 +36,7 @@ export default function StackFormLoader() {
           isDisabled
           name="useCase"
           label="Use Case"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -45,7 +45,7 @@ export default function StackFormLoader() {
           isDisabled
           name="language"
           label="Language"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -54,7 +54,7 @@ export default function StackFormLoader() {
           isDisabled
           name="framework"
           label="Framework"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -63,7 +63,7 @@ export default function StackFormLoader() {
           isDisabled
           name="metaFramework"
           label="Meta Framework"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -72,7 +72,7 @@ export default function StackFormLoader() {
           isDisabled
           name="styling"
           label="Styling"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -81,7 +81,7 @@ export default function StackFormLoader() {
           isDisabled
           name="uiLibrary"
           label="UI Library"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -90,7 +90,7 @@ export default function StackFormLoader() {
           isDisabled
           name="database"
           label="Database"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -99,7 +99,7 @@ export default function StackFormLoader() {
           isDisabled
           name="backendFramework"
           label="Backend Framework"
-          variant="bordered"
+          variant="faded"
           labelPlacement="inside"
         >
           <AutocompleteItem key="placeholder" textValue="placeholder" />
@@ -109,7 +109,7 @@ export default function StackFormLoader() {
         isDisabled
         name="otherLibraries"
         label="Other Libraries"
-        variant="bordered"
+        variant="faded"
         isMultiline={true}
         selectionMode="multiple"
         classNames={{
