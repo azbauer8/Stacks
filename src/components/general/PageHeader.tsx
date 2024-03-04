@@ -1,5 +1,4 @@
-import clsx from "clsx"
-import Balance from "react-wrap-balancer"
+import cn from "@/utils/cn"
 
 function PageHeader({
   className,
@@ -7,7 +6,7 @@ function PageHeader({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <section className={clsx("flex flex-col gap-2", className)} {...props}>
+    <section className={cn("flex flex-col gap-2", className)} {...props}>
       {children}
     </section>
   )
@@ -19,7 +18,7 @@ function PageTitle({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h1
-      className={clsx(
+      className={cn(
         "text-4xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]",
         className
       )}
@@ -33,8 +32,8 @@ function PageDescription({
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <Balance
-      className={clsx(
+    <p
+      className={cn(
         "max-w-[1200px] text-base text-default-500 sm:text-xl",
         className
       )}

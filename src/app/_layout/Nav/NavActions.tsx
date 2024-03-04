@@ -1,6 +1,6 @@
 import { Route } from "next"
 import Link from "next/link"
-import { getAuthUser } from "@/utils/querySupabase"
+import { getAuthUser } from "@/supabase/queries"
 import { Button } from "@nextui-org/react"
 import { PlusIcon } from "lucide-react"
 

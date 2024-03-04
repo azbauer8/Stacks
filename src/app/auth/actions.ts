@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
-import { createClient } from "@/utils/supabase-clients/server"
+import { createClient } from "@/supabase/clients/server"
 
 export async function signIn() {
   const origin = headers().get("origin")

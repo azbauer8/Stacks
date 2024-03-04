@@ -1,6 +1,6 @@
-import { PageHeader, PageTitle } from "@/components/PageHeader"
+import { PageHeader, PageTitle } from "@/components/general/PageHeader"
 
-export default function NotFound() {
+export default function GenericNotFound() {
   return (
     <div>
       <PageHeader>

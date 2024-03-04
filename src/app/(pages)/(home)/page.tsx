@@ -1,4 +1,4 @@
-import { LandingHeader, LandingTitle } from "@/components/LandingHeader"
+import { LandingHeader, LandingTitle } from "@/components/general/LandingHeader"
 import StackGridWrapper from "@/components/StackCardGrid/StackGridWrapper"
 
 export default async function Home() {

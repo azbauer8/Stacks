@@ -1,6 +1,5 @@
 import { Suspense } from "react"
-
-import { Tables } from "@/types/supabase"
+import { Tables } from "@/supabase/dbTypes"
 
 import StackCardGrid from "./StackCardGrid"
 import StackGridLoader from "./StackGridLoader"

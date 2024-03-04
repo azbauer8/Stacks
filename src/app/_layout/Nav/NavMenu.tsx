@@ -3,8 +3,6 @@
 import { useState } from "react"
 import Link from "next/link"
 import {
-  Accordion,
-  AccordionItem,
   Avatar,
   Dropdown,
   DropdownItem,

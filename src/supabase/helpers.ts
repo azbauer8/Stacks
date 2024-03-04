@@ -1,4 +1,4 @@
-import { Tables } from "./supabase"
+import { Tables } from "@/supabase/dbTypes"
 
 export type PreformattedStack = Tables<"stacks"> & {
   users: Tables<"users"> | null
@@ -33,4 +33,45 @@ export type FormattedStack = {
   backend_framework: PreformattedStack["backend_frameworks"]
   database: PreformattedStack["databases"]
   other_libraries: PreformattedStack["other_libraries"]
+}
+
+export function formatStack(stack: PreformattedStack) {
+  const formattedStack: FormattedStack = {
+    id: stack.id,
+    visibility: stack.visibility,
+    created_at: formatDate(stack.created_at),
+    updated_at: formatDate(stack.updated_at),
+    title: stack.title,
+    description: stack.description,
+    link: stack.link,
+    user: stack.users,
+    use_case: stack.use_cases,
+    language: stack.languages,
+    framework: stack.frameworks,
+    meta_framework: stack.meta_frameworks,
+    styling: stack.stylings,
+    ui_library: stack.ui_libraries,
+    backend_framework: stack.backend_frameworks,
+    database: stack.databases,
+    other_libraries: stack.other_libraries.map((otherLibrary) => ({
+      ...otherLibrary,
+      other_library_category: otherLibrary.other_library_category,
+    })),
+  }
+  return formattedStack
+}
+
+function formatDate(date: string) {
+  const formattedDate = new Date(date)
+  const dateOpt = {
+    year: "numeric" as "numeric" | "2-digit" | undefined,
+    month: "short" as
+      | "2-digit"
+      | "numeric"
+      | "long"
+      | "short"
+      | "narrow"
+      | undefined,
+  }
+  return formattedDate.toLocaleString("en-US", dateOpt)
 }

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "codegen": "supabase gen types typescript --project-id kruftqkiwlqjyyjvwxsu --schema public > src/supabase/dbTypes.ts"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",

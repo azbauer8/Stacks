@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { findUser } from "@/utils/querySupabase"
+import { findUser } from "@/supabase/queries"
 import { Avatar, Chip } from "@nextui-org/react"
 import { GithubIcon } from "lucide-react"
 

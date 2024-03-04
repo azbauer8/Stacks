@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { NextResponse } from "next/server"
-import { findUser, getAuthUser } from "@/utils/querySupabase"
-import { createClient } from "@/utils/supabase-clients/server"
+import { createClient } from "@/supabase/clients/server"
+import { findUser, getAuthUser } from "@/supabase/queries"
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)

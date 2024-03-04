@@ -6,7 +6,7 @@ import "@/styles.css"
 import { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { siteConfig } from "@/config"
-import clsx from "clsx"
+import cn from "@/utils/cn"
 
 import Nav from "./_layout/Nav"
 
@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={clsx(
+        className={cn(
           "bg-background text-foreground antialiased",
           inter.className
         )}

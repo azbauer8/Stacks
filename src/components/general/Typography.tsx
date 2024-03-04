@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority"
 
-export const textVariants = cva(undefined, {
+export const textVariant = cva(undefined, {
   variants: {
     variant: {
       h1: "my-5 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",

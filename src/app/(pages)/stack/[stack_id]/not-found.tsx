@@ -1,6 +1,10 @@
-import { PageDescription, PageHeader, PageTitle } from "@/components/PageHeader"
+import {
+  PageDescription,
+  PageHeader,
+  PageTitle,
+} from "@/components/general/PageHeader"
 
-export default function NotFound() {
+export default function StackNotFound() {
   return (
     <div>
       <PageHeader>
