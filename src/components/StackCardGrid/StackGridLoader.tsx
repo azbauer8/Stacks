@@ -23,7 +23,7 @@ export default function StackGridLoader() {
 
 function SkeletonCard() {
   return (
-    <Card className="h-full border-2 border-transparent p-1 hover:border-divider hover:bg-default-100">
+    <Card className="h-full border-2 border-divider/10 p-1 hover:border-divider hover:bg-default-100">
       <CardHeader className="flex-col items-start gap-2">
         <Skeleton className="h-8 w-40 rounded-lg" />
         <div className="flex w-full flex-wrap justify-between text-sm text-default-500">

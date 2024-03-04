@@ -32,7 +32,7 @@ export default function Loading() {
 
 function StackItemSkeleton() {
   return (
-    <Card className="h-full border-2 border-transparent p-1">
+    <Card className="h-full border-2 border-divider/10 p-1">
       <CardHeader className="flex-col items-start gap-2.5">
         <Skeleton className="h-5 w-20 rounded-lg" />
         <div className="flex items-center space-x-3">
