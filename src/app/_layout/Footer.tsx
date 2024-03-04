@@ -11,6 +11,7 @@ export default function Footer() {
             title="Source code on GitHub"
             href={siteConfig.links.github}
             isExternal
+            className="text-sm"
           >
             GitHub
           </Link>
