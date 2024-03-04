@@ -17,7 +17,7 @@ export function SignInButton() {
       isLoading={pending}
       startContent={!pending ? <GithubIcon className="size-[18px]" /> : null}
     >
-      Sign In
+      {pending ? "Signing In...":"Sign In"}
     </Button>
   )
 }
