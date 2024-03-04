@@ -2,7 +2,6 @@ import { Suspense } from "react"
 import { Route } from "next"
 import Image from "next/image"
 import NextLink from "next/link"
-import Link from "next/link"
 import { siteConfig } from "@/config"
 import { getAuthUser } from "@/supabase/queries"
 import { Button, NavbarBrand, NavbarContent, Skeleton } from "@nextui-org/react"
@@ -11,6 +10,7 @@ import { PlusIcon } from "lucide-react"
 import { ThemeToggle } from "@/app/_layout/Nav/ThemeToggle"
 import { signIn } from "@/app/auth/actions"
 
+import NavLinks from "./NavLinks"
 import NavMenu from "./NavMenu"
 import NavWrapper from "./NavWrapper"
 import { SignInButton } from "./SignInButton"
@@ -18,8 +18,8 @@ import { SignInButton } from "./SignInButton"
 export default function Nav() {
   return (
     <NavWrapper>
-      <NavbarContent as="div" justify="start">
-        <NavbarBrand>
+      <NavbarContent justify="start">
+        <NavbarBrand className="min-w-max grow-0">
           <NextLink className="flex items-center gap-1" href="/">
             <Image
               src={siteConfig.favicon}
@@ -28,9 +28,12 @@ export default function Nav() {
               height={22}
               alt="Site logo"
             />
-            <p className="text-lg font-bold">{siteConfig.title}</p>
+            <p className="hidden text-lg font-bold md:block">
+              {siteConfig.title}
+            </p>
           </NextLink>
         </NavbarBrand>
+        <NavLinks />
       </NavbarContent>
 
       <NavbarContent justify="end">
@@ -57,7 +60,7 @@ async function NavActions() {
     return (
       <>
         <Button
-          as={Link}
+          as={NextLink}
           isIconOnly
           size="sm"
           variant="ghost"

@@ -21,6 +21,7 @@ export default function NavWrapper({
           y > 50 &&
           "mt-1 mx-2.5 bg-default/40 dark:bg-default/20 backdrop-blur-2xl shadow-lg"
         }`,
+        item: "data-[active=true]:underline",
       }}
     >
       {children}

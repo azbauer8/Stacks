@@ -338,7 +338,6 @@ export default function StackForm({
             <div className="flex items-center gap-2">
               <Avatar
                 alt={library.title}
-                className="shrink-0"
                 size="sm"
                 src={library.icon ?? ""}
                 classNames={{
