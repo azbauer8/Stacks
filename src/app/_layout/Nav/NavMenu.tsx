@@ -19,6 +19,7 @@ import { signOut } from "@/app/auth/actions"
 export default function NavMenu({ user }: { user: AuthUser }) {
   const { theme, setTheme } = useTheme()
   const [isOpen, setOpen] = useState(false)
+  const [isSigningOut, setSigningOut] = useState(false)
 
   function toggleTheme() {
     if (theme === "system") {
@@ -106,9 +107,14 @@ export default function NavMenu({ user }: { user: AuthUser }) {
         <DropdownItem
           key="signout"
           textValue="Sign Out"
-          onPress={async () => await signOut()}
+          onPress={async () => {
+            setSigningOut(true)
+            await signOut()
+            setOpen(false)
+            setSigningOut(false)
+          }}
         >
-          Sign Out
+          {isSigningOut ? "Signing Out..." : "Sign Out"}
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

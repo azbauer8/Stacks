@@ -14,13 +14,8 @@ export function SignInButton() {
       size="sm"
       variant="ghost"
       className="gap-1 font-medium"
-      startContent={
-        pending ? (
-          <Image src={"/loader.svg"} alt="Loading" width={18} height={18} />
-        ) : (
-          <GithubIcon className="size-[18px]" />
-        )
-      }
+      isLoading={pending}
+      startContent={!pending ? <GithubIcon className="size-[18px]" /> : null}
     >
       Sign In
     </Button>
