@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { NextResponse } from "next/server"
 import { createClient } from "@/supabase/clients/server"
-import { findUser, getAuthUser } from "@/supabase/queries"
+import { findUser } from "@/supabase/queries"
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
@@ -9,9 +9,9 @@ export async function GET(request: Request) {
 
   if (code) {
     const supabase = createClient()
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      const user = await getAuthUser()
+      const user = data.user
       const authUser = await findUser({
         username: user?.user_metadata.user_name,
       })

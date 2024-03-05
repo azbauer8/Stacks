@@ -31,10 +31,12 @@ export const stackColQuery =
 
 export const getStackById = cache(async ({ id }: { id: string }) => {
   const supabase = createServerClient()
+  const authUser = await getAuthUser()
   const { data: stack, error } = await supabase
     .from("stacks")
     .select(stackColQuery)
     .eq("id", id)
+    .or(`visibility.eq.public,user.eq.${authUser?.user_metadata.user_name}`)
 
   if (!stack?.length || error) return
 
@@ -43,9 +45,18 @@ export const getStackById = cache(async ({ id }: { id: string }) => {
 
 export const getStacks = cache(async ({ user }: { user?: string }) => {
   const supabase = createServerClient()
+  const authUser = await getAuthUser()
+
   const { data: stacks, error } = user
-    ? await supabase.from("stacks").select(stackColQuery).eq("user", user)
-    : await supabase.from("stacks").select(stackColQuery)
+    ? await supabase
+        .from("stacks")
+        .select(stackColQuery)
+        .eq("user", user)
+        .or(`visibility.eq.public,user.eq.${authUser?.user_metadata.user_name}`)
+    : await supabase
+        .from("stacks")
+        .select(stackColQuery)
+        .or(`visibility.eq.public,user.eq.${authUser?.user_metadata.user_name}`)
 
   if (!stacks?.length || error) return
 

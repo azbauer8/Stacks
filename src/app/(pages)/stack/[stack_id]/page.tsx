@@ -4,12 +4,7 @@ import { notFound } from "next/navigation"
 import { Tables } from "@/supabase/dbTypes"
 import { getAuthUser, getStackById } from "@/supabase/queries"
 import { Button, Chip, Link as NextUILink } from "@nextui-org/react"
-import {
-  ChevronRightIcon,
-  CircleUserIcon,
-  LockIcon,
-  UserIcon,
-} from "lucide-react"
+import { CircleUserIcon, LockIcon } from "lucide-react"
 
 import DeleteStack from "./DeleteStack"
 import StackItem from "./StackItem"

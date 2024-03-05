@@ -11,6 +11,8 @@ import {
 } from "@/components/general/PageHeader"
 import { textVariant } from "@/components/general/Typography"
 
+import GuideLoader from "./GuideLoader"
+
 export default function GuidePage() {
   return (
     <div className="space-y-5">
@@ -22,7 +24,7 @@ export default function GuidePage() {
           }
         </PageDescription>
       </PageHeader>
-      <Suspense fallback={<div />}>
+      <Suspense fallback={<GuideLoader />}>
         <Guide />
       </Suspense>
     </div>
