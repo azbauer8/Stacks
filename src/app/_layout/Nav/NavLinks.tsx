@@ -1,8 +1,9 @@
 "use client"
 
 import { Route } from "next"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Button, Link, NavbarItem } from "@nextui-org/react"
+import { Button, NavbarItem } from "@nextui-org/react"
 
 type Link = {
   label: string
@@ -22,13 +23,11 @@ export default function NavLinks() {
     <div className="flex items-center gap-1.5">
       {links.map((link) => (
         <NavbarItem as="div" key={link.label}>
-          <Button
-            as={Link}
-            href={link.href}
-            variant={path === link.href ? "bordered" : "light"}
-          >
-            {link.label}
-          </Button>
+          <Link href={link.href}>
+            <Button variant={path === link.href ? "bordered" : "light"}>
+              {link.label}
+            </Button>
+          </Link>
         </NavbarItem>
       ))}
     </div>

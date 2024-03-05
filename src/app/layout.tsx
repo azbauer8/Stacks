@@ -4,7 +4,7 @@ import { Providers } from "@/app/_layout/Providers"
 import "@/styles.css"
 
 import { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Asap } from "next/font/google"
 import { siteConfig } from "@/config"
 import cn from "@/utils/cn"
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     icon: siteConfig.favicon,
   },
 }
-const inter = Inter({ subsets: ["latin"] })
+const inter = Asap({ subsets: ["latin"] })
 
 export default function RootLayout({
   children,
