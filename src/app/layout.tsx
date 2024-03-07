@@ -10,9 +10,6 @@ import cn from "@/utils/cn"
 
 import Nav from "./_layout/Nav"
 
-export const runtime = "edge"
-export const preferredRegion = "home"
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.title,
