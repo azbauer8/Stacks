@@ -1,6 +1,6 @@
 # 📚 Stacks
 
-A repository of web dev stacks for you to catalog and discover.
+A repository of stacks for you to catalog and discover.
 
 ## Technologies Used
 
