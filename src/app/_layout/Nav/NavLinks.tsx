@@ -23,11 +23,14 @@ export default function NavLinks() {
     <div className="flex items-center gap-1.5">
       {links.map((link) => (
         <NavbarItem as="div" key={link.label}>
-          <Link href={link.href}>
-            <Button variant={path === link.href ? "bordered" : "light"}>
-              {link.label}
-            </Button>
-          </Link>
+          <Button
+            href={link.href}
+            as={Link}
+            variant={path === link.href ? "bordered" : "light"}
+            disableRipple
+          >
+            {link.label}
+          </Button>
         </NavbarItem>
       ))}
     </div>
