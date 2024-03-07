@@ -1,3 +1,4 @@
+import { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { findUser } from "@/supabase/queries"
@@ -6,7 +7,19 @@ import { GithubIcon } from "lucide-react"
 
 import StackGridWrapper from "@/components/StackCardGrid/StackGridWrapper"
 
-export default async function Home({
+export async function generateMetadata({
+  params,
+}: {
+  params: { username: string }
+}): Promise<Metadata> {
+  const userData = await findUser({ username: params.username })
+
+  return {
+    title: userData ? userData.name : "Not Found",
+  }
+}
+
+export default async function UserPage({
   params,
 }: {
   params: { username: string }

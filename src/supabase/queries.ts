@@ -31,32 +31,22 @@ export const stackColQuery =
 
 export const getStackById = cache(async ({ id }: { id: string }) => {
   const supabase = createServerClient()
-  const authUser = await getAuthUser()
   const { data: stack, error } = await supabase
     .from("stacks")
     .select(stackColQuery)
     .eq("id", id)
-    .or(`visibility.eq.public,user.eq.${authUser?.user_metadata.user_name}`)
 
   if (!stack?.length || error) return
 
   return formatStack(stack[0])
 })
 
-export const getStacks = cache(async ({ user }: { user?: string }) => {
+export const getStacks = cache(async ({ user_id }: { user_id?: string }) => {
   const supabase = createServerClient()
-  const authUser = await getAuthUser()
 
-  const { data: stacks, error } = user
-    ? await supabase
-        .from("stacks")
-        .select(stackColQuery)
-        .eq("user", user)
-        .or(`visibility.eq.public,user.eq.${authUser?.user_metadata.user_name}`)
-    : await supabase
-        .from("stacks")
-        .select(stackColQuery)
-        .or(`visibility.eq.public,user.eq.${authUser?.user_metadata.user_name}`)
+  const { data: stacks, error } = user_id
+    ? await supabase.from("stacks").select(stackColQuery).eq("user_id", user_id)
+    : await supabase.from("stacks").select(stackColQuery)
 
   if (!stacks?.length || error) return
 

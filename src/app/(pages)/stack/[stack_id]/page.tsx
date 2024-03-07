@@ -1,15 +1,28 @@
-import { Route } from "next"
+import { Metadata, Route } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Tables } from "@/supabase/dbTypes"
 import { getAuthUser, getStackById } from "@/supabase/queries"
 import { Button, Chip, Link as NextUILink } from "@nextui-org/react"
-import { CircleUserIcon, LockIcon } from "lucide-react"
+import { CircleUserIcon } from "lucide-react"
 
 import DeleteStack from "./DeleteStack"
 import StackItem from "./StackItem"
 
 type StackElement = Tables<"frameworks"> & { header: string }
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { stack_id: string }
+}): Promise<Metadata> {
+  const stack_id = params.stack_id
+
+  const stackData = await getStackById({ id: stack_id })
+  return {
+    title: stackData ? stackData.title : "Not Found",
+  }
+}
 
 export default async function StackPage({
   params,
@@ -69,26 +82,23 @@ export default async function StackPage({
               {stack.title}
             </h2>
           </div>
-          <div className="flex items-center space-x-2">
-            {stack.visibility === "private" && <LockIcon />}
-            {authUser?.user_metadata?.user_name === stack.user?.user_name && (
-              <>
-                <Button
-                  as={Link}
-                  href={`/edit/${stack.id}`}
-                  size="sm"
-                  variant="ghost"
-                  className="font-medium"
-                >
-                  Edit
-                </Button>
-                <DeleteStack
-                  user={authUser?.user_metadata.user_name}
-                  stackId={stack.id}
-                />
-              </>
-            )}
-          </div>
+          {authUser?.user_metadata?.user_name === stack.user?.user_name && (
+            <div className="flex items-center space-x-2">
+              <Button
+                as={Link}
+                href={`/edit/${stack.id}`}
+                size="sm"
+                variant="ghost"
+                className="font-medium"
+              >
+                Edit
+              </Button>
+              <DeleteStack
+                user={authUser?.user_metadata.user_name}
+                stackId={stack.id}
+              />
+            </div>
+          )}
         </div>
         <div className="flex flex-wrap items-center justify-between text-sm">
           <Link href={`/user/${stack.user?.user_name}` as Route}>

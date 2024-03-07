@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     icon: siteConfig.favicon,
   },
 }
-const inter = Asap({ subsets: ["latin"] })
+const asap = Asap({ subsets: ["latin"] })
 
 export default function RootLayout({
   children,
@@ -33,7 +33,7 @@ export default function RootLayout({
       <body
         className={cn(
           "bg-background text-foreground antialiased",
-          inter.className
+          asap.className
         )}
       >
         <Providers>

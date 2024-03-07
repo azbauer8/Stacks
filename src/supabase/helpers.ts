@@ -1,5 +1,7 @@
 import { Tables } from "@/supabase/dbTypes"
 
+import { FormFieldOptions } from "./queries"
+
 export type PreformattedStack = Tables<"stacks"> & {
   users: Tables<"users"> | null
   use_cases: Tables<"use_cases"> | null
@@ -17,7 +19,6 @@ export type PreformattedStack = Tables<"stacks"> & {
 
 export type FormattedStack = {
   id: PreformattedStack["id"]
-  visibility: PreformattedStack["visibility"]
   created_at: PreformattedStack["created_at"]
   updated_at: PreformattedStack["updated_at"]
   title: PreformattedStack["title"]
@@ -38,7 +39,6 @@ export type FormattedStack = {
 export function formatStack(stack: PreformattedStack) {
   const formattedStack: FormattedStack = {
     id: stack.id,
-    visibility: stack.visibility,
     created_at: formatDate(stack.created_at),
     updated_at: formatDate(stack.updated_at),
     title: stack.title,
@@ -74,4 +74,48 @@ function formatDate(date: string) {
       | undefined,
   }
   return formattedDate.toLocaleString("en-US", dateOpt)
+}
+
+export function formatFormData(
+  formData: FormData,
+  formFieldOptions: FormFieldOptions,
+  user_id?: string
+) {
+  const sharedFormat = {
+    title: formData.get("title")?.valueOf() as string,
+    description: formData.get("description")?.valueOf() as string,
+    link: formData.get("link")?.valueOf() as string,
+    use_case: formFieldOptions.useCases.find(
+      (useCase) => useCase.title === formData.get("useCase")
+    )?.id,
+    language: formFieldOptions.languages.find(
+      (language) => language.title === formData.get("language")
+    )?.id,
+    framework: formFieldOptions.frameworks.find(
+      (framework) => framework.title === formData.get("framework")
+    )?.id,
+    meta_framework: formFieldOptions.metaFrameworks.find(
+      (metaFrameworks) => metaFrameworks.title === formData.get("metaFramework")
+    )?.id,
+    styling: formFieldOptions.stylings.find(
+      (styling) => styling.title === formData.get("styling")
+    )?.id,
+    ui_library: formFieldOptions.uiLibraries.find(
+      (uiLibrary) => uiLibrary.title === formData.get("uiLibrary")
+    )?.id,
+    database: formFieldOptions.databases.find(
+      (database) => database.title === formData.get("database")
+    )?.id,
+    backend_framework: formFieldOptions.backendFrameworks.find(
+      (backendFramework) =>
+        backendFramework.title === formData.get("backendFramework")
+    )?.id,
+  }
+  if (user_id) {
+    return {
+      ...sharedFormat,
+      user_id,
+    }
+  }
+  return sharedFormat
 }

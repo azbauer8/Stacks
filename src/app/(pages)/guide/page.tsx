@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import { Metadata } from "next"
 import { Tables } from "@/supabase/dbTypes"
 import { getFormFieldOptions } from "@/supabase/queries"
 import cn from "@/utils/cn"
@@ -13,6 +14,12 @@ import { textVariant } from "@/components/general/Typography"
 
 import GuideLoader from "./GuideLoader"
 
+export const metadata: Metadata = {
+  title: "Guide",
+  description:
+    "A list of all the libraries and tools I've catalogued on this site so far.",
+}
+
 export default function GuidePage() {
   return (
     <div className="space-y-5">
@@ -20,7 +27,7 @@ export default function GuidePage() {
         <PageTitle>Reference Guide</PageTitle>
         <PageDescription>
           {
-            "A list of all the libraries and tools I've catalogued on this so far."
+            "A list of all the libraries and tools I've catalogued on this site so far."
           }
         </PageDescription>
       </PageHeader>

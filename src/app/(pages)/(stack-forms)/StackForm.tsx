@@ -9,8 +9,6 @@ import {
   Button,
   Chip,
   Input,
-  Radio,
-  RadioGroup,
   Select,
   SelectItem,
 } from "@nextui-org/react"
@@ -27,19 +25,6 @@ export default function StackForm({
 }) {
   return (
     <form action={submitAction} className="space-y-5">
-      <RadioGroup
-        name="visibility"
-        label="Visibility"
-        defaultValue={initialData?.visibility ?? "public"}
-        orientation="horizontal"
-      >
-        <Radio name="visibility" value="public">
-          Public
-        </Radio>
-        <Radio name="visibility" value="private" defaultChecked>
-          Private
-        </Radio>
-      </RadioGroup>
       <Input
         isRequired
         name="title"

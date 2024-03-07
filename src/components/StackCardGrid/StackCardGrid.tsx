@@ -9,7 +9,7 @@ export default async function StackCardGrid({
   user?: Tables<"users">
 }) {
   const stacks = user
-    ? await getStacks({ user: user.user_name })
+    ? await getStacks({ user_id: user.id })
     : await getStacks({})
 
   if (!stacks) return

@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation"
 
 import { createClient } from "./clients/server"
+import { formatFormData } from "./helpers"
 import { FormFieldOptions, stackColQuery } from "./queries"
 
 export async function deleteStack(stackId: number, username: string) {
@@ -15,17 +16,17 @@ export async function deleteStack(stackId: number, username: string) {
 
 export async function createStack(
   {
-    user,
+    user_id,
     formFieldOptions,
   }: {
-    user: string
+    user_id: string
     formFieldOptions: FormFieldOptions
   },
   formData: FormData
 ) {
   const supabase = createClient()
 
-  const stackData = formatFormData(formData, formFieldOptions, user)
+  const stackData = formatFormData(formData, formFieldOptions, user_id)
 
   const newStack = await supabase
     .from("stacks")
@@ -33,6 +34,8 @@ export async function createStack(
     .insert(stackData)
     .select(stackColQuery)
     .single()
+
+  console.log(newStack)
 
   if (newStack.data) {
     const otherLibraries = formData
@@ -67,7 +70,6 @@ export async function editStack(
   const stackData = formatFormData(formData, formFieldOptions)
 
   await supabase.from("stacks").update(stackData).eq("id", stackId)
-
   const stack_other_libraries = await supabase
     .from("stack_other_libraries")
     .select("*")
@@ -109,49 +111,4 @@ export async function editStack(
     }
   }
   redirect(`/stack/${stackId}`)
-}
-
-function formatFormData(
-  formData: FormData,
-  formFieldOptions: FormFieldOptions,
-  user?: string
-) {
-  const sharedFormat = {
-    title: formData.get("title")?.valueOf() as string,
-    description: formData.get("description")?.valueOf() as string,
-    link: formData.get("link")?.valueOf() as string,
-    visibility: formData.get("visibility")?.valueOf() as "public" | "private",
-    use_case: formFieldOptions.useCases.find(
-      (useCase) => useCase.title === formData.get("useCase")
-    )?.id,
-    language: formFieldOptions.languages.find(
-      (language) => language.title === formData.get("language")
-    )?.id,
-    framework: formFieldOptions.frameworks.find(
-      (framework) => framework.title === formData.get("framework")
-    )?.id,
-    meta_framework: formFieldOptions.metaFrameworks.find(
-      (metaFrameworks) => metaFrameworks.title === formData.get("metaFramework")
-    )?.id,
-    styling: formFieldOptions.stylings.find(
-      (styling) => styling.title === formData.get("styling")
-    )?.id,
-    ui_library: formFieldOptions.uiLibraries.find(
-      (uiLibrary) => uiLibrary.title === formData.get("uiLibrary")
-    )?.id,
-    database: formFieldOptions.databases.find(
-      (database) => database.title === formData.get("database")
-    )?.id,
-    backend_framework: formFieldOptions.backendFrameworks.find(
-      (backendFramework) =>
-        backendFramework.title === formData.get("backendFramework")
-    )?.id,
-  }
-  if (user) {
-    return {
-      ...sharedFormat,
-      user,
-    }
-  }
-  return sharedFormat
 }

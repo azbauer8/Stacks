@@ -243,8 +243,7 @@ export type Database = {
           ui_library: number | null
           updated_at: string
           use_case: number | null
-          user: string
-          visibility: Database["public"]["Enums"]["visibility_enum"]
+          user_id: string
         }
         Insert: {
           backend_framework?: number | null
@@ -261,8 +260,7 @@ export type Database = {
           ui_library?: number | null
           updated_at?: string
           use_case?: number | null
-          user: string
-          visibility: Database["public"]["Enums"]["visibility_enum"]
+          user_id: string
         }
         Update: {
           backend_framework?: number | null
@@ -279,16 +277,15 @@ export type Database = {
           ui_library?: number | null
           updated_at?: string
           use_case?: number | null
-          user?: string
-          visibility?: Database["public"]["Enums"]["visibility_enum"]
+          user_id?: string
         }
         Relationships: [
           {
             foreignKeyName: "public_stacks_user_fkey"
-            columns: ["user"]
+            columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
-            referencedColumns: ["user_name"]
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "stacks_backend_framework_fkey"

@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { createStack } from "@/supabase/actions"
 import { getAuthUser, getFormFieldOptions } from "@/supabase/queries"
@@ -6,6 +7,10 @@ import { getAuthUser, getFormFieldOptions } from "@/supabase/queries"
 import { textVariant } from "@/components/general/Typography"
 import StackForm from "@/app/(pages)/(stack-forms)/StackForm"
 import StackFormLoader from "@/app/(pages)/(stack-forms)/StackFormLoader"
+
+export const metadata: Metadata = {
+  title: "New",
+}
 
 export default function NewStackPage() {
   return (
@@ -25,7 +30,7 @@ async function NewStack() {
   }
   const formFields = await getFormFieldOptions()
   const submitAction = createStack.bind(null, {
-    user: authUser.user_metadata.user_name,
+    user_id: authUser.id,
     formFieldOptions: formFields,
   })
 

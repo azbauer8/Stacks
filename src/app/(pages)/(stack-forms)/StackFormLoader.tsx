@@ -5,8 +5,6 @@ import {
   AutocompleteItem,
   Button,
   Input,
-  Radio,
-  RadioGroup,
   Select,
   SelectItem,
 } from "@nextui-org/react"
@@ -14,20 +12,6 @@ import {
 export default function StackFormLoader() {
   return (
     <div className="space-y-5">
-      <RadioGroup
-        name="visibility"
-        label="Visibility"
-        defaultValue="public"
-        orientation="horizontal"
-        isDisabled
-      >
-        <Radio name="visibility" value="public">
-          Public
-        </Radio>
-        <Radio name="visibility" value="private">
-          Private
-        </Radio>
-      </RadioGroup>
       <Input isDisabled isRequired name="title" label="Title" />
       <Input isDisabled name="description" label="Description" />
       <Input isDisabled name="link" label="Link" />
