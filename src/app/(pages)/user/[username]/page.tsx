@@ -29,9 +29,9 @@ export async function generateStaticParams() {
 )
   const {data: users} = await supabase.from("users").select("user_name")
 
-  return users?.map(({ user_name }) => ({
-    user_name,
-  }))
+  return users ? users.map(({ user_name }) => ({
+    username: user_name,
+  })) : []
 }
 export default async function UserPage({
   params,

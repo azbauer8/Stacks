@@ -33,11 +33,10 @@ export async function generateStaticParams() {
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
-  const {data: stacks} = await supabase.from("stacks").select("id")
-
-  return stacks?.map(({ id }) => ({
-    id,
-  }))
+  const stacks = await supabase.from("stacks").select("id")
+  return stacks.data ? stacks.data.map(({ id }) => ({
+    stack_id: id.toString(),
+  })) : []
 }
 
 export default async function StackPage({
@@ -45,6 +44,10 @@ export default async function StackPage({
 }: {
   params: { stack_id: string }
 }) {
+    const supabase = createClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
   const stack = await getStackById({ id: params.stack_id })
 
   if (!stack) {
