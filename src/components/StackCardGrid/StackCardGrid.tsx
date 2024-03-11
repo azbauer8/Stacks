@@ -2,7 +2,7 @@ import { Tables } from "@/supabase/dbTypes"
 import { getStacks } from "@/supabase/queries"
 
 import StackCard from "./StackCard"
-
+export const revalidate = 60
 export default async function StackCardGrid({
   user,
 }: {
