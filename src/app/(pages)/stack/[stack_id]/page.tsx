@@ -1,18 +1,16 @@
 import { Metadata, Route } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { Database, Tables } from "@/supabase/dbTypes"
-import { getAuthUser, getStackById, getStacks } from "@/supabase/queries"
+import { Tables } from "@/supabase/dbTypes"
+import { getAuthUser, getStackById } from "@/supabase/queries"
 import { Button, Chip, Link as NextUILink } from "@nextui-org/react"
 import { CircleUserIcon } from "lucide-react"
-import { createClient } from '@supabase/supabase-js'
 
 import DeleteStack from "./DeleteStack"
 import StackItem from "./StackItem"
 
 type StackElement = Tables<"frameworks"> & { header: string }
 
-export const revalidate = 60
 
 export async function generateMetadata({
   params,
@@ -27,27 +25,11 @@ export async function generateMetadata({
   }
 }
 
-
-export async function generateStaticParams() {
-  const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
-  const stacks = await supabase.from("stacks").select("id")
-  return stacks.data ? stacks.data.map(({ id }) => ({
-    stack_id: id.toString(),
-  })) : []
-}
-
 export default async function StackPage({
   params,
 }: {
   params: { stack_id: string }
 }) {
-    const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
   const stack = await getStackById({ id: params.stack_id })
 
   if (!stack) {

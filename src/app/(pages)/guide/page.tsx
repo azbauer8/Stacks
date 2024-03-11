@@ -14,7 +14,6 @@ import { textVariant } from "@/components/general/Typography"
 
 import GuideLoader from "./GuideLoader"
 
-export const revalidate = 3600
 
 
 export const metadata: Metadata = {

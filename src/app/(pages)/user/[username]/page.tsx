@@ -6,10 +6,6 @@ import { Avatar, Chip } from "@nextui-org/react"
 import { GithubIcon } from "lucide-react"
 
 import StackGridWrapper from "@/components/StackCardGrid/StackGridWrapper"
-import { createClient } from "@supabase/supabase-js"
-import { Database } from "@/supabase/dbTypes"
-
-export const revalidate = 60
 
 export async function generateMetadata({
   params,
@@ -21,17 +17,6 @@ export async function generateMetadata({
   return {
     title: userData ? userData.name : "Not Found",
   }
-}
-export async function generateStaticParams() {
-  const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
-  const {data: users} = await supabase.from("users").select("user_name")
-
-  return users ? users.map(({ user_name }) => ({
-    username: user_name,
-  })) : []
 }
 export default async function UserPage({
   params,
