@@ -2,7 +2,6 @@ import { Tables } from "@/supabase/dbTypes"
 import { getStacks } from "@/supabase/queries"
 
 import StackCard from "./StackCard"
-
 export default async function StackCardGrid({
   user,
 }: {

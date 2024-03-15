@@ -11,6 +11,7 @@ import StackItem from "./StackItem"
 
 type StackElement = Tables<"frameworks"> & { header: string }
 
+
 export async function generateMetadata({
   params,
 }: {

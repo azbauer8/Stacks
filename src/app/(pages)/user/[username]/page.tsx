@@ -18,7 +18,6 @@ export async function generateMetadata({
     title: userData ? userData.name : "Not Found",
   }
 }
-
 export default async function UserPage({
   params,
 }: {
